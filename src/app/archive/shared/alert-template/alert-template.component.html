@@ -1,0 +1,32 @@
+<div class="alert-modal">
+
+  <div *ngIf="iconType" class="icon-container-wrapper">
+    <cc-aspect-ratio [ratio]="{w:1, h:1}" class="icon-background" [ngClass]="iconType + ' icon-' + iconPosition">
+      <div class="icon-container">
+        <i *ngIf="iconType === 'success'" class="fas fa-check alert-icon icon-success"></i>
+        <i *ngIf="iconType === 'error'" class="fas fa-exclamation alert-icon icon-error"></i>
+      </div>
+    </cc-aspect-ratio>
+  </div>
+
+  <span class="alert-title">{{ title }}</span>
+  <span class="alert-text">{{ text }}</span>
+
+  <div *ngIf="input" class="alert-with-input">
+    <input class="form-control" [(ngModel)]="inputData">
+    <div class="alert-buttons" *ngIf="input">
+      <button type="button" class="button-success" [mat-dialog-close]="inputData">Confirm</button>
+      <button type="button" class="button-error" [mat-dialog-close]="false">Cancel</button>
+    </div>
+  </div>
+
+  <div *ngIf="!input && options" class="alert-buttons">
+    <button type="button" class="button-success" [mat-dialog-close]="true">Yes</button>
+    <button type="button" class="button-error" [mat-dialog-close]="false">No</button>
+  </div>
+
+  <div *ngIf="!input && !options && button" class="alert-buttons">
+    <button type="button" class="button-info" [mat-dialog-close]="false">{{ button }}</button>
+  </div>
+
+</div>

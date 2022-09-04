@@ -1,0 +1,10 @@
+:host {
+  // Default values. These may be overridden in the component's parent
+  // Defined here but inherited by its childs
+  --dynamic-menu-background: #{palette-color('grey-0')};
+  --dynamic-menu-color: #CCCCCC;
+  --dynamic-menu-alt-color: #CCCCCC;
+
+  --dynamic-menu-padding: 35px;
+  --dynamic-menu-spacing: 10px;
+}

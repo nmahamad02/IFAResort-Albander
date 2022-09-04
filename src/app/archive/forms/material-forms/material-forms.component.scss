@@ -1,0 +1,68 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+  --section-card-background: #{palette-color('white')};
+  --form-icons-color: #{palette-color('primary')};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title {
+    color: var(--page-title-color);
+    font-size: 30px;
+    margin-bottom: calc(var(--page-spacing) * 6);
+  }
+
+  .section-card {
+    padding: calc(var(--page-spacing) * 4);
+    background-color: var(--section-card-background);
+    margin: 0px;
+    margin-bottom: calc(var(--page-spacing) * 4);
+    border-radius: 6px;
+
+    .section-card-title {
+      font-size: 26px;
+      margin-bottom: calc(var(--page-spacing) * 3);
+      color: var(--choosen-palette-color-darkblue);
+    }
+
+    .custom-form-field {
+      width: 100%;
+      margin-bottom: calc(var(--page-spacing) * 1.5);
+
+      .error-message {
+        font-size: 12px;
+      }
+    }
+
+    .date-picker-toggle {
+      color: var(--form-icons-color);
+    }
+
+    .submit-btn {
+      @include button();
+      padding: var(--page-spacing) calc(var(--page-spacing) * 3);
+      margin-top: calc(var(--page-spacing) * 4);
+    }
+  }
+}
+
+::ng-deep {
+  // For encapsulated components OUTSIDE the :host element
+
+  // style selects
+  @include material-select-styles();
+
+  // change calendar day hover background-color
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+    --form-icons-shade-color: #{palette-color('primary', 0.3)};
+
+    background-color: var(--form-icons-shade-color);
+  }
+
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "picture": "/assets/imgs/users/user-1.jpeg",
+    "name": "Lisa Graham",
+    "status": "ACTIVE",
+    "progress": 30,
+    "renewal_date": "2020-07-17",
+    "subscription": 0
+  },
+  {
+    "picture": "/assets/imgs/users/user-2.jpeg",
+    "name": "Mike Howell",
+    "status": "INACTIVE",
+    "progress": 80,
+    "renewal_date": "2020-03-30",
+    "subscription": 5000
+  },
+  {
+    "picture": "/assets/imgs/users/user-8.jpeg",
+    "name": "Peter DuBuque",
+    "status": "ACTIVE",
+    "progress": 60,
+    "renewal_date": "2021-01-01",
+    "subscription": 15000
+  },
+  {
+    "picture": "/assets/imgs/users/user-4.jpeg",
+    "name": "Jenny Collins",
+    "status": "ACTIVE",
+    "progress": 50,
+    "renewal_date": "2020-10-03",
+    "subscription": 30000
+  },
+  {
+    "picture": "/assets/imgs/users/user-7.jpeg",
+    "name": "John Carlson",
+    "status": "INACTIVE",
+    "progress": 20,
+    "renewal_date": "2021-11-11",
+    "subscription": 15000
+  },
+  {
+    "picture": "/assets/imgs/users/user-6.jpeg",
+    "name": "Mike Reed",
+    "status": "ACTIVE",
+    "progress": 100,
+    "renewal_date": "2020-09-25",
+    "subscription": 8000
+  },
+  {
+    "picture": "/assets/imgs/users/user-5.jpeg",
+    "name": "Lucy Cameron",
+    "status": "INACTIVE",
+    "progress": 10,
+    "renewal_date": "2020-05-09",
+    "subscription": 30000
+  },
+  {
+    "picture": "/assets/imgs/users/user-3.jpeg",
+    "name": "Martha Owen",
+    "status": "INACTIVE",
+    "progress": 40,
+    "renewal_date": "2020-02-22",
+    "subscription": 18000
+  }
+]

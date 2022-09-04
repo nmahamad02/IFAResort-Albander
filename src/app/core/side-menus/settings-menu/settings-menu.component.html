@@ -1,0 +1,96 @@
+<div class="menu-secondary-actions">
+  <button type="button" class="close-menu-btn btn btn-link" (click)="closeAltMenu()">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+
+<div class="menu-heading">
+  <h3 class="heading-title">Make Fully your own</h3>
+  <span class="heading-subtitle">
+    Change the app layout and color palette with a simple click.
+  </span>
+</div>
+
+<div class="menu-illustration-wrapper">
+  <cc-aspect-ratio [ratio]="{w: 430, h: 225}">
+    <cc-image-shell class="menu-illustration" animation="spinner" [src]="'/assets/illustrations/settings-illustration.svg'" [alt]="'Settings Illustration'"></cc-image-shell>
+  </cc-aspect-ratio>
+</div>
+
+<hr class="section-divider">
+
+<form class="layouts-form" [formGroup]="settingsForm">
+  <h4 class="menu-sub-heading">Choose the Layout</h4>
+
+  <div class="layout-chooser">
+    <div class="layout-option">
+      <div class="option-radio custom-control custom-radio">
+        <input type="radio" class="custom-control-input" id="layoutOptionA" formControlName="layout" value="A">
+        <label class="option-label custom-control-label" for="layoutOptionA">
+          <span class="option-name">Highlighted Top Nav</span>
+        </label>
+      </div>
+      <div class="option-illustration-wrapper">
+        <cc-aspect-ratio [ratio]="{w: 142, h: 123}">
+          <cc-image-shell class="option-illustration" animation="spinner" [src]="'/assets/illustrations/layout-a.svg'" [alt]="'Layout A'"></cc-image-shell>
+        </cc-aspect-ratio>
+      </div>
+    </div>
+    <div class="layout-option">
+      <div class="option-radio custom-control custom-radio">
+        <input type="radio" class="custom-control-input" id="layoutOptionB" formControlName="layout" value="B">
+        <label class="option-label custom-control-label" for="layoutOptionB">
+          <span class="option-name">Highlighted Side Menu</span>
+        </label>
+      </div>
+      <div class="option-illustration-wrapper">
+        <cc-aspect-ratio [ratio]="{w: 142, h: 123}">
+          <cc-image-shell class="option-illustration" animation="spinner" [src]="'/assets/illustrations/layout-b.svg'" [alt]="'Layout B'"></cc-image-shell>
+        </cc-aspect-ratio>
+      </div>
+    </div>
+    <div class="layout-option">
+      <div class="option-radio custom-control custom-radio">
+        <input type="radio" class="custom-control-input" id="layoutOptionC" formControlName="layout" value="C">
+        <label class="option-label custom-control-label" for="layoutOptionC">
+          <span class="option-name">Highlighted Combo</span>
+        </label>
+      </div>
+      <div class="option-illustration-wrapper">
+        <cc-aspect-ratio [ratio]="{w: 142, h: 123}">
+          <cc-image-shell class="option-illustration" animation="spinner" [src]="'/assets/illustrations/layout-c.svg'" [alt]="'Layout C'"></cc-image-shell>
+        </cc-aspect-ratio>
+      </div>
+    </div>
+    <div class="layout-option">
+      <div class="option-radio custom-control custom-radio">
+        <input type="radio" class="custom-control-input" id="layoutOptionD" formControlName="layout" value="D">
+        <label class="option-label custom-control-label" for="layoutOptionD">
+          <span class="option-name">Side Nav + Side Menu</span>
+        </label>
+      </div>
+      <div class="option-illustration-wrapper">
+        <cc-aspect-ratio [ratio]="{w: 142, h: 123}">
+          <cc-image-shell class="option-illustration" animation="spinner" [src]="'/assets/illustrations/layout-d.svg'" [alt]="'Layout D'"></cc-image-shell>
+        </cc-aspect-ratio>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <h4 class="menu-sub-heading">Choose the Palette</h4>
+  <div class="color-palette-chooser">
+    <select class="custom-select form-control" formControlName="colorPalette">
+      <option selected value="">Change color palette...</option>
+      <option value="palette-1">Palette 1</option>
+      <option value="palette-2">Palette 2</option>
+    </select>
+  </div>
+</form>
+<div class="menu-primary-actions">
+  <button type="button" class="preview-btn" (click)="previewSettings()">
+    Preview
+  </button>
+</div>
+<br>

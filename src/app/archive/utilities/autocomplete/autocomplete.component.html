@@ -1,0 +1,91 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">Autocomplete or Typeahead</h1>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Using Material Design</h2>
+
+      <div class="row autocomplete-example">
+        <div class="col-md-5 col-sm-12">
+          <p>Example that loads results from a json file:</p>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <div class="form-group">
+            <label>Countries</label>
+            <input class="form-control" type="text" placeholder="Where do you live?" [formControl]="selectedCountry" [matAutocomplete]="countriesAutocomplete">
+            <mat-autocomplete #countriesAutocomplete="matAutocomplete" class="countries-autocomplete">
+              <mat-option *ngFor="let country of filteredCountries | async" [value]="country.name">
+                {{ country.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+      </div>
+
+      <div class="row autocomplete-example">
+        <div class="col-md-5 col-sm-12">
+          <p>Example with images:</p>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <div class="form-group">
+            <label>Task Owner</label>
+            <input class="form-control" type="text" placeholder="Select a task owner" [matAutocomplete]="taskOwnerAutocomplete" [formControl]="selectedTaskOwner">
+            <mat-autocomplete #taskOwnerAutocomplete="matAutocomplete" class="task-owners-autocomplete">
+              <mat-option class="d-flex" *ngFor="let user of filteredTaskOwners | async" [value]="user.name">
+                <div class="image-container">
+                  <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                    <cc-image-shell class="user-image" animation="spinner" [src]="user.picture" [alt]="'user image'"></cc-image-shell>
+                  </cc-aspect-ratio>
+                </div>
+                <span class="user-name">{{user.name}} |</span>
+                <span class="user-role">{{user.role}}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Using Bootstrap</h2>
+
+      <div class="row autocomplete-example bootstrap-fruits-example">
+        <div class="col-md-5 col-sm-12">
+          <p>Example that loads results from a list. It includes a formater function to format every result to Uppercase:</p>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <div class="form-group">
+            <label>Select a fruit</label>
+            <input type="text" class="form-control" placeholder="What's your favourite fruit?" [formControl]="selectedFruit" [ngbTypeahead]="searchFruits" [resultFormatter]="fruitsFormatter"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row autocomplete-example bootstrap-users-example">
+        <div class="col-md-5 col-sm-12">
+          <p>Autocomplete with a custom template for the results:</p>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <div class="form-group">
+            <label>Select a user</label>
+            <input type="text" class="form-control" [formControl]="selectedUser" [ngbTypeahead]="searchUsers" [resultTemplate]="usersAutocompleteTemplate" [inputFormatter]="usersFormatter"/>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #usersAutocompleteTemplate let-user="result" let-term="term">
+        <div class="user-autocomplete-result">
+          <div class="image-container">
+            <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+              <cc-image-shell class="user-image" animation="spinner" [src]="user['picture']" [alt]="'user image'"></cc-image-shell>
+            </cc-aspect-ratio>
+          </div>
+          <ngb-highlight class="name-container" [result]="user.name" [term]="term"></ngb-highlight>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

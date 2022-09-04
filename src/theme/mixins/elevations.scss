@@ -1,0 +1,88 @@
+@import 'utils';
+@import '../palettes/shared';
+
+$elevations-specs: (
+  z1: (
+    (shadow: 0px 1px 3px, opacity: 0.12),
+    (shadow: 0px 1px 2px, opacity: 0.24)
+  ),
+  z2: (
+    (shadow: 0px 3px 6px, opacity: 0.15),
+    (shadow: 0px 2px 4px, opacity: 0.12)
+  ),
+  z3: (
+    (shadow: 0px 10px 20px, opacity: 0.15),
+    (shadow: 0px 3px 6px, opacity: 0.10)
+  ),
+  z4: (
+    (shadow: 0px 15px 25px, opacity: 0.15),
+    (shadow: 0px 5px 10px, opacity: 0.05)
+  ),
+  z5: (
+    (shadow: 0px 20px 40px, opacity: 0.20)
+  )
+);
+
+@mixin elevation($z: z1, $color: 'grey-2') {
+  $shadows-reference: $elevations-specs;
+
+  // Check if we have a spec for the desired shadow
+  @if map-has-key($shadows-reference, $z) {
+    // Accumulate multiple shadow values in this list
+    $z-shadows-values: ();
+    // Get shadows map
+    $z-shadows: map-get($shadows-reference, $z);
+
+    // @error $z-shadows;
+
+    // Multiple shadows combined
+    @if (type_of($z-shadows) == 'list') {
+      @each $z-shadow in $z-shadows {
+        @if (type_of($z-shadow) == 'map') {
+          $shadow: map-get($z-shadow, shadow);
+          $opacity: map-get($z-shadow, opacity);
+
+          // @error $z-shadow;
+          // @error $shadow;
+          // @error $opacity;
+
+          // $shadow-value: $shadow + ' ' + rgba($color, $opacity);
+          $shadow-value: $shadow + ' ' + palette-color($color, $opacity);
+
+          // @error $shadow-value;
+
+          $z-shadows-values: append($z-shadows-values, $shadow-value);
+
+          // @error $z-shadows-values;
+        } @else {
+          @error 'Invalid shadow definition for argument $z-shadow: `#{$z-shadow}`';
+        }
+      }
+    } @else if (type_of($z-shadows) == 'map') {
+      // Single shadow
+      $shadow: map-get($z-shadows, shadow);
+      $opacity: map-get($z-shadows, opacity);
+
+      // @error $z-shadow;
+      // @error $shadow;
+      // @error $opacity;
+
+      // $shadow-value: $shadow + ' ' + rgba($color, $opacity);
+      $shadow-value: $shadow + ' ' + palette-color($color, $opacity);
+
+      // @error $shadow-value;
+
+      $z-shadows-values: append($z-shadows-values, $shadow-value);
+
+      // @error $z-shadows-values;
+    } @else {
+      @error 'Invalid shadow values for argument $z-shadows: `#{$z-shadows}`. It\'s neither a map or a list';
+    }
+
+    // @error #{to-string($z-shadows-values, ', ')};
+
+    box-shadow: #{to-string($z-shadows-values, ', ')};
+  } @else {
+    @error 'No reference found for argument $z: `#{$z}` in shadows specs.';
+  }
+}

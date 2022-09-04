@@ -1,0 +1,229 @@
+<div class="side-menu-branding">
+  <mat-icon class="brand-logo" svgIcon="angular-logo"></mat-icon>
+</div>
+
+<ul class="side-menu-navigation nav flex-column">
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <mat-icon class="menu-item-icon" svgIcon="dashboards"></mat-icon>
+            <span class="menu-item-title">Dashboards</span>
+          </mat-panel-title>
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/dashboards/ecommerce']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Ecommerce</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/dashboards/crm']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">CRM</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <mat-icon class="menu-item-icon" svgIcon="forms"></mat-icon>
+            <span class="menu-item-title">Forms</span>
+          </mat-panel-title>
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/forms/controls-and-validations']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Controls & Validations</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/forms/extended-controls']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Extended Controls</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/forms/form-layouts']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Sample Layouts</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/forms/material-forms']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Material Forms</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/forms/stepper']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Stepper / Wizard</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <mat-icon class="menu-item-icon" svgIcon="tables"></mat-icon>
+            <span class="menu-item-title">Tables</span>
+          </mat-panel-title>
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/tables/regular-tables']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Regular Tables</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/tables/extended-tables']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Extended Tables</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/tables/smart-tables']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Smart Tables</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/tables/external-filters-tables']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Tables with Filters</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <mat-icon class="menu-item-icon" svgIcon="charts"></mat-icon>
+            <span class="menu-item-title">Charts</span>
+          </mat-panel-title>
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/charts/echarts']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">ECharts</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/charts/chart-js']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Chart Js</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/charts/ngx-charts']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Ngx Charts</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <mat-icon class="menu-item-icon" svgIcon="utilities"></mat-icon>
+            <span class="menu-item-title">Utilities</span>
+          </mat-panel-title>
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/utilities/notifications']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Notifications</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/utilities/modals']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Modals</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/utilities/file-uploader']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">File Uploader</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/utilities/autocomplete']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Autocomplete</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/utilities/alerts']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Alerts</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <mat-icon class="menu-item-icon" svgIcon="components"></mat-icon>
+            <span class="menu-item-title">Components</span>
+          </mat-panel-title>
+          <!-- <mat-panel-description class="menu-item-description">Coming soon</mat-panel-description> -->
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/components/lists']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Lists</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/components/cards']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Cards</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/components/carousel']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Carousel</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/components/tabsets']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Tabsets</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+</ul>

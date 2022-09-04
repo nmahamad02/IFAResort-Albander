@@ -1,0 +1,42 @@
+<div class="modal-container">
+  <div class="modal-login-form">
+    <div class="row">
+      <div class="col-3 app-logo-container">
+        <cc-aspect-ratio [ratio]="{w: 73, h: 80}">
+          <cc-image-shell class="app-logo" animation="spinner" [src]="'/assets/icons/logos/angular-logo-2.svg'" [alt]="'app logo'"></cc-image-shell>
+        </cc-aspect-ratio>
+      </div>
+    </div>
+    <h1 class="modal-title">Sign In</h1>
+    <form [formGroup]="modalForm" class="modal-form">
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email" formControlName="email">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" formControlName="password">
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="rememberMe" formControlName="rememberMe">
+        <label class="custom-control-label" for="rememberMe">
+          <span class="custom-label">Keep me logged in</span>
+        </label>
+      </div>
+      <div class="existing-account-section">
+        <button class="btn btn-link" (click)="forgotPassword()">Forgot email or password?</button>
+      </div>
+      <div class="buttons-row">
+        <button class="sign-in-btn" type="submit" (click)="signIn()">Sign In</button>
+        <button class="register-btn">Create Account</button>
+      </div>
+    </form>
+    <div class="register-divider">
+      <hr class="line"><span>Or</span><hr class="line">
+    </div>
+    <button type="button" class="fb-signin">
+      Sign up with Facebook
+    </button>
+  </div>
+  <div class="side-image">
+    <div class="background-image"></div>
+  </div>
+</div>

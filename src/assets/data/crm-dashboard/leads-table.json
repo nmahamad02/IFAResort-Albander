@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Francesca Metts",
+    "company": "Metts LTD",
+    "email": "francesca@hotmail.com",
+    "source": "Email",
+    "picture": "/assets/imgs/users/user-1.jpeg",
+    "mobile": "428-564-5457",
+    "last_contact": "2019-09-14",
+    "stage": "Demo"
+  },
+  {
+    "name": "Malcolm Quaday",
+    "company": "MalQua C-Corp",
+    "email": "malc1988@gmail.com",
+    "source": "Social Networks",
+    "picture": "/assets/imgs/users/user-2.jpeg",
+    "mobile": "428-125-8797",
+    "last_contact": "2019-09-08",
+    "stage": "Negociations"
+  },
+  {
+    "name": "Elizabeth Hurton",
+    "company": "Let's Code",
+    "email": "eliza12@gmail.com",
+    "source": "Newsletter",
+    "picture": "/assets/imgs/users/user-3.jpeg",
+    "mobile": "428-678-1234",
+    "last_contact": "2019-09-04",
+    "stage": "First contact"
+  },
+  {
+    "name": "Albert Pollock",
+    "company": "Sunny Pie Corp",
+    "email": "albertp@gmail.com",
+    "source": "Newsletter",
+    "picture": "/assets/imgs/users/user-4.jpeg",
+    "mobile": "123-456-8797",
+    "last_contact": "2019-09-06",
+    "stage": "Demo"
+  },
+  {
+    "name": "Sara Williams",
+    "company": "Realfooder LTD",
+    "email": "sarawill@hotmail.com",
+    "source": "Google organic",
+    "picture": "/assets/imgs/users/user-6.jpeg",
+    "mobile": "123-456-8797",
+    "last_contact": "2019-08-26",
+    "stage": "Legals"
+  },
+  {
+    "name": "John Marston",
+    "company": "Marston LTD",
+    "email": "john.m@yahoo.com",
+    "source": "Email",
+    "picture": "/assets/imgs/users/user-5.jpeg",
+    "mobile": "123-456-8797",
+    "last_contact": "2019-08-21",
+    "stage": "Negociations"
+  }
+]

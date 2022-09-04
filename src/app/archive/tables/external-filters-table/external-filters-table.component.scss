@@ -1,0 +1,135 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-subtitle-color: #{palette-color('grey-8')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+
+  --status-delivered-color: #{palette-color('success')};
+  --status-delivered-background: #{palette-color('success', 0.2)};
+  --status-pending-color: #{palette-color('error')};
+  --status-pending-background: #{palette-color('error', 0.2)};
+
+  --table-text-color: #{palette-color('grey-7')};
+  --table-text-light-color: #{palette-color('grey-4')};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title-wrapper {
+    margin-bottom: calc(var(--page-spacing) * 6);
+
+    .page-title {
+      color: var(--page-title-color);
+      font-size: 30px;
+    }
+
+    .page-subtitle {
+      color: var(--page-subtitle-color);
+    }
+  }
+
+  .filters-form {
+
+    .form-group {
+      margin-bottom: calc(var(--page-spacing) * 2);
+      @include form-group-styles();
+    }
+
+    .datepicker-toggle-btn {
+      @include button-outline();
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+
+    .categories {
+      @include chip-styles();
+
+      .custom-autocomplete-input {
+        margin: 0px;
+        width: 100%;
+        margin-bottom: var(--page-spacing);
+        padding: calc(var(--page-spacing) / 2) var(--page-spacing);
+      }
+    }
+  }
+
+  .buttons-row {
+    margin-bottom: calc(var(--page-spacing) * 3);
+    flex-wrap: nowrap;
+
+    .filters-button {
+      @include button-outline();
+      flex: 1 1 auto;
+
+      &:first-child {
+        margin-right: calc(var(--page-spacing) / 2);
+      }
+    }
+  }
+
+  .table-wrapper {
+    @include table-basic-styles();
+
+    .recent-orders-table {
+
+      .mat-cell {
+        vertical-align: middle;
+
+        &[cell-name = 'status'] {
+          .order-status {
+            padding: 2px 6px;
+            border-radius: 6px;
+          }
+          &[cell-value = 'Delivered'] {
+            color: var(--status-delivered-color);
+            .order-status {
+              background-color: var(--status-delivered-background);
+            }
+          }
+          &[cell-value = 'Pending'] {
+            color: var(--status-pending-color);
+            .order-status {
+              background-color: var(--status-pending-background);
+            }
+          }
+        }
+      }
+
+      .product-row {
+        display: flex;
+
+        .product-image-wrapper {
+          width: 50px;
+          margin-right: 20px;
+
+          cc-image-shell.product-image {
+            --image-shell-spinner-size: 20px;
+
+            height: initial;
+          }
+        }
+
+        .product-name {
+          color: var(--table-text-color);
+        }
+        .product-details {
+          color: var(--table-text-light-color);
+          margin: auto 0px;
+        }
+      }
+    }
+    .table-paginator {
+      margin-top: calc(var(--page-spacing) * 2);
+
+      // For encapsulated components INSIDE the :host element
+      ::ng-deep {
+        // Override Material styles
+        @include table-paginator-styles();
+      }
+    }
+  }
+}

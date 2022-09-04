@@ -1,0 +1,62 @@
+[
+  {
+    "ticket_id": "515645215",
+    "name": "Francesca Metts",
+    "email": "francesca.metts@hotmail.com",
+    "subject": "I have a problema with a tv.",
+    "picture": "/assets/imgs/users/user-1.jpeg",
+    "phone": "428-564-5457",
+    "created_date": "2019-09-14",
+    "status": "Open"
+  },
+  {
+    "ticket_id": "556445254",
+    "name": "Malcolm Quaday",
+    "email": "malcolmqua@gmail.com",
+    "subject": "Need my invoice.",
+    "picture": "/assets/imgs/users/user-2.jpeg",
+    "phone": "428-125-8797",
+    "created_date": "2019-09-08",
+    "status": "Closed"
+  },
+  {
+    "ticket_id": "565465467",
+    "name": "Elizabeth Hurton",
+    "email": "elizabeth@gmail.com",
+    "subject": "Other payment options plz.",
+    "picture": "/assets/imgs/users/user-3.jpeg",
+    "phone": "428-678-1234",
+    "created_date": "2019-09-04",
+    "status": "Open"
+  },
+  {
+    "ticket_id": "589791212",
+    "name": "Albert Pollock",
+    "email": "albertp@gmail.com",
+    "subject": "My tablet has a problem with the screen.",
+    "picture": "/assets/imgs/users/user-4.jpeg",
+    "phone": "123-456-8797",
+    "created_date": "2019-09-06",
+    "status": "Closed"
+  },
+  {
+    "ticket_id": "589791212",
+    "name": "John Marston",
+    "email": "john.m@yahoo.com",
+    "subject": "Can't log in to your website",
+    "picture": "/assets/imgs/users/user-5.jpeg",
+    "phone": "123-456-8797",
+    "created_date": "2019-08-21",
+    "status": "Closed"
+  },
+  {
+    "ticket_id": "589791212",
+    "name": "Sara Williams",
+    "email": "sarawilliams@hotmail.com",
+    "subject": "I want to return my order.",
+    "picture": "/assets/imgs/users/user-6.jpeg",
+    "phone": "123-456-8797",
+    "created_date": "2019-08-26",
+    "status": "Closed"
+  }
+]

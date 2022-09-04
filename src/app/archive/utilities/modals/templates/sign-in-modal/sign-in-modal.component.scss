@@ -1,0 +1,136 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --modal-title-color: #{palette-color('primary')};
+  --text-color: #{palette-color('grey-7')};
+  --modal-spacing: 10px;
+  --checkbox-label-color: #{palette-color('primary')};
+  --facebook-btn-background: #{palette-color('facebook')};
+  --facebook-btn-color: #{palette-color('white')};
+  --facebook-btn-hover-background: #{palette-color('facebook-dark')};
+  --facebook-btn-hover-color: #{palette-color('white')};
+}
+
+.modal-container {
+  display: flex;
+  max-width: 100%;
+  width: 850px;
+  min-height: 500px;
+  color: var(--text-color);
+
+  .app-logo-container {
+    margin: 0px auto;
+  }
+
+  .modal-login-form {
+    flex-basis: 100%;
+    padding: calc(var(--modal-spacing) * 4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .modal-title {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: calc(var(--modal-spacing) * 3);
+      margin-top: var(--modal-spacing);
+      color: var(--modal-title-color);
+    }
+
+    .modal-form {
+      @include form-group-styles();
+
+      .custom-control.custom-checkbox {
+        @include bootstrap-checkbox-styles();
+        .custom-label {
+          color: var(--checkbox-label-color);
+        }
+      }
+
+      .existing-account-section {
+        margin-top: var(--modal-spacing);
+        .btn-link {
+          color: var(--text-color);
+          text-decoration: none;
+          padding: 0px;
+        }
+      }
+
+      .buttons-row {
+        display: flex;
+        justify-content: space-between;
+        margin: calc(var(--modal-spacing) * 2) 0px calc(var(--modal-spacing) * 1.5);
+
+        .sign-in-btn {
+          width: 100%;
+          margin-right: calc(var(--modal-spacing) / 2);
+          @include button();
+        }
+
+        .register-btn {
+          width: 100%;
+          margin-left: calc(var(--modal-spacing) / 2);
+          @include button-outline();
+        }
+      }
+    }
+
+    .register-divider {
+      align-items: center;
+      color: var(--text-color);
+      display: flex;
+
+      .line {
+        flex-grow: 1;
+      }
+
+      span {
+        margin: 0 calc(var(--modal-spacing) * 1.5);
+      }
+    }
+
+    .fb-signin {
+      margin: 0px auto;
+      margin-top: var(--modal-spacing);
+      display: flex;
+
+      --button-background: var(--facebook-btn-background);
+      --button-border: var(--facebook-btn-background);
+      --button-color: var(--facebook-btn-color);
+
+      --button-hover-background: var(--facebook-btn-hover-background);
+      --button-hover-border: var(--facebook-btn-hover-background);
+      --button-hover-color: var(--facebook-btn-hover-color);
+
+      @include button();
+      padding-left: calc(var(--modal-spacing) * 3);
+      padding-right: calc(var(--modal-spacing) * 3);
+    }
+  }
+
+  .side-image {
+    flex-basis: 100%;
+    position: relative;
+
+    .background-image {
+      background-image: url('/assets/imgs/authentication/login-modal-image.jpg');
+      background-position: center;
+      background-size: cover;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+
+::ng-deep {
+  .sign-in-modal {
+    .mat-dialog-container {
+      border-radius: 6px;
+      padding: 0px;
+    }
+  }
+}

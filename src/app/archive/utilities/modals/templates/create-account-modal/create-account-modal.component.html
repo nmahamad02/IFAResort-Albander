@@ -1,0 +1,38 @@
+<div class="modal-container">
+  <div class="app-logo-container">
+    <cc-aspect-ratio [ratio]="{w: 73, h: 80}">
+      <cc-image-shell animation="spinner" [src]="'/assets/icons/logos/angular-logo-2.svg'" [alt]="'app logo'"></cc-image-shell>
+    </cc-aspect-ratio>
+  </div>
+  <h1 class="modal-title">Register</h1>
+  <form [formGroup]="modalForm" class="modal-form">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="User name" formControlName="username">
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="Email" formControlName="email">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Password" formControlName="password">
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="newsletter" formControlName="newsletter">
+      <label class="custom-control-label" for="newsletter">
+        <span class="custom-label">Subscribe to newsletter</span>
+      </label>
+      <span class="form-text help-text">
+        By creating an account, you agree to the site Terms of Service and Privacy Policy.
+      </span>
+    </div>
+    <div class="buttons-row">
+      <button class="register-btn" type="submit" (click)="createAccount()">Create account</button>
+      <button class="log-in-btn">Log In</button>
+    </div>
+  </form>
+  <div class="register-divider">
+    <hr class="line"><span>Or</span><hr class="line">
+  </div>
+  <button type="button" class="fb-signin">
+    Sign up with Facebook
+  </button>
+</div>

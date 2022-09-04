@@ -1,0 +1,183 @@
+@import './partials/navbar-branding';
+@import './partials/navbar-dividers';
+
+:host {
+  // Default values. These may be overridden in the component's parent
+  --top-navbar-color: #CCCCCC;
+  --top-navbar-alt-color: #E6E6E6;
+  --top-navbar-background: #FFFFFF;
+  --top-navbar-border-color: #CCCCCC;
+
+  --top-navbar-height: 80px;
+
+  // Used mainly at the start and end of the navbar
+  --top-navbar-padding: 35px;
+  // Used mainly to space items inside the navbar
+  --top-navbar-spacing: 10px;
+
+  --top-navbar-controls-height: calc(var(--top-navbar-height) / 2);
+  --top-navbar-icon-size: calc(var(--top-navbar-spacing) * 2);
+}
+
+:host([mode = 'condensed']) {
+  --top-navbar-controls-height: 40px;
+
+  .top-navbar-toolbar {
+    .navbar-title {
+      display: block;
+      flex-grow: 1;
+      padding-inline-end: calc(var(--top-navbar-spacing) * 2);
+    }
+
+    .navbar-user {
+      margin-inline-start: auto;
+    }
+
+    .navbar-search {
+      width: 100%;
+    }
+  }
+}
+
+:host {
+  display: block;
+
+  // Override Material styles
+  mat-toolbar {
+    background: var(--top-navbar-background);
+    color: var(--top-navbar-color);
+    padding: 0px var(--top-navbar-padding);
+  }
+  mat-toolbar-row {
+    height: var(--top-navbar-height);
+    padding: 0px;
+  }
+
+  .top-navbar-toolbar {
+    .navbar-controls {
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center;
+    } // .navbar-controls
+
+    .navbar-search {
+      width: 50%;
+
+      .search-input {
+        font-family: Nunito;
+
+        // Override Bootstrap styles
+        &.form-control-lg {
+          height: var(--top-navbar-controls-height);
+        }
+        &.form-control {
+          border: none;
+          border-bottom: 1px solid var(--top-navbar-border-color);
+          border-radius: 0px;
+          font-size: 16px;
+          color: var(--top-navbar-color);
+          background-color: var(--top-navbar-background);
+
+          &::placeholder {
+            color: var(--top-navbar-alt-color);
+          }
+        }
+      }
+    } // .navbar-search
+
+    .navbar-actions {
+      height: var(--top-navbar-controls-height);
+      margin-inline-start: auto;
+      display: flex;
+      align-items: center;
+
+      .action-button {
+        color: var(--top-navbar-color);
+
+        & + .action-button {
+          margin-inline-start: var(--top-navbar-spacing);
+        }
+      }
+
+      mat-icon.navbar-icons {
+        width: var(--top-navbar-icon-size);
+        height: var(--top-navbar-icon-size);
+      }
+    } // .navbar-actions
+
+    .navbar-user {
+      height: var(--top-navbar-controls-height);
+      margin-inline-start: calc(var(--top-navbar-spacing) * 2);
+      display: flex;
+      align-items: center;
+
+      .user-image-wrapper {
+        width: var(--top-navbar-controls-height);
+        flex-shrink: 0;
+
+        cc-image-shell.user-image {
+          --image-shell-border-radius: 50%;
+          --image-shell-spinner-size: var(--top-navbar-icon-size);
+        }
+      }
+
+      .user-actions-dropdown {
+        --toggle-btn-padding: 5px;
+
+        // Set the same height as the image-shell width
+        height: 100%;
+        margin-inline-start: calc(var(--top-navbar-spacing) - var(--toggle-btn-padding));
+
+        .user-action-toggle-btn {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          text-decoration: none;
+
+          // Override Bootstrap styles
+          &.btn {
+            padding: var(--toggle-btn-padding);
+          }
+          &.dropdown-toggle {
+            // Reset styles
+            &::after {
+              display: initial;
+              margin: 0px;
+              vertical-align: initial;
+              border: none;
+            }
+
+            // Add styles from .mat-expansion-indicator::after
+            &::after {
+              content: '';
+              display: inline-block;
+              border-style: solid;
+              border-width: 0 2px 2px 0;
+              padding: 3px;
+              transform: rotate(45deg);
+              vertical-align: middle;
+              color: var(--top-navbar-color);
+            }
+          }
+        }
+
+        .user-name {
+          font-family: Nunito;
+          font-size: 16px;
+          color: var(--top-navbar-color);
+          margin-inline-end: var(--top-navbar-spacing);
+        }
+
+        .user-name > cc-text-shell {
+          --text-shell-line-height: 14px;
+
+          min-width: 80px;
+
+          &.text-loaded {
+            min-width: 0px;
+          }
+        }
+      }
+    } // .navbar-user
+  } // .top-navbar-toolbar
+}

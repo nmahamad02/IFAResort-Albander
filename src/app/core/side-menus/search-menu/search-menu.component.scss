@@ -1,0 +1,40 @@
+@import '../dynamic-menu/styles/shared/base-menu';
+
+:host {
+  // Default values. These may be overridden in the component's parent
+  --menu-background: var(--dynamic-menu-background, #{palette-color('grey-0')});
+  --menu-color: var(--dynamic-menu-color, #{palette-color('grey-9')});
+  --menu-alt-color: var(--dynamic-menu-alt-color, #{palette-color('grey-4')});
+  --menu-divider-color: var(--dynamic-menu-divider-color, #{palette-color('grey-9', 0.1)});
+
+  --menu-width: 400px;
+
+  // Used mainly at the top and bottom of the menu
+  --menu-padding: var(--dynamic-menu-padding, 35px);
+  // Used mainly to space items inside the menu
+  --menu-spacing: var(--dynamic-menu-spacing, 10px);
+
+  --menu-top-actions-height: calc(var(--menu-spacing) * 6);
+}
+
+:host {
+  .menu-secondary-actions {
+    .close-menu-btn {
+      margin-inline-start: calc(var(--menu-spacing) * -1);
+      margin-inline-end: calc(var(--menu-spacing) * 2);
+    }
+
+    .menu-search {
+      flex: 1;
+      height: 100%;
+      padding: calc(var(--menu-spacing) / 2) 0px;
+
+      .search-input {
+        // Override Bootstrap styles
+        &.form-control {
+          height: 100%;
+        }
+      }
+    }
+  }
+}

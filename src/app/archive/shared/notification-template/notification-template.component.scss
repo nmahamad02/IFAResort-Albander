@@ -1,0 +1,102 @@
+@import 'shared';
+
+:host {
+  //  Default variables
+  --info-notification-background: #{palette-color('info-light')};
+  --info-notification-color: #{palette-color('info')};
+
+  --success-notification-background: #{palette-color('success-light')};
+  --success-notification-color: #{palette-color('success')};
+
+  --warning-notification-background: #{palette-color('warning-light')};
+  --warning-notification-color: #{palette-color('warning')};
+
+  --danger-notification-background: #{palette-color('error-light')};
+  --danger-notification-color: #{palette-color('error')};
+
+  --notification-spacing: 10px;
+}
+
+.custom-notification-wrapper {
+  .notification {
+    // default notification is info
+    --notification-background-color: var(--info-notification-background);
+    --notification-text-color: var(--info-notification-color);
+
+    &.alert-info {
+      --notification-background-color: var(--info-notification-background);
+      --notification-text-color: var(--info-notification-color);
+    }
+    &.alert-success {
+      --notification-background-color: var(--success-notification-background);
+      --notification-text-color: var(--success-notification-color);
+    }
+    &.alert-warning {
+      --notification-background-color: var(--warning-notification-background);
+      --notification-text-color: var(--warning-notification-color);
+    }
+    &.alert-danger {
+      --notification-background-color: var(--danger-notification-background);
+      --notification-text-color:  var(--danger-notification-color);
+    }
+
+    border: 0;
+    background-color: var(--notification-background-color);
+    color: var(--notification-text-color);
+    border-radius: 6px;
+    padding-top: calc(var(--notification-spacing) * 1.5);
+    padding-bottom: calc(var(--notification-spacing) * 1.5);
+    @include elevation(z3, 'grey-6');
+
+    .notification-wrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .notification-icon {
+      color: var(--notification-text-color);
+      font-size: 18px;
+      margin-right: var(--notification-spacing);
+      align-self: center;
+    }
+
+    .notification-line {
+      font-size: 16px;
+      flex-grow: 2;
+      font-weight: 600;
+    }
+    .notification-text {
+      font-size: 14px;
+    }
+
+    &.alert-dismissible {
+      .close {
+        height: 100%;
+        opacity: 1;
+        font-size: 16px;
+        color: var(--notification-text-color);
+
+        &:hover {
+          opacity: 0.5;
+          color: var(--notification-text-color);
+        }
+      }
+    }
+
+    .notification-line ~ .notification-text {
+      margin-top: calc(var(--notification-spacing) * 1.5);
+    }
+  }
+}
+
+::ng-deep {
+  // this applies to all the mat-snack-bar-container
+  .mat-snack-bar-container {
+    box-shadow: none;
+    max-width: none !important;
+
+    &.notification-wrapper {
+      background: none;
+    }
+  }
+}

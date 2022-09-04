@@ -1,0 +1,109 @@
+:host {
+  // Default values. These may be overridden in the component's parent
+  --side-navbar-background: #333333;
+  --side-navbar-color: #FFFFFF;
+
+  --side-navbar-width: 80px;
+
+  // Used mainly at the top and bottom of the navbar
+  --side-navbar-padding: 35px;
+  // Used mainly to space items inside the navbar
+  --side-navbar-spacing: 10px;
+
+  --side-navbar-controls-width: calc(var(--side-navbar-width) / 2);
+  --side-navbar-icon-size: calc(var(--side-navbar-spacing) * 2);
+}
+
+:host {
+  position: fixed;
+  z-index: 99;
+  top: 0px;
+
+  width: var(--side-navbar-width);
+  height: 100vh;
+  padding: var(--side-navbar-padding) 0px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--side-navbar-background);
+  color: var(--side-navbar-color);
+
+  .navbar-branding {
+    text-align: center;
+  }
+
+  .navbar-actions {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .action-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--side-navbar-color);
+
+      & + .action-button {
+        margin-top: calc(var(--side-navbar-spacing) * 2);
+      }
+
+      // Override Bootstrap styles
+      &.btn {
+        padding: var(--side-navbar-spacing);
+      }
+    }
+
+    mat-icon.navbar-icons {
+      width: var(--side-navbar-icon-size);
+      height: var(--side-navbar-icon-size);
+    }
+  } // .navbar-actions
+
+  .navbar-user {
+    margin-top: auto;
+    padding-top: calc(var(--side-navbar-spacing) * 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .user-image-wrapper {
+      width: var(--side-navbar-controls-width);
+      flex-shrink: 0;
+
+      cc-image-shell.user-image {
+        --image-shell-border-radius: 50%;
+        --image-shell-spinner-size: var(--side-navbar-icon-size);
+      }
+    }
+
+    .user-actions-dropdown {
+      --toggle-btn-padding: 5px;
+
+      .user-action-toggle-btn {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        text-decoration: none;
+
+        // Override Bootstrap styles
+        &.btn {
+          padding: 0px var(--toggle-btn-padding);
+        }
+        &.dropdown-toggle {
+          // Reset styles
+          &::after {
+            content: none;
+          }
+        }
+      }
+
+      // Override Bootstrap styles
+      .dropdown-menu {
+        left: 100%;
+        bottom: 0px;
+      }
+    } // .user-actions-dropdown
+  } // .navbar-user
+}

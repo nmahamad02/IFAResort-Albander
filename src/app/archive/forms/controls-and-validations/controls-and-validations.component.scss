@@ -1,0 +1,70 @@
+@import 'shared';
+
+:host {
+  // // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+  --section-title-color: #{palette-color('grey-9')};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title {
+    color: var(--page-title-color);
+    font-size: 30px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    margin: calc(var(--page-spacing) * 6) 0px calc(var(--page-spacing) * 2);
+    color: var(--section-title-color);
+  }
+
+  .form-group {
+    margin-bottom: calc(var(--page-spacing) * 2);
+    @include form-group-styles();
+
+    .datepicker-toggle-btn {
+      @include button-outline();
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+
+    .phone-input-text-helpers {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .buttons-row {
+    display: flex;
+    margin-top: calc(var(--page-spacing) * 6);
+
+    button {
+      margin-right: var(--page-spacing);
+    }
+
+    .outline-btn {
+      @include button-outline();
+      padding: var(--page-spacing) calc(var(--page-spacing) * 3);
+    }
+
+    .submit-btn {
+      @include button();
+      padding: var(--page-spacing) calc(var(--page-spacing) * 3);
+    }
+  }
+
+  .custom-control.custom-checkbox {
+    @include bootstrap-checkbox-styles();
+  }
+}
+
+// For encapsulated components OUTSIDE the :host element
+::ng-deep {
+  .mat-autocomplete-panel.countries-autocomplete {
+    @include material-autocomplete-styles();
+  }
+}

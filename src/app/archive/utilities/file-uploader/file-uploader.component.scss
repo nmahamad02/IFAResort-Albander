@@ -1,0 +1,246 @@
+@import 'shared';
+
+:host {
+  // // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+  --section-title-color: #{palette-color('grey-9')};
+  --section-border-bottom-color: #{palette-color('grey-8')};
+
+  --text-color: #{palette-color('primary')};
+  --text-alternative-color: #{palette-color('secondary')};
+  --icons-color: #{palette-color('primary')};
+
+  --avatar-container-background: #{palette-color('primary', 0.3)};
+  --uploader-border-color: #{palette-color('primary', 0.6)};
+  --image-uploader-progress-bar-color: #{palette-color('secondary')};
+  --image-uploader-progress-bar-background: #{palette-color('secondary', 0.2)};
+  --files-uploader-progress-bar-color: #{palette-color('primary')};
+  --files-uploader-progress-bar-background: #{palette-color('primary', 0.2)};
+  --files-uploaded-text-color: #{palette-color('grey-7')};
+  --files-uploaded-border-color: #{palette-color('primary', 0.2)};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title {
+    color: var(--page-title-color);
+    font-size: 30px;
+  }
+
+  .section-title {
+    margin-top: calc(var(--page-spacing) * 6);
+    font-size: 26px;
+    color: var(--section-title-color);
+    padding-bottom: var(--page-spacing);
+    border-bottom: 1px solid var(--section-border-bottom-color);
+    margin-bottom: calc(var(--page-spacing) * 3);
+  }
+
+  input {
+    &[type='file'] {
+      display: none;
+    }
+  }
+
+  // Avatar Upload
+  .avatar-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .avatar-container {
+      background-color: var(--avatar-container-background);
+      border-radius: 6px;
+      margin-bottom: calc(var(--page-spacing) * 2);
+      display: flex;
+      justify-content: center;
+
+      .uploader-empty-state {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        align-items: center;
+
+        .image-icon {
+          height: 70px;
+          width: 70px;
+          color: var(--icons-color);
+        }
+      }
+    }
+
+    .btn-upload {
+      @include button();
+    }
+
+    .avatar-uploaded-message {
+      color: var(--text-alternative-color);
+      text-align: center;
+      i {
+        margin-right: calc(var(--page-spacing) / 2);
+      }
+    }
+  }
+
+  // Image Uploader
+  .image-uploader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    border: 2px dashed var(--uploader-border-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    padding: calc(var(--page-spacing) * 3);
+    text-align: center;
+
+    .dropzone {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      &.empty-state {
+        color: var(--text-color);
+      }
+
+      &.uploaded-state {
+        color: var(--text-alternative-color);
+      }
+
+      .upload-icon {
+        height: 60px;
+        width: 60px;
+      }
+
+      .select-image-btn {
+        @include button();
+      }
+
+      .rounded-progress-bar {
+        width: 100%;
+
+        // Override Bootstrap Styles
+        ::ng-deep .progress {
+          height: var(--page-spacing);
+          border-radius: 5px;
+          background-color: var(--image-uploader-progress-bar-background);
+
+          .progress-bar {
+            background-color: var(--image-uploader-progress-bar-color);
+          }
+        }
+      }
+
+      .post-actions-wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .cancel-btn {
+          @include button-outline();
+          margin-left: var(--page-spacing);
+          width: 100%;
+        }
+
+        .post-btn {
+          @include button();
+          margin-right: var(--page-spacing);
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // Files Uploader
+  .files-uploader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: calc(var(--page-spacing) * 2);
+
+    border: 2px dashed var(--uploader-border-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    padding: calc(var(--page-spacing) * 3);
+    text-align: center;
+
+    .upload-icon {
+      height: 60px;
+      width: 60px;
+      color: var(--icons-color);
+    }
+
+    .dropzone {
+      width: 100%;
+
+      .dropzone-btn {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-color);
+
+        &:hover, &:focus {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .files-uploader-list {
+    .dropzone-list {
+      list-style: none;
+      padding: 0;
+
+      .dropzone-list-item {
+        align-items: center;
+        border: 1px solid  var(--files-uploaded-border-color);
+        color: var(--files-uploaded-text-color);
+        display: flex;
+        margin-bottom: calc(var(--page-spacing) * 2);
+        padding: calc(var(--page-spacing) * 2.5) calc(var(--page-spacing) * 4.5);
+        border-radius: 6px;
+
+        .dropzone-list-item-info {
+          flex-basis: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          .file-name {
+            font-size: 14px;
+            margin-bottom: calc(var(--page-spacing) * 2);
+          }
+          .file-upload-status {
+            font-size: 14px;
+            color: var(--text-color);
+          }
+
+          .progress-bar-wrapper {
+            margin: var(--page-spacing) 0px;
+
+            .rounded-progress-bar {
+              width: 100%;
+
+              // Override Bootstrap Styles
+              ::ng-deep .progress {
+                height: 6px;
+                border-radius: 3px;
+                background-color: var(--image-uploader-progress-bar-background);
+
+                .progress-bar {
+                  background-color: var(--image-uploader-progress-bar-color);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

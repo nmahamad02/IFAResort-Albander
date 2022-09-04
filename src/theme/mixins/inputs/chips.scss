@@ -1,0 +1,30 @@
+@mixin chip-styles(){
+  // mat chip list or tags list
+  --default-spacing: 10px;
+  --form-chips-background: #{palette-color('secondary', 0.15)};
+  --form-chips-color: #{palette-color('secondary')};
+
+  mat-chip-list.mat-chip-list {
+    .custom-chips {
+      background-color: var(--form-chips-background);
+      color: var(--form-chips-color);
+
+      .remove-chip {
+        color: var(--form-chips-color);
+        height: auto;
+        opacity: 1;
+        width: auto;
+      }
+
+      &.rounded-chips {
+        border-radius: calc(var(--default-spacing) * 1.5);
+        padding: calc(var(--default-spacing) / 2) var(--default-spacing);
+      }
+
+      &.rectangle-chips {
+        border-radius: 6px;
+        padding: calc(var(--default-spacing) / 2) var(--default-spacing);
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+/*
+  CSS 4 Mode
+*/
+$color-palette-mode: 'css-4';
+
+
+/*
+  Sass Mode
+*/
+// @import 'core';
+//
+// $color-palette-mode: 'sass';
+//
+// // Import the definitions of the palette you want to use
+// @import 'palette-1/definitions';
+// // @import 'palette-2/definitions';
+//
+// // Assign a particular Color Palette to the 'choosen-palette' pointer.
+// // $choosen-palette will be a Sass map pointing to another color palette Sass map
+// $choosen-palette: buildSassPalette($palette-1);
+// // $choosen-palette: buildSassPalette($palette-2);

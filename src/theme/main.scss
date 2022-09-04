@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap');
+
+@import 'third-party/font-awesome';
+@import 'third-party/bootstrap';
+@import 'third-party/material';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Nunito', sans-serif; }
+
+mat-icon {
+  // Override Bootstrap reboot styles
+  svg {
+    vertical-align: baseline;
+  }
+}
+
+// Include Color Palettes
+@import './palettes/palette-1/root';
+@import './palettes/palette-2/root';
+
+// Just to debug responsive stuff
+@import 'mixins/debug-breakpoints';

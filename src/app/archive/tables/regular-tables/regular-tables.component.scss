@@ -1,0 +1,34 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-subtitle-color: #{palette-color('grey-8')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title-wrapper {
+    margin-bottom: calc(var(--page-spacing) * 6);
+
+    .page-title {
+      color: var(--page-title-color);
+      font-size: 30px;
+    }
+
+    .page-subtitle {
+      color: var(--page-subtitle-color);
+    }
+  }
+
+  .table-wrapper {
+    @include table-basic-styles();
+
+    th.mat-header-cell {
+      border: none;
+    }
+  }
+}

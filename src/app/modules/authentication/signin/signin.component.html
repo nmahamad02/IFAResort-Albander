@@ -1,0 +1,32 @@
+<div class="row no-gutters signin-page">
+  <div class="col-md-7 col-lg-6 col-sm-12 form-section">
+    <h1 class="page-title">Al Bander Resort Management Portal</h1>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+    <form class="signin-form" [formGroup]="signinForm" (ngSubmit)="onSignin()">
+      <div class="form-group">
+        <label for="username" style="padding-bottom: 10px;">Username</label>
+        <input type="text" class="form-control" id="username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" >
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" style="padding-bottom: 10px;">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" (key.enter)="onSignin()">
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+      </div>
+      <div class="form-call-to-actions">
+        <a class="link-text" [routerLink]="['/authentication/forgot-password']">Forgot password?</a>
+        <button class="sign-in-btn" type="submit" (click)="onSignin()">Sign In</button>
+      </div>
+    </form>
+    <div class="existing-account-section">
+      <span class="text">Don't have an account? <a class="link-text" [routerLink]="['/authentication/signup']">Sign up</a>.</span>
+    </div>
+  </div>
+  <div class="col-md-5 col-lg-6 d-none d-md-block image-section">
+    <cc-image-shell class="signin-image add-overlay" animation="spinner" [mode]="'cover'" [src]="'/assets/pics/69413394_z.jpg'" [alt]="'app image'"></cc-image-shell>
+  </div>
+</div>

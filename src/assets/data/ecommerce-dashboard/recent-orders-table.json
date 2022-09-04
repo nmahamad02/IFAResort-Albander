@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone X - 64 gb",
+    "color": "Black",
+    "sku": "#23132145",
+    "category": "Cell Phones",
+    "picture": "/assets/imgs/products/iphone-x.jpg",
+    "location": "Denver",
+    "customer": "Malcolm Quaday",
+    "price": 229,
+    "date": "2019-09-10",
+    "status": "Pending"
+  },
+  {
+    "id": 2,
+    "name": "Nike Air Force 1",
+    "color": "Brown",
+    "sku": "#15645215",
+    "category": "Clothing",
+    "picture": "/assets/imgs/products/nike-1.png",
+    "location": "California",
+    "customer": "Francesca Metts",
+    "price": 79,
+    "date": "2019-09-15",
+    "status": "Delivered"
+  },
+  {
+    "id": 3,
+    "name": "Bose soundlink on ear",
+    "color": "Beige",
+    "sku": "#29848499",
+    "category": "Sound",
+    "picture": "/assets/imgs/products/bose.png",
+    "location": "Chicago",
+    "customer": "Elizabeth Hurton",
+    "price": 59,
+    "date": "2019-09-07",
+    "status": "Delivered"
+  },
+  {
+    "id": 4,
+    "name": "Ipad 9,7' 2019",
+    "color": "Gold",
+    "sku": "#28789421",
+    "category": "Tablet",
+    "picture": "/assets/imgs/products/ipad-mini.jpg",
+    "location": "Chicago",
+    "customer": "Albert Pollock",
+    "price": 99,
+    "date": "2019-09-07",
+    "status": "Delivered"
+  },
+  {
+    "id": 5,
+    "name": "Tv Samsung 40'",
+    "color": "Black",
+    "sku": "#22132487",
+    "category": "Tv",
+    "picture": "/assets/imgs/products/tv.png",
+    "location": "Mississippi",
+    "customer": "John Marston",
+    "price": 349,
+    "date": "2019-09-03",
+    "status": "Pending"
+  },
+  {
+    "id": 6,
+    "name": "Nike Air Force 1 - Mid",
+    "color": "Green",
+    "sku": "#29887854",
+    "category": "Clothing",
+    "picture": "/assets/imgs/products/nike-2.png",
+    "location": "Wisconsin",
+    "customer": "Sara Hurton",
+    "price": 69.99,
+    "date": "2019-08-29",
+    "status": "Pending"
+  }
+]

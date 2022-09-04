@@ -1,0 +1,23 @@
+// Override Bootstrap Variables
+$icon-font-path: '../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
+$font-family-sans-serif: 'Nunito', sans-serif !default;
+
+// Here you can redefine global styles from Bootstrap
+
+// redefine inputs border radius
+$input-border-radius: 6px;
+
+// you can redefine these colors with your choosen palette colors
+// $primary: #yourcolor;
+// $secondary: #yourcolor;
+// $tertiary: #yourcolor;
+
+// for palette 1:
+$primary: #3b86ff;
+$secondary: #38D997;
+$tertiary: #ffc200;
+
+// for palette 2:
+// $primary: #9e34df;
+// $secondary: #8BEDD3;
+// $tertiary: #FFAF84;

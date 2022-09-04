@@ -1,0 +1,102 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">File Uploaders</h1>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Avatar Upload</h2>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-10 col-xs-12 avatar-upload-wrapper">
+          <cc-aspect-ratio [ratio]="{w:1, h:1}" appFileUploader class="avatar-container"
+            (filesChangeEmiter)="onDropzoneSingleChange($event, 'avatar')"
+            [allowedExtensions]="['png', 'jpg', 'bmp', 'jpeg']">
+            <span class="uploader-empty-state" *ngIf="!uploaders.avatar.url">
+              <mat-icon class="image-icon" svgIcon="image"></mat-icon>
+            </span>
+            <div *ngIf="uploaders.avatar.url">
+              <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                <cc-image-shell [mode]="'cover'" animation="spinner" [src]="uploaders.avatar.url" [alt]="'user image'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+          </cc-aspect-ratio>
+          <button type="button" class="btn-upload" *ngIf="!uploaders.avatar.url"
+            (click)="fileDialogAvatar.click()">
+            <span>Choose File</span>
+          </button>
+          <span class="avatar-uploaded-message" *ngIf="uploaders.avatar.progress === 100">
+            <i class="fas fa-check-circle"></i>
+            Uploaded successfully
+          </span>
+          <input #fileDialogAvatar (change)="onSingleChange($event, 'avatar')" type="file" accept="image/*" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Image Uploader</h2>
+      <div class="row no-gutters">
+        <div class="col-lg-5 col-md-6 col-sm-10 col-xs-12 image-uploader-wrapper">
+          <cc-aspect-ratio [ratio]="{w:3, h:2}" appFileUploader  (filesChangeEmiter)="onDropzoneSingleChange($event, 'image')"
+          (filesInvalidEmiter)="onInvalidFiles($event)"
+          [allowedExtensions]="['png','jpg','bmp','jpeg']">
+            <div class="dropzone" [ngClass]="(uploaders.image.progress >= 100 ? 'uploaded-state' : 'empty-state')">
+              <mat-icon class="upload-icon" svgIcon="upload"></mat-icon>
+              <span *ngIf="!uploaders.image.progress">
+                Drag & drop your image here
+              </span>
+              <ngb-progressbar *ngIf="(uploaders.image.progress >= 0)" class="rounded-progress-bar" [value]="uploaders.image.progress"></ngb-progressbar>
+              <span *ngIf="uploaders.image.progress < 100">
+                Uploading
+              </span>
+              <span *ngIf="uploaders.image.progress >= 100">
+                Uploaded
+              </span>
+              <button *ngIf="!uploaders.image.progress" type="button" class="select-image-btn" (click)="fileDialogImage.click()">
+                Or select from your computer
+              </button>
+              <div *ngIf="uploaders.image.progress !== undefined" class="post-actions-wrapper">
+                <button type="button" class="post-btn" (click)="post()">
+                  Post
+                </button>
+                <button type="button" class="cancel-btn" (click)="resetUploader('image')">
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <input #fileDialogImage (change)="onSingleChange($event, 'image')" type="file" accept="image/*" />
+          </cc-aspect-ratio>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10 col-md-12">
+      <h2 class="section-title">Files Uploader</h2>
+      <div class="files-uploader-wrapper">
+        <div appFileUploader class="dropzone" (filesChangeEmiter)="onDropzoneMultipleChange($event, 'files')">
+          <button type="button" class="btn btn-link dropzone-btn" (click)="fileDialogFiles.click()">
+            <mat-icon class="upload-icon" svgIcon="upload"></mat-icon>
+            <span>Drop files here to upload or click to choose file</span>
+          </button>
+          <input #fileDialogFiles (change)="onMultipleChange($event, 'files')" type="file" multiple />
+        </div>
+      </div>
+      <div class="files-uploader-list">
+        <ul class="dropzone-list" *ngIf="uploaders.files.list.length > 0">
+          <li class="dropzone-list-item" *ngFor="let file of uploaders.files.list">
+            <div class="dropzone-list-item-info">
+              <span class="file-name">{{ file.name }}</span>
+              <p class="progress-bar-wrapper">
+                <ngb-progressbar *ngIf="file.progress >= 0" class="rounded-progress-bar" [value]="file.progress"></ngb-progressbar>
+              </p>
+              <span class="file-upload-status">
+                {{ file.loaded }} KB of {{ file.total }} KB ({{ file.progress }}% done)
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,197 @@
+{
+  "card1Users": [
+    {
+      "top_image": "/assets/imgs/components/background-image-1.jpg",
+      "image": "/assets/imgs/users/user-8.jpeg",
+      "name": "Pepe Suarez",
+      "description": "Love getting inspiration on Dribbble to build templates.",
+      "tags": ["Designer", "Developer", "Cheff"]
+    },
+    {
+      "top_image": "/assets/imgs/components/background-image-2.png",
+      "image": "/assets/imgs/users/user-2.jpeg",
+      "name": "John Doe",
+      "description": "Servers are my best friends.",
+      "tags": ["Architect", "Dev Ops", "Infra"]
+    },
+    {
+      "top_image": "/assets/imgs/components/background-image-3.jpg",
+      "image": "/assets/imgs/users/user-3.jpeg",
+      "name": "Anastasia Grey",
+      "description": "Best frontend developer around here. For real.",
+      "tags": ["CSS", "Angular", "Ionic"]
+    }
+  ],
+  "card2Users": [
+    {
+      "top_image": "/assets/imgs/components/background-image-1.jpg",
+      "image": "/assets/imgs/users/user-4.jpeg",
+      "name": "Cait Genevive",
+      "location": "New York, USA",
+      "followers": [
+        "/assets/imgs/users/user-2.jpeg",
+        "/assets/imgs/users/user-3.jpeg",
+        "/assets/imgs/users/user-7.jpeg",
+        "/assets/imgs/users/user-5.jpeg",
+        "/assets/imgs/users/user-6.jpeg",
+        "/assets/imgs/users/user-1.jpeg",
+        "/assets/imgs/users/user-8.jpeg",
+        "/assets/imgs/users/user-9.jpeg"
+      ]
+    },
+    {
+      "top_image": "/assets/imgs/components/background-image-3.jpg",
+      "image": "/assets/imgs/users/user-9.jpeg",
+      "name": "Charly Brown",
+      "location": "Montevideo, UY",
+      "followers": [
+        "/assets/imgs/users/user-4.jpeg",
+        "/assets/imgs/users/user-2.jpeg",
+        "/assets/imgs/users/user-5.jpeg",
+        "/assets/imgs/users/user-6.jpeg",
+        "/assets/imgs/users/user-1.jpeg",
+        "/assets/imgs/users/user-8.jpeg"
+      ]
+    }
+  ],
+  "card3Products": [
+    {
+      "image": "/assets/imgs/components/table.jpg",
+      "name": "Wooden Living Table",
+      "price": 69,
+      "status": "NEW",
+      "location": "Bangalore, IN",
+      "description": "Rustic, hand-crafted wood small table. It has metal table legs with a very modern design."
+    },
+    {
+      "image": "/assets/imgs/components/bicycle.jpg",
+      "name": "Vintage Bike",
+      "price": 199,
+      "status": "USED",
+      "location": "Chicago, USA",
+      "description": "Sophisticated and unique. Ideal for a sunday morning ride."
+    },
+    {
+      "image": "/assets/imgs/components/leather-bag.jpg",
+      "name": "Leather Bag",
+      "price": 39,
+      "status": "USED",
+      "location": "San Pablo, BR",
+      "description": "The leather is soft. Perfect size. Not too big, enough room for wallet, phone and extras. Super comfortable everyday bag."
+    }
+  ],
+  "card4Products": [
+    {
+      "image": "/assets/imgs/components/succulent-1.jpg",
+      "name": "Cactus spike",
+      "price": 20,
+      "stock": 12
+    },
+    {
+      "image": "/assets/imgs/components/succulent-2.jpg",
+      "name": "Succulents",
+      "price": 14,
+      "stock": 100
+    },
+    {
+      "image": "/assets/imgs/components/succulent-3.jpg",
+      "name": "Leaf Succulent",
+      "price": 9,
+      "stock": 7
+    }
+  ],
+  "card5Products": [
+    {
+      "image": "/assets/imgs/components/vintage-table.jpg",
+      "title": "Vintage Table",
+      "subtitle": "Ideal for green yards",
+      "description": "Vintage, rustic, hand-painted wood functional table. It can be left outside because it was waterproofed.",
+      "price": 120,
+      "rating": 3.5,
+      "number_of_reviews": 20
+    },
+    {
+      "image": "/assets/imgs/components/bicycle.jpg",
+      "title": "My Grandfather's Bicycle",
+      "subtitle": "Unique in the market",
+      "description": "Classic, with smooth lines and colors. Sophisticated and unique. Ideal for a sunday morning ride.",
+      "price": 399,
+      "rating": 4.3,
+      "number_of_reviews": 5
+    },
+    {
+      "image": "/assets/imgs/components/table.jpg",
+      "title": "Wooden Living Table",
+      "subtitle": "Soft and shiny",
+      "description": "Rustic, hand-crafted wood small table. It has metal table legs with a very modern design.",
+      "price": 69,
+      "rating": 3.8,
+      "number_of_reviews": 99
+    }
+  ],
+  "card6Users": [
+    {
+      "image": "/assets/imgs/users/user-4.jpeg",
+      "name": "Erin Lindford",
+      "role": "Customer Support",
+      "email": "erin@developer.com",
+      "phone": "(555) 765-4433"
+    },
+    {
+      "image": "/assets/imgs/users/user-5.jpeg",
+      "name": "Marina Tacan",
+      "role": "UI Designer",
+      "email": "marina@angular.com",
+      "phone": "(555) 765-1234"
+    },
+    {
+      "image": "/assets/imgs/users/user-9.jpeg",
+      "name": "Pier Amend",
+      "role": "UX Designer",
+      "email": "pier@designer.com",
+      "phone": "(171) 123-0123"
+    }
+  ],
+  "card7Articles": [
+    {
+      "author": {
+        "name": "Elizabeth Hurton",
+        "picture": "/assets/imgs/users/user-7.jpeg"
+      },
+      "published_date": "14 Nov 2019",
+      "featured_image": "/assets/imgs/articles/article-1.png",
+      "title": "How to Plan a Profitable Cyber Monday Promotion",
+      "category": "Podcast"
+    },
+    {
+      "author": {
+        "name": "John Darlon",
+        "picture": "/assets/imgs/users/user-2.jpeg"
+      },
+      "published_date": "07 Nov 2019",
+      "featured_image": "/assets/imgs/articles/article-2.png",
+      "title": "Why Telling Stories is More Important Than Ads",
+      "category": "Article"
+    },
+    {
+      "author": {
+        "name": "Malcolm Quaday",
+        "picture": "/assets/imgs/users/user-5.jpeg"
+      },
+      "published_date": "03 Oct 2019",
+      "featured_image": "/assets/imgs/articles/article-3.png",
+      "title": "17 Best strategies to increase ecommerce sales",
+      "category": "Tutorial"
+    },
+    {
+      "author": {
+        "name": "Elizabeth Williams",
+        "picture": "/assets/imgs/users/user-4.jpeg"
+      },
+      "published_date": "25 Sept 2019",
+      "featured_image": "/assets/imgs/articles/article-4.png",
+      "title": "Marketing attribution: the customer journey",
+      "category": "Article"
+    }
+  ]
+}

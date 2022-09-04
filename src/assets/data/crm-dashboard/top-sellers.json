@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Sara Williams",
+    "company": "Realfooder LTD",
+    "picture": "/assets/imgs/users/user-6.jpeg",
+    "tags": ["Food", "Organic", "Oils"],
+    "products_on_sale": 982,
+    "sold_units": 2545,
+    "revenue": 20500
+  },
+  {
+    "name": "Malcolm Quaday",
+    "company": "MalQua C-Corp",
+    "picture": "/assets/imgs/users/user-2.jpeg",
+    "tags": ["Phones", "Electronics", "Bikes"],
+    "products_on_sale": 240,
+    "sold_units": 1009,
+    "revenue": 19456
+  },
+  {
+    "name": "Elizabeth Hurton",
+    "company": "Let's Code",
+    "picture": "/assets/imgs/users/user-3.jpeg",
+    "tags": ["Books", "Courses", "Consulting"],
+    "products_on_sale": 150,
+    "sold_units": 800,
+    "revenue": 19000
+  },
+  {
+    "name": "Albert Pollock",
+    "company": "Sunny Pie Corp",
+    "picture": "/assets/imgs/users/user-4.jpeg",
+    "tags": ["Clothing", "Bags", "Shoes"],
+    "products_on_sale": 650,
+    "sold_units": 1989,
+    "revenue": 17623
+  }
+]

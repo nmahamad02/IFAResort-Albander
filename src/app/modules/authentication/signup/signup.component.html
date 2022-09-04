@@ -1,0 +1,82 @@
+<div class="row no-gutters signup-page">
+  <div class="col-md-6 col-sm-12 form-section">
+    <h1 class="page-title">Welcome to Al Bander Resort!</h1>
+    <hr>
+    <span class="page-subtitle">
+      Already have an account? <a class="link-text" [routerLink]="['/authentication/signin']">Log In</a>.
+    </span>
+    <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSignup()">
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label for="username" style="padding-bottom: 10px;">Username</label>
+          <input type="text" class="form-control" id="username" formControlName="username" >
+          <div *ngIf="submitted && g.username.errors" class="invalid-feedback">
+            <div *ngIf="g.username.errors.required">Username is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-6 col-md-12">
+          <label for="firstname" style="padding-bottom: 10px;">First Name</label>
+          <input type="text" class="form-control" id="firstname" formControlName="firstname" >
+          <div *ngIf="submitted && g.firstname.errors" class="invalid-feedback">
+            <div *ngIf="g.firstname.errors.required">First name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-12">
+          <label for="lastname" style="padding-bottom: 10px;">Last Name</label>
+          <input type="text" class="form-control" id="lastname" formControlName="lastname" >
+          <div *ngIf="submitted && g.lastname.errors" class="invalid-feedback">
+            <div *ngIf="g.lastname.errors.required">Last name is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-6 col-md-12">
+          <label for="contactno" style="padding-bottom: 10px;">Contact Number</label>
+          <input type="text" class="form-control" id="contactno" formControlName="contactno" >
+          <div *ngIf="submitted && g.contactno.errors" class="invalid-feedback">
+            <div *ngIf="g.contactno.errors.required">Contact number is required</div>
+          </div>
+        </div>
+        <div class="form-group col-lg-6 col-md-12">
+          <label for="email" style="padding-bottom: 10px;">Email ID </label>
+          <input type="text" class="form-control" id="email" formControlName="email" >
+          <div *ngIf="submitted && g.email.errors" class="invalid-feedback">
+            <div *ngIf="g.email.errors.required">Email ID is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-6 col-md-12">
+          <label for="password" style="padding-bottom: 10px;">Password</label>
+          <input type="password" class="form-control" id="password" formControlName="password"  (keyup)="checkPassword()">
+          <div *ngIf="submitted && g.password.errors" class="invalid-feedback">
+            <div *ngIf="g.password.errors.required">Password is required</div>
+          </div>
+          <div *ngIf="notmatched">Passwords do not match</div>
+        </div>
+        <div class="form-group col-lg-6 col-md-12">
+          <label for="confirmPassword" style="padding-bottom: 10px;">Confirm Password</label>
+          <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword"  (keyup)="checkPassword()">
+          <div *ngIf="submitted && g.confirmPassword.errors" class="invalid-feedback">
+            <div *ngIf="g.confirmPassword.errors.required">Password is required</div>
+          </div>
+          <div *ngIf="notmatched">Passwords do not match</div>
+        </div>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="terms" formControlName="terms">
+        <label class="custom-control-label" for="terms">
+          <span class="custom-label">I agree to the Terms and Privacy Policy.</span>
+        </label>
+      </div>
+      <div class="form-call-to-actions">
+        <button class="create-account-btn" type="submit" (click)="onSignup()">Create account</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6 d-none d-md-block image-section">
+    <cc-image-shell class="signup-image add-overlay" animation="spinner" [mode]="'cover'" [src]="'/assets/pics/169538_16062719030044150446.jpg'" [alt]="'app image'"></cc-image-shell>
+  </div>
+</div>

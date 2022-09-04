@@ -1,0 +1,19 @@
+<app-top-navbar class="admin-top-navbar show-full-branding add-actions-divider"></app-top-navbar>
+<mat-sidenav-container>
+  <mat-sidenav
+    class="admin-main-sidenav fixed-sidenav clear-sidenav-background"
+    #mainSidenav
+    [mode]="mainSideMenuMode"
+    [opened]="mainSidenavOpened"
+    position="start"
+    (openedStart)="openedStart()"
+    (openedChange)="mainSidenavToggled($event)">
+    <app-main-menu class="use-active-item-dot-decoration"></app-main-menu>
+  </mat-sidenav>
+  <mat-sidenav-content class="admin-main-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+  <mat-sidenav class="admin-alt-sidenav fixed-sidenav" #altSidenav mode="over" opened="false" position="end" (openedChange)="altSidenavToggled($event)">
+    <app-dynamic-menu></app-dynamic-menu>
+  </mat-sidenav>
+</mat-sidenav-container>

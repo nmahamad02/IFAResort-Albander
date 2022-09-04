@@ -1,0 +1,132 @@
+@import 'palettes/shared';
+
+@import '../styles/shared/layout-sidenavs';
+
+// Layout CSS 4 variables
+:host {
+  // Default layout colors
+  --layout-background: #{palette-color('grey-0')};
+  --layout-color: #{palette-color('grey-8')};
+
+  // Other layout variables
+  --layout-navigation-padding: 30px;
+  --layout-navigation-spacing: calc(var(--layout-navigation-padding) / 3);
+
+  --layout-top-navbar-background: #{palette-color('primary')};
+  --layout-top-navbar-color: #{palette-color('primary-contrast')};
+  --layout-top-navbar-alt-color: #{palette-color('grey-1')};
+  --layout-top-navbar-border-color: #{palette-color('primary-contrast')};
+  --layout-top-navbar-height: 60px;
+
+  --layout-main-sidenav-width: 260px;
+  --layout-main-sidenav-background: #{palette-color('white')};
+  --layout-main-sidenav-active-background: #{palette-color('grey-0')};
+  --layout-main-sidenav-color: var(--layout-color);
+  --layout-main-sidenav-active-color: #{palette-color('primary')};
+  --layout-main-sidenav-alt-color: #{palette-color('grey-4')};
+
+  --layout-alt-sidenav-background: #{palette-color('white')};
+  --layout-alt-sidenav-color: var(--layout-color);
+  --layout-alt-sidenav-alt-color: #{palette-color('grey-4')};
+}
+
+:host {
+  /*
+    Layout - Container
+  */
+  // Override Material styles
+  mat-sidenav-container.mat-drawer-container {
+    background-color: var(--layout-background);
+    color: var(--layout-color);
+
+    // With a hidden overflow, the top navbar sticky positioning doesn't work
+    // (see: https://stackoverflow.com/a/44929597/1116959)
+    // (see: https://uxdesign.cc/position-stuck-96c9f55d9526)
+    overflow: initial;
+  }
+
+  /*
+    Layout - Content
+  */
+  mat-sidenav-content.admin-main-content {
+    // Prevent truncated screens when content is to short
+    min-height: 100vh;
+
+    // With a hidden overflow, the top navbar sticky positioning doesn't work
+    // (see: https://stackoverflow.com/a/44929597/1116959)
+    // (see: https://uxdesign.cc/position-stuck-96c9f55d9526)
+    overflow: initial;
+  }
+
+  /*
+    Layout - Top Navbar
+  */
+  app-top-navbar.admin-top-navbar {
+    --top-navbar-background: var(--layout-top-navbar-background);
+    --top-navbar-color: var(--layout-top-navbar-color);
+    --top-navbar-alt-color: var(--layout-top-navbar-alt-color);
+    --top-navbar-border-color: var(--layout-top-navbar-border-color);
+
+    --top-navbar-height: var(--layout-top-navbar-height);
+    --top-navbar-padding: var(--layout-navigation-padding);
+    --top-navbar-spacing: var(--layout-navigation-spacing);
+
+    position: sticky;
+    top: 0px;
+    z-index: 3;
+  }
+
+  /*
+    Layout - Alternative Side Menu (sidenav)
+  */
+  mat-sidenav.admin-alt-sidenav {
+    overscroll-behavior: contain;
+    // We don't set alt menus width here as they may vary between the different dynamic menus
+
+    @include fixed-sidenav();
+
+    app-dynamic-menu {
+      --dynamic-menu-background: var(--layout-alt-sidenav-background);
+      --dynamic-menu-color: var(--layout-alt-sidenav-color);
+      --dynamic-menu-alt-color: var(--layout-alt-sidenav-alt-color);
+
+      --dynamic-menu-padding: var(--layout-navigation-padding);
+      --dynamic-menu-spacing: var(--layout-navigation-spacing);
+    }
+  }
+
+  /*
+    Layout - Main Side Menu (sidenav)
+  */
+  mat-sidenav.admin-main-sidenav {
+    overscroll-behavior: contain;
+    width: var(--layout-main-sidenav-width);
+
+    @include fixed-sidenav();
+
+    @include clear-sidenav-background();
+
+    app-main-menu {
+      --main-menu-background: var(--layout-main-sidenav-background);
+      --main-menu-active-background: var(--layout-main-sidenav-active-background);
+      --main-menu-color: var(--layout-main-sidenav-color);
+      --main-menu-active-color: var(--layout-main-sidenav-active-color);
+      --main-menu-alt-color: var(--layout-main-sidenav-alt-color);
+
+      --main-menu-width: var(--layout-main-sidenav-width);
+      --main-menu-padding: var(--layout-navigation-padding);
+      --main-menu-spacing: var(--layout-navigation-spacing);
+
+      &.show-branding {
+        --main-menu-branding-height: var(--layout-top-navbar-height);
+      }
+    }
+  }
+}
+
+:host(.server-side-rendered.main-sidenav-opened) {
+  mat-sidenav-content.admin-main-content {
+    // Add margin to fix sidenav overlap with Angular Universal (see: https://github.com/angular/components/issues/8969)
+    margin-inline-start: var(--layout-main-sidenav-width);
+  }
+}

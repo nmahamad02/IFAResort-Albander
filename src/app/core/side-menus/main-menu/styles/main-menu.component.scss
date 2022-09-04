@@ -1,0 +1,196 @@
+@import './partials/menu-branding';
+@import './partials/menu-dot-decoration';
+@import './partials/menu-line-decoration';
+
+:host {
+  // Default values. These may be overridden in the component's parent
+  --main-menu-background: #{palette-color('grey-0')};
+  --main-menu-active-background: #333333;
+  --main-menu-color: #{palette-color('grey-4')};
+  --main-menu-active-color: #333333;
+  --main-menu-alt-color: #E6E6E6;
+
+  --main-menu-width: 300px;
+
+  // Used mainly at the start and end of the menu
+  --main-menu-padding: 35px;
+  // Used mainly to space items inside the menu
+  --main-menu-spacing: 10px;
+
+  // Default horizontal start and end paddings
+  --main-menu-h-padding-start: var(--main-menu-padding);
+  --main-menu-h-padding-end: var(--main-menu-padding);
+
+  --main-menu-icon-size: calc(var(--main-menu-spacing) * 2);
+
+  --main-menu-expansion-indicator-width: 15px;
+}
+
+:host {
+  display: block;
+  min-height: 100%;
+  color: var(--main-menu-color);
+  background-color: var(--main-menu-background);
+
+  .side-menu-navigation {
+    padding-top: calc(var(--main-menu-spacing) * 4);
+    padding-bottom: calc(var(--main-menu-spacing) * 4);
+
+    .menu-sub-navigation {
+      padding-top: var(--main-menu-spacing);
+      padding-bottom: var(--main-menu-spacing);
+
+      .menu-item {
+        font-size: 14px;
+      }
+
+      .menu-link {
+        padding-inline-end: var(--main-menu-expansion-indicator-width);
+      }
+    }
+
+    .menu-item {
+      font-size: 16px;
+      color: var(--main-menu-color);
+
+      &.active {
+        color: var(--main-menu-active-color);
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: var(--main-menu-spacing);
+      }
+
+      &.spaced-item {
+        margin-bottom: calc(var(--main-menu-spacing) * 2);
+
+        &:last-child {
+          margin-top: calc(var(--main-menu-spacing) * 2);
+          margin-bottom: 0px;
+        }
+      }
+
+      &.expandable-item {
+        // Override Material styles
+        mat-expansion-panel {
+          box-shadow: none;
+          border-radius: 0px;
+          background: none;
+          // Use property from .menu-item
+          color: inherit;
+
+          &.mat-expanded {
+            background-color: var(--main-menu-active-background);
+
+            // When the menu is expanded and the menu-item is active, set default color as one of the sub-menu items is already active as well
+            color: var(--main-menu-color);
+          }
+
+          mat-expansion-panel-header {
+            // To override Material component dynamic height
+            // height: auto !important;
+            // min-height: 45px;
+
+            padding-inline-start: var(--main-menu-h-padding-start);
+            padding-inline-end: var(--main-menu-h-padding-end);
+
+            // Use property from .menu-item
+            font-family: inherit;
+            // Use property from .menu-item
+            font-size: inherit;
+            width: var(--main-menu-width);
+            // Override Material styles (.mat-expansion-panel-header.cdk-program-focused)
+            background: transparent;
+
+            &:hover {
+              background: none;
+            }
+
+            .item-header-content {
+              width: 100%;
+              padding-inline-end: var(--main-menu-spacing);
+            }
+
+            mat-panel-title {
+              // Use property from .menu-item
+              color: inherit;
+              margin-inline-end: auto;
+            }
+
+            mat-panel-description {
+              color: var(--main-menu-alt-color);
+              font-size: 14px;
+              line-height: var(--main-menu-icon-size);
+              margin-top: calc(var(--main-menu-spacing) / 2);
+
+              display: block;
+              margin-inline-end: auto;
+              width: 100%;
+              // Text ellipsis
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+          } // <mat-expansion-panel-header>
+
+          // Need to use ng-deep because these elements are outside our component's scope. They are injected and scoped
+          // to the <mat-expansion-panel> element
+          ::ng-deep {
+            mat-expansion-panel-header {
+              .mat-content {
+                width: calc(100% - var(--main-menu-expansion-indicator-width));
+              }
+
+              .mat-expansion-indicator {
+                display: flex;
+                width: var(--main-menu-expansion-indicator-width);
+                justify-content: center;
+
+                &::after {
+                  color: var(--main-menu-color);
+                }
+              }
+            } // <mat-expansion-panel-header>
+
+            .mat-expansion-panel-body {
+              padding-inline-start: var(--main-menu-h-padding-start);
+              padding-inline-end: var(--main-menu-h-padding-end);
+              padding-bottom: 0px;
+            }
+          } // ::ng-deep
+        } // <mat-expansion-panel>
+      } // .menu-item.expandable-item
+
+      .menu-item-title {
+        display: block;
+        line-height: var(--main-menu-icon-size);
+      }
+
+      mat-icon.menu-item-icon {
+        width: var(--main-menu-icon-size);
+        height: var(--main-menu-icon-size);
+        margin-inline-end: var(--main-menu-spacing);
+      }
+    } // .menu-item
+
+    .menu-link {
+      position: relative;
+      color: inherit;
+
+      &.disabled {
+        opacity: 0.7;
+      }
+
+      // Override Bootstrap styles
+      &.nav-link {
+        padding: calc(var(--main-menu-spacing) / 2) 0px;
+        padding-inline-start: var(--main-menu-h-padding-start);
+        padding-inline-end: var(--main-menu-h-padding-end);
+      }
+    } // .menu-link
+  } // .side-menu-navigation
+}

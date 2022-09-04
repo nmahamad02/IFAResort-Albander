@@ -1,0 +1,500 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">Extended Controls</h1>
+
+  <form [formGroup]="controlsForm">
+
+    <div class="row section-card">
+      <div class="col">
+        <h3 class="section-card-title">Labels</h3>
+        <div class="form-group row">
+          <div class="col-sm-12 col-md-8">
+            <label for="labelOnTop" class="col-form-label">Label on top</label>
+            <input type="text" class="form-control" formControlName="labelOnTop" id="labelOnTop" placeholder="Enter text">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-md-2 col-form-label" for="labelOnSide">Label on the side</label>
+          <div class="col-sm-8 col-md-6">
+            <input type="text" class="form-control" formControlName="labelOnSide" id="labelOnSide" placeholder="Enter text">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row section-card">
+      <div class="col">
+        <h3 class="section-card-title">Validations</h3>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="validInput">Success Validation</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control is-valid" formControlName="validInput" id="validInput" placeholder="First name">
+            <div class="form-text valid-feedback">
+              Looks good!
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="validInput">Success Validation</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" formControlName="validInput2" id="validInput2" placeholder="First name">
+            <div class="form-text custom-valid-feedback">
+              Looks good!
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="invalidInput">Error Validation</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control is-invalid" formControlName="invalidInput" id="invalidInput" placeholder="First name">
+            <div class="form-text invalid-feedback">
+              Please enter your name
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="invalidInput">Error Validation</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" formControlName="invalidInput2" id="invalidInput2" placeholder="First name">
+            <div class="form-text custom-invalid-feedback">
+              Oops! Invalid input
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row section-card">
+      <div class="col">
+        <h3 class="section-card-title">Inputs</h3>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="help">Help message</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" formControlName="help" id="help">
+            <span class="form-text help-text">
+              A block of help text that breaks onto a new line and may extend beyond one line.
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="password">Password</label>
+          <div class="col-sm-7">
+            <input type="password" class="form-control" formControlName="password" id="password">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="placeholder">Placeholder</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" formControlName="placeholder" id="placeholder" placeholder="I'm a placeholder text">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="disabled">Disabled Input</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control disabled" formControlName="disabled" id="disabled" placeholder="Disabled input">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="textarea">Text Area</label>
+          <div class="col-sm-7">
+            <textarea class="form-control" id="textarea"  maxlength="256" formControlName="textarea" rows="3"></textarea>
+            <span class="form-text help-text float-left">Don't disclose personal info</span>
+            <span class="form-text help-text float-right">{{ controlsForm.controls.textarea.value.length}} / 256</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Input with Addons</label>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping">@</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Username" formControlName="username">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Your budget" formControlName="budget">
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Combined inputs</label>
+          <div class="col-sm-6">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">First and Last Name</span>
+              </div>
+              <input type="text" class="form-control" formControlName="firstname">
+              <input type="text" class="form-control" formControlName="lastname">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row section-card">
+      <div class="col">
+        <h3 class="section-card-title">Utils</h3>
+        <div class="form-group row rating">
+          <label class="col-sm-2 col-form-label" for="rating">Rating</label>
+          <div class="col-sm-4">
+            <ng-template #star let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">
+                  <i class="fas fa-star"></i>
+                </span>
+                <i class="fas fa-star"></i>
+              </span>
+            </ng-template>
+            <ngb-rating [formControl]="controlsForm.controls.rating" [starTemplate]="star" [max]="5"></ngb-rating>
+          </div>
+        </div>
+        <div class="form-group row rating">
+          <label class="col-sm-2 col-form-label" for="rating">Read only rating</label>
+          <div class="col-sm-4">
+            <ngb-rating [starTemplate]="star" [rate]="controlsForm.controls.readOnlyRating.value"  [formControl]="controlsForm.controls.readOnlyRating" [max]="5" [readonly]="true"></ngb-rating>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="color">Color</label>
+          <div class="col-sm-2">
+            <input type="color" class="form-control" id="color" formControlName="color">
+          </div>
+        </div>
+        <div class="form-group row time-picker-wrapper">
+          <label class="col-sm-2 col-form-label time-picker-label" for="timepicker">Time Picker</label>
+          <div class="col-sm-3">
+            <ngb-timepicker class="time-picker" [formControl]="controlsForm.controls.timepicker"></ngb-timepicker>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="datepicker">Date picker</label>
+          <div class="col-sm-3">
+            <div class="row no-gutters">
+              <div class="input-group">
+                <input class="form-control" placeholder="YYYY-MM-DD" name="datepicker" formControlName="datepicker" ngbDatepicker #datepicker="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn datepicker-toggle-btn" (click)="datepicker.toggle()" type="button"><i class="fas fa-calendar-alt"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Selector</label>
+          <div class="col-sm-4">
+            <div class="custom-select-wrapper">
+              <select class="custom-select form-control" formControlName="favouriteFood">
+                <option selected value="">Select your favourite food...</option>
+                <optgroup label="Fruits">
+                  <option value="Apple">Apple</option>
+                  <option value="Watermelon">Watermelon</option>
+                  <option value="Banana">Banana</option>
+                  <option value="Orange">Orange</option>
+                </optgroup>
+                <optgroup label="Vegetables">
+                  <option value="Arugula">Arugula</option>
+                  <option value="Kale">Kale</option>
+                  <option value="Spinach">Spinach</option>
+                  <option value="Broccoli">Broccoli</option>
+                  <option value="Avocado">Avocado</option>
+                </optgroup>
+              </select>
+              <mat-icon class="half-arrow-icon" svgIcon="half-arrow-down"></mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row section-card">
+      <div class="col">
+        <h3 class="section-card-title">Tags / Chips</h3>
+        <div class="form-group row">
+          <label for="tags" class="col-sm-2 col-form-label">Rounded Chips</label>
+          <div class="col-sm-7 chips">
+            <input class="form-control custom-autocomplete-input" type="text" placeholder="Enter any tag..."
+              #tagInput
+              [formControl]="controlsForm.controls.tags"
+              [matChipInputFor]="tagsList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="addTag($event)">
+            <mat-chip-list #tagsList>
+              <mat-chip *ngFor="let tag of tags"
+              selectable="false"
+              removable="true"
+              class="custom-chips rounded-chips"
+              (removed)="removeTag(tag)">
+                {{tag}}
+                <i matChipRemove class="fas fa-times remove-chip"></i>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="tags" class="col-sm-2 col-form-label">Rectangle chips with prefilled options</label>
+          <div class="col-sm-7 chips">
+            <input class="form-control custom-autocomplete-input" type="text" placeholder="Select or enter a skill..."
+              #skillInput
+              [formControl]="controlsForm.controls.skills"
+              [matAutocomplete]="skillsAutocomplete"
+              [matChipInputFor]="skillsList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="addSkill($event)">
+            <mat-autocomplete #skillsAutocomplete="matAutocomplete" (optionSelected)="selectSkill($event)" class="skills-autocomplete">
+              <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
+                {{skill}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-chip-list #skillsList>
+              <mat-chip *ngFor="let skill of skills"
+              selectable="true"
+              removable="true"
+              class="custom-chips rectangle-chips"
+              (removed)="removeSkill(skill)">
+                {{skill}}
+                <i matChipRemove class="fas fa-times remove-chip"></i>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row section-card checkboxes-section">
+      <div class="col">
+        <h3 class="section-card-title">Checkboxes</h3>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Inline Checkboxes</label>
+          <div class="col-sm-8 inline-checkboxes">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox1" formControlName="checkbox1">
+              <label class="custom-control-label" for="checkbox1">
+                <span class="custom-label">One</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox2" formControlName="checkbox2">
+              <label class="custom-control-label" for="checkbox2">
+                <span class="custom-label">Two</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox3" formControlName="checkbox3">
+              <label class="custom-control-label" for="checkbox3">
+                <span class="custom-label">Three</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Vertical Checkboxes</label>
+          <div class="col-sm-4 vertical-checkboxes">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox4" formControlName="checkbox4">
+              <label class="custom-control-label" for="checkbox4">
+                <span class="custom-label">One</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox5" formControlName="checkbox5">
+              <label class="custom-control-label" for="checkbox5">
+                <span class="custom-label">Two</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox6" formControlName="checkbox6">
+              <label class="custom-control-label" for="checkbox6">
+                <span class="custom-label">Three</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Disabled Checkbox</label>
+          <div class="col-sm-4 vertical-checkboxes">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox7" formControlName="checkbox7">
+              <label class="custom-control-label" for="checkbox7">
+                <span class="custom-label">Checked disabled</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox8" formControlName="checkbox8">
+              <label class="custom-control-label" for="checkbox8">
+                <span class="custom-label">Unchecked disabled</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Dynamic Checkbox</label>
+          <div class="col-sm-4 inline-checkboxes">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkbox9" formControlName="checkbox9">
+              <label class="custom-control-label" for="checkbox9">
+                <span class="custom-label">
+                  {{ controlsForm.controls.checkbox9.value ? "I'm Checked": "I'm Unchecked" }}
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Bootstrap Switch</label>
+          <div class="col-sm-6">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch1">
+              <label class="custom-control-label" for="customSwitch1">Click me!</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Material Switch</label>
+          <div class="col-sm-6">
+            <mat-slide-toggle>Click me!</mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row section-card radios-section">
+      <div class="col">
+        <h3 class="section-card-title">Radio buttons</h3>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Inline Radios</label>
+          <div class="col-sm-8 inline-radios">
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio1_value1" formControlName="radio1" class="custom-control-input" value="one">
+              <label class="custom-control-label" for="radio1_value1">One</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio1_value2" formControlName="radio1" class="custom-control-input" value="two">
+              <label class="custom-control-label" for="radio1_value2">Two</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio1_value3" formControlName="radio1" class="custom-control-input" value="three">
+              <label class="custom-control-label" for="radio1_value3">Three</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Vertical Radios</label>
+          <div class="col-sm-8 vertical-radios">
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio2_value1" formControlName="radio2" class="custom-control-input" value="one">
+              <label class="custom-control-label" for="radio2_value1">One</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio2_value2" formControlName="radio2" class="custom-control-input" value="two">
+              <label class="custom-control-label" for="radio2_value2">Two</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio2_value3" formControlName="radio2" class="custom-control-input" value="three">
+              <label class="custom-control-label" for="radio2_value3">Three</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Disabled Radios</label>
+          <div class="col-sm-8 vertical-radios">
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio3_value1" formControlName="radio3" class="custom-control-input" value="one">
+              <label class="custom-control-label" for="radio3_value1">Checked disabled</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio3_value2" formControlName="radio3" class="custom-control-input" value="two">
+              <label class="custom-control-label" for="radio3_value2">Unchecked disabled</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Dynamic Radios</label>
+          <div class="col-sm-8 vertical-radios">
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio4_value1" formControlName="radio4" class="custom-control-input" value="one">
+              <label class="custom-control-label" for="radio4_value1">
+                Radio is {{ controlsForm.controls.radio4.value === 'one' ? 'on' : 'off' }}
+              </label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio4_value2" formControlName="radio4" class="custom-control-input" value="two">
+              <label class="custom-control-label" for="radio4_value2">
+                Radio is {{ controlsForm.controls.radio4.value === 'two' ? 'on' : 'off' }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row section-card">
+      <div class="col">
+        <h3 class="section-card-title">Ranges or Sliders</h3>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Bootstrap Range</label>
+          <div class="col-sm-8 range-container">
+            <input type="range" class="custom-range" min="0" max="100" formControlName="bootstrapRange" [attr.value]="controlsForm.controls.bootstrapRange.value">
+            <span class="range-value-label">{{controlsForm.controls.bootstrapRange.value}}</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Material Slider</label>
+          <div class="col-sm-8">
+            <mat-slider formControlName="materialRange" class="custom-material-slider" thumbLabel min="1" max="100">
+            </mat-slider>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row section-card">
+      <div class="col">
+        <h3 class="section-card-title">Progress Bars</h3>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Simple Progress Bar</label>
+          <div class="col-sm-8 progress-bar-wrapper">
+            <ngb-progressbar class="custom-progress-bar" [attr.color]="'primary'"  [value]="controlsForm.controls.progressBar1.value"></ngb-progressbar>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Rounded Progress Bar</label>
+          <div class="col-sm-8 progress-bar-wrapper">
+            <ngb-progressbar class="custom-progress-bar rounded-progress-bar" [attr.color]="'secondary'" height="14px" showValue="true" [value]="controlsForm.controls.progressBar2.value"></ngb-progressbar>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Rounded Progress Bar with value indicator</label>
+          <div class="col-sm-8 progress-bar-wrapper">
+            <ngb-progressbar class="custom-progress-bar rounded-progress-bar value-indicator" [attr.color]="'quaternary'" height="8px" [value]="controlsForm.controls.progressBar3.value"></ngb-progressbar>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Animated Progress Bar</label>
+          <div class="col-sm-8 progress-bar-wrapper">
+            <ngb-progressbar class="custom-progress-bar" [value]="controlsForm.controls.progressBar4.value" [attr.color]="'primary'" [striped]="true" [animated]="true"><b>Upload completed</b></ngb-progressbar>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Material Progress Bar</label>
+          <div class="col-sm-8 progress-bar-wrapper">
+            <mat-progress-bar mode="determinate" [value]="controlsForm.controls.materialProgressBar1.value" class="custom-material-progressbar"></mat-progress-bar>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Material Progress Bar</label>
+          <div class="col-sm-8 progress-bar-wrapper">
+            <mat-progress-bar mode="indeterminate" class="custom-material-progressbar"></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

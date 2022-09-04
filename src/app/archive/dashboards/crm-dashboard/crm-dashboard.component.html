@@ -1,0 +1,594 @@
+<div class="content-wrapper">
+
+  <div class="highlighted-section">
+    <div class="container-fluid">
+
+      <div class="row no-gutters">
+        <div class="visualization-heading col-12">
+          <div class="heading-info">
+            <h2 class="heading-title">Statistics</h2>
+            <p class="heading-message">
+              Ecommerce Data from <b>3 Sept 19</b> - <b>2 Feb 20</b>
+            </p>
+          </div>
+          <div class="heading-actions">
+            <ul class="visualization-period-selector nav">
+              <li class="period-item nav-item">
+                <a class="period-action nav-link">This year</a>
+              </li>
+              <li class="period-item nav-item">
+                <a class="period-action nav-link active">This month</a>
+              </li>
+              <li class="period-item nav-item">
+                <a class="period-action nav-link">This week</a>
+              </li>
+              <li class="period-item nav-item">
+                <a class="period-action nav-link disabled" tabindex="-1" aria-disabled="true">Today</a>
+              </li>
+              <li class="period-item period-alt-item nav-item">
+                <a class="period-action nav-link">
+                  <mat-icon class="calendar-icon" svgIcon="calendar"></mat-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlighted-stats-visualization row no-gutters">
+        <div class="stat-item" *ngFor="let item of statistics; let i = index">
+          <span class="stat-reference">{{item.name}}</span>
+          <div class="stat-info">
+            <span class="stat-value">{{item.value}}</span>
+            <div class="stat-trend" [ngClass]="{'positive-trend': (item.positive), 'negative-trend': (!item.positive)}">
+              <div class="trend-value-wrapper">
+                <span class="trend-value">{{item.valueChange}}</span>
+                <mat-icon class="trend-icon" [svgIcon]="(item.positive) ? 'arrow-up' : 'arrow-down'"></mat-icon>
+              </div>
+              <span class="trend-reference">This week</span>
+            </div>
+          </div>
+          <div class="stat-mini-chart" *ngIf="isBrowser" echarts [options]="item.miniChartOptions" [theme]="'admin-template'"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="main-section">
+    <div class="container-fluid">
+
+      <div class="referrals-visualization visualizations-section">
+        <div class="row no-gutters">
+          <div class="visualization-heading col-12">
+            <div class="heading-info">
+              <h4 class="heading-title">Referral Source</h4>
+            </div>
+            <div class="heading-actions">
+              <div class="visualization-period-dropdown-selector" ngbDropdown placement="bottom-right">
+                <button class="period-dropdown-toggle btn" ngbDropdownToggle>
+                  This year
+                  <mat-icon class="toggle-icon" svgIcon="half-arrow-down"></mat-icon>
+                </button>
+                <div class="period-dropdown" ngbDropdownMenu>
+                  <button class="period-option" ngbDropdownItem>2018</button>
+                  <button class="period-option" ngbDropdownItem>2017</button>
+                  <button class="period-option" ngbDropdownItem>2016</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="visualization-chart" *ngIf="isBrowser" echarts [options]="referralSourceChartOptions" [theme]="'admin-template'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="leads-visualization visualizations-section">
+        <div class="row no-gutters">
+          <div class="visualization-heading col-12">
+            <div class="heading-info">
+              <h4 class="heading-title">Leads</h4>
+            </div>
+            <div class="heading-actions">
+              <ul class="visualization-period-selector nav">
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link">This year</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link active">This month</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link">This week</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link disabled" tabindex="-1" aria-disabled="true">Today</a>
+                </li>
+                <li class="period-item period-alt-item nav-item">
+                  <a class="period-action nav-link">
+                    <mat-icon class="calendar-icon" svgIcon="calendar"></mat-icon>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="visualization-table col-12 table-responsive">
+            <table class="leads-table table table-borderless table-sm" mat-table matSort #leadsSort="matSort" [dataSource]="leadsTableDataSource">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element" class="user-row">
+                  <div class="user-image-wrapper">
+                    <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                      <cc-image-shell class="user-image" animation="spinner" [src]="element.picture" [alt]="'user image'"></cc-image-shell>
+                    </cc-aspect-ratio>
+                  </div>
+                  <div class="user-details">
+                    <span class="user-name">{{ element.name }}</span><br>
+                    <span>{{ element.company }}</span>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+              </ng-container>
+              <ng-container matColumnDef="source">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
+                <td mat-cell *matCellDef="let element"> {{element.source}} </td>
+              </ng-container>
+              <ng-container matColumnDef="mobile">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile </th>
+                <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+              </ng-container>
+              <ng-container matColumnDef="last_contact">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Last contact </th>
+                <td mat-cell *matCellDef="let element"> {{element.last_contact}} </td>
+              </ng-container>
+              <ng-container matColumnDef="stage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Stage </th>
+                <td [attr.cell-name]="'stage'" [attr.cell-value]="element.stage" mat-cell *matCellDef="let element">
+                  <div ngbDropdown class="lead-stage">
+                    <div class="lead-stage-toggle" ngbDropdownToggle>
+                      <div class="lead-stage-value-wrapper">
+                        <i class="fas fa-circle circle-icon"></i>
+                        <span class="lead-stage-value">{{element.stage}}</span>
+                      </div>
+                      <mat-icon class="half-arrow-icon" svgIcon="half-arrow-down"></mat-icon>
+                    </div>
+                    <div ngbDropdownMenu>
+                      <div ngbRadioGroup [(ngModel)]="element.stage">
+                        <div ngbDropdownItem>
+                          <label ngbButtonLabel class="stage-option">
+                            <input ngbButton class="stage-option-radio" type="radio" [value]="'First contact'">
+                            <span class="stage-option-text">First contact</span>
+                          </label>
+                        </div>
+                        <div ngbDropdownItem>
+                          <label ngbButtonLabel class="stage-option">
+                            <input ngbButton class="stage-option-radio" type="radio" [value]="'Demo'">
+                            <span class="stage-option-text">Demo</span>
+                          </label>
+                        </div>
+                        <div ngbDropdownItem>
+                          <label ngbButtonLabel class="stage-option">
+                            <input ngbButton class="stage-option-radio" type="radio" [value]="'Negociations'">
+                            <span class="stage-option-text">Negociations</span>
+                          </label>
+                        </div>
+                        <div ngbDropdownItem>
+                          <label ngbButtonLabel class="stage-option">
+                            <input ngbButton class="stage-option-radio" type="radio" [value]="'Legals'">
+                            <span class="stage-option-text">Legals</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                  <button class="btn" placement="bottom-right" [ngbPopover]="popoverRef" popoverClass="actions-popover"><i class="actions-icon fas fa-ellipsis-h"></i></button>
+                </td>
+              </ng-container>
+               <tr mat-header-row *matHeaderRowDef="leadsTableDisplayedColumns"></tr>
+               <tr mat-row *matRowDef="let row; columns: leadsTableDisplayedColumns;"></tr>
+            </table>
+            <mat-paginator class="table-paginator" #leadsPaginator [pageSizeOptions]="[5, 10, 25]" [pageSize]="5"></mat-paginator>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section row">
+        <div class="activity-overview-visualization-wrapper col-12 col-lg-8">
+          <div class="activity-overview-visualization">
+            <div class="row no-gutters">
+              <div class="visualization-heading col-12">
+                <div class="heading-info">
+                  <h4 class="heading-title">Activity Overview</h4>
+                </div>
+                <div class="heading-actions">
+                  <div class="visualization-period-dropdown-selector" ngbDropdown placement="bottom-right">
+                    <button class="period-dropdown-toggle btn" ngbDropdownToggle>
+                      This year
+                      <mat-icon class="toggle-icon" svgIcon="half-arrow-down"></mat-icon>
+                    </button>
+                    <div class="period-dropdown" ngbDropdownMenu>
+                      <button class="period-option" ngbDropdownItem>2018</button>
+                      <button class="period-option" ngbDropdownItem>2017</button>
+                      <button class="period-option" ngbDropdownItem>2016</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="visualization-stats col-12">
+                <div class="stat-item">
+                  <span class="stat-reference">Calls</span>
+                  <span class="stat-value">1654</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-reference">Mails</span>
+                  <span class="stat-value">2542</span>
+                </div>
+                <div class="stat-item highlighted-stat">
+                  <span class="stat-reference">Hours (mails & calls)</span>
+                  <span class="stat-value">1254h</span>
+                </div>
+                <div class="stat-item highlighted-stat-alt">
+                  <span class="stat-reference">% (leads to clients )</span>
+                  <span class="stat-value">36%</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="visualization-chart" *ngIf="isBrowser" echarts [options]="activityOverviewChartOptions" [theme]="'admin-template'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="efficiency-banner-wrapper col-12 col-lg-4">
+          <div class="efficiency-banner banner-callout vertical-callout">
+            <div class="callout-info">
+              <h4 class="callout-title">
+                Your efficiency for this period was <span class="title-highlight">0.31</span> hours/client
+              </h4>
+              <p class="callout-message">
+                Learn how to improve your conversion rate reading "10 steps to efficiency".
+              </p>
+            </div>
+            <div class="callout-illustration-wrapper">
+              <cc-aspect-ratio [ratio]="{w: 43, h: 24}">
+                <cc-image-shell class="callout-illustration" [mode]="'cover'" animation="spinner" [src]="'/assets/illustrations/crm-dashboard-efficiency.svg'" [alt]="'Dashboard efficiency'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+            <button type="button" class="callout-btn btn">Read guide</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="secondary-section">
+    <div class="container-fluid">
+
+      <div class="visualizations-section row">
+        <div class="visualization-heading col-12">
+          <div class="heading-info">
+            <h2 class="heading-title">Hey!, don't forget to nurture your existing clients</h2>
+            <p class="heading-message">
+              You are having great results turning leads into clients, keep up the good work.
+              <br />
+              But, don't forget to keep existing clients happy and encourage them to add new products to the platform to increase their revenue
+            </p>
+          </div>
+        </div>
+        <div class="analytics-highlights-visualization-wrapper col-12 col-lg-6">
+          <div class="analytics-highlights-visualization focused-visualization row no-gutters">
+            <h5 class="highlights-title col-12">New products listed</h5>
+            <div class="analytics-stat col-6">
+              <span class="stat-intro">USD</span>
+              <span class="stat-value">3654</span>
+              <div class="stat-trend">
+                <span class="trend-reference">This week</span>
+                <span class="trend-value negative-trend">-25.25%</span>
+              </div>
+            </div>
+            <div class="analytics-stat col-6">
+              <span class="stat-intro">USD</span>
+              <span class="stat-value">5497</span>
+              <div class="stat-trend">
+                <span class="trend-reference">Last week</span>
+                <span class="trend-value possitive-trend">+15.25%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="analytics-highlights-visualization-wrapper col-12 col-lg-6">
+          <div class="analytics-highlights-visualization row no-gutters">
+            <h5 class="highlights-title col-12">Total revenue generated</h5>
+            <div class="analytics-stat col-6">
+              <span class="stat-intro">USD</span>
+              <span class="stat-value">9874</span>
+              <div class="stat-trend">
+                <span class="trend-reference">This week</span>
+                <span class="trend-value negative-trend">-25.25%</span>
+              </div>
+            </div>
+            <div class="analytics-stat col-6">
+              <span class="stat-intro">USD</span>
+              <span class="stat-value">8785</span>
+              <div class="stat-trend">
+                <span class="trend-reference">Last week</span>
+                <span class="trend-value possitive-trend">+15.25%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section">
+        <div class="row">
+          <div class="visualization-heading col-12">
+            <div class="heading-info">
+              <h4 class="heading-title">Top sellers</h4>
+            </div>
+          </div>
+        </div>
+        <div class="seller-visualization-list row">
+          <div class="seller-visualization-wrapper col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let seller of topSellers">
+            <div class="seller-visualization possitive-trend">
+              <div class="seller-details">
+                <div class="seller-image-wrapper">
+                  <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                    <cc-image-shell class="seller-image" animation="spinner" [src]="seller.picture" [alt]="'seller image'"></cc-image-shell>
+                  </cc-aspect-ratio>
+                </div>
+                <div class="seller-info">
+                  <span class="seller-name">{{seller.name}}</span>
+                  <span class="seller-company">{{seller.company}}</span>
+                </div>
+                <div class="seller-actions">
+                  <button type="button" class="actions-dropdown-trigger-btn btn" placement="bottom-right" [ngbPopover]="popoverRef" popoverClass="actions-popover">
+                    <i class="actions-icon fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="seller-categories-tags">
+                <span class="category-tag badge" *ngFor="let tag of seller.tags">{{tag}}</span>
+              </div>
+              <div class="seller-stats row no-gutters">
+                <div class="secondary-stat col-12">
+                  <span class="stat-reference">Products on sale</span>
+                  <span class="stat-value">{{seller.products_on_sale}}</span>
+                </div>
+                <div class="primary-stat col-6">
+                  <span class="stat-reference">Sold units</span>
+                  <span class="stat-value">{{seller.sold_units}}</span>
+                </div>
+                <div class="primary-stat col-6">
+                  <span class="stat-reference">Revenue</span>
+                  <span class="stat-value">${{seller.revenue}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section">
+        <div class="row">
+          <div class="visualization-heading col-12">
+            <div class="heading-info">
+              <h4 class="heading-title">Lagging sellers</h4>
+            </div>
+          </div>
+        </div>
+        <div class="seller-visualization-list row">
+          <div class="seller-visualization-wrapper col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let seller of laggingSellers">
+            <div class="seller-visualization negative-trend">
+              <div class="seller-details">
+                <div class="seller-image-wrapper">
+                  <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                    <cc-image-shell class="seller-image" animation="spinner" [src]="seller.picture" [alt]="'seller image'"></cc-image-shell>
+                  </cc-aspect-ratio>
+                </div>
+                <div class="seller-info">
+                  <span class="seller-name">{{seller.name}}</span>
+                  <span class="seller-company">{{seller.company}}</span>
+                </div>
+                <div class="seller-actions">
+                  <button type="button" class="actions-dropdown-trigger-btn btn" placement="bottom-right" [ngbPopover]="popoverRef" popoverClass="actions-popover">
+                    <i class="actions-icon fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="seller-categories-tags">
+                <span class="category-tag badge" *ngFor="let tag of seller.tags">{{tag}}</span>
+              </div>
+              <div class="seller-stats row no-gutters">
+                <div class="secondary-stat col-12">
+                  <span class="stat-reference">Products on sale</span>
+                  <span class="stat-value">{{seller.products_on_sale}}</span>
+                </div>
+                <div class="primary-stat col-6">
+                  <span class="stat-reference">Sold units</span>
+                  <span class="stat-value">{{seller.sold_units}}</span>
+                </div>
+                <div class="primary-stat col-6">
+                  <span class="stat-reference">Revenue</span>
+                  <span class="stat-value">${{seller.revenue}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="push-sellers-banner banner-callout horizontal-callout">
+            <div class="callout-info">
+              <h3 class="callout-title">These clients are lagging behind, learn how to help them become successful sellers</h3>
+              <button type="button" class="callout-btn btn">See how</button>
+            </div>
+            <div class="callout-illustration-wrapper">
+              <cc-aspect-ratio [ratio]="{w: 30, h: 25}">
+                <cc-image-shell class="callout-illustration" [mode]="'cover'" animation="spinner" [src]="'/assets/illustrations/crm-dashboard-lagging.svg'" [alt]="'Lagging Sellers'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="secondary-section">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="visualization-heading col-12">
+          <div class="heading-info">
+            <h2 class="heading-title">Be proactive about your goals</h2>
+            <p class="heading-message">
+              Focus on what really matters, keep your work organized
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section">
+        <div class="tasks-board-visualization row">
+          <div class="tasks-column col-12 col-lg-6 col-xl-4">
+            <div class="column-heading">
+              <h4 class="column-title">Marketing</h4>
+              <span class="column-progress-message">{{completedMarketingTasks}} task completed out of {{tasks.marketing_tasks.length}}</span>
+              <ngb-progressbar class="column-progress-bar" [value]="(completedMarketingTasks * 100) / tasks.marketing_tasks.length" ></ngb-progressbar>
+            </div>
+            <div class="tasks-list">
+              <div *ngFor="let _task of tasks.marketing_tasks">
+                <ng-container *ngTemplateOutlet="taskCard; context: { task: _task, tasksBoardForm: marketingTasksBoardForm }">
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="tasks-column col-12 col-lg-6 col-xl-4">
+            <div class="column-heading">
+              <h4 class="column-title">Sales</h4>
+              <span class="column-progress-message">{{completedSalesTasks}} task completed out of {{tasks.sales_tasks.length}}</span>
+              <ngb-progressbar class="column-progress-bar" [value]="(completedSalesTasks * 100) / tasks.sales_tasks.length" ></ngb-progressbar>
+            </div>
+            <div class="tasks-list">
+              <div *ngFor="let _task of tasks.sales_tasks">
+                <ng-container *ngTemplateOutlet="taskCard; context: { task: _task, tasksBoardForm: salesTasksBoardForm }">
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="tasks-column col-12 col-lg-6 col-xl-4">
+            <div class="column-heading">
+              <h4 class="column-title">Customer Support</h4>
+              <span class="column-progress-message">{{completedCustomerSupportTasks}} task completed out of {{tasks.customer_support_tasks.length}}</span>
+              <ngb-progressbar class="column-progress-bar" [value]="(completedCustomerSupportTasks * 100) / tasks.customer_support_tasks.length" ></ngb-progressbar>
+            </div>
+            <div class="tasks-list">
+              <div *ngFor="let _task of tasks.customer_support_tasks">
+                <ng-container *ngTemplateOutlet="taskCard; context: { task: _task, tasksBoardForm: customerSupportTasksBoardForm }">
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section knowledge-articles-visualization">
+        <div class="row">
+          <div class="visualization-heading col-12">
+            <div class="heading-info">
+              <h4 class="heading-title">Your daily dose of knowledge</h4>
+            </div>
+          </div>
+        </div>
+        <div class="knowledge-articles-list row">
+          <div class="knowledge-article-wrapper col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let article of articles">
+            <div class="knowledge-article">
+              <div class="article-cover-wrapper">
+                <cc-aspect-ratio [ratio]="{w: 35, h: 23}">
+                  <cc-image-shell class="cover-image" animation="spinner" [mode]="'cover'" [src]="article.featured_image" [alt]="'cover image'"></cc-image-shell>
+                </cc-aspect-ratio>
+              </div>
+              <div class="article-info">
+                <div class="author-image-wrapper">
+                  <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                    <cc-image-shell class="author-image" animation="spinner" [src]="article.author.picture" [alt]="'author image'"></cc-image-shell>
+                  </cc-aspect-ratio>
+                </div>
+                <div class="article-details">
+                  <span class="author-name">{{ article.author.name }}</span>
+                  <span class="article-date">{{ article.published_date }}</span>
+                </div>
+              </div>
+              <h3 class="article-title">{{ article.title }}</h3>
+              <span class="article-category badge" [attr.category]="article.category">{{ article.category }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<ng-template #popoverRef>
+  <ul class="actions-popover-list list-unstyled">
+    <li>
+      <span>Send email</span>
+    </li>
+    <li>
+      <span>Call user</span>
+    </li>
+    <li>
+      <span>Conversation history</span>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #taskCard let-task="task" let-tasksBoardForm="tasksBoardForm">
+  <form [formGroup]="tasksBoardForm">
+    <div class="task-item" [ngClass]="{'completed-task': tasksBoardForm.get(task.id).value}">
+      <div class="task-status">
+        <label class="status-checkbox btn" ngbButtonLabel>
+          <input type="checkbox" formControlName="{{task.id}}" ngbButton>
+        </label>
+      </div>
+      <div class="task-content">
+        <div class="task-brief">
+          <div class="task-assignee-wrapper">
+            <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+              <cc-image-shell class="assignee-image" animation="spinner" [src]="task.assignee.picture" [alt]="'assignee image'"></cc-image-shell>
+            </cc-aspect-ratio>
+          </div>
+          <div class="task-details">
+            <span class="task-assignee">Assigned to {{task.assignee.name}}</span>
+            <span class="task-due">Due on {{task.due_date}}</span>
+          </div>
+          <span class="task-priority badge" [attr.priority]="task.priority">{{task.priority}}</span>
+        </div>
+        <div class="task-info">
+          <span class="task-title">{{task.title}}</span>
+          <p class="task-description">
+            {{task.description}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

@@ -1,0 +1,114 @@
+@import 'shared';
+
+/*
+  Responsive styles
+*/
+
+/*
+  XS
+*/
+@include media-breakpoint-only(xs) {
+  .list-2 {
+    .list2-item {
+      flex-direction: column;
+
+      .user-details-col, .actions-col {
+        margin-left: 0px;
+        margin-top: 20px;
+        text-align: center;
+
+        .user-name {
+          font-size: 18px;
+        }
+      }
+      .popover-btn {
+        display: none;
+      }
+    } // .list2-item
+  }
+
+  .list-4 {
+
+    .list-group-item {
+      flex-direction: column;
+
+      .product-image-wrapper {
+        display: none;
+      }
+
+      .item-details-col {
+        margin: 0px;
+      }
+
+      .item-actions-col {
+        @include make-col(12);
+        margin-top: 20px;
+
+        .buttons-wrapper {
+          .add-to-cart-btn {
+            width: 50%;
+          }
+          .delete-btn {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+  SM
+*/
+@include media-breakpoint-only(sm) {
+  .list-4 {
+    .item-actions-col {
+      @include make-col(12);
+      margin-top: 20px;
+
+      .buttons-wrapper {
+        .add-to-cart-btn {
+          width: 50%;
+        }
+        .delete-btn {
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+
+/*
+  LG
+*/
+@include media-breakpoint-only(lg) {
+  :host-context(.main-sidenav-opened) {
+    .list-1 {
+      .list-1-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(8);
+      }
+    } // .list-1
+  }
+}
+
+/*
+  XL
+*/
+@include media-breakpoint-only(xl) {
+  :host-context(.main-sidenav-opened) {
+    .list-1 {
+      .list-1-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(6);
+      }
+    } // .list-1
+
+    .list-4 {
+      .wishlist-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(12);
+      }
+    }// .list-4
+  }
+}

@@ -1,0 +1,213 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">Cards</h1>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Card #1</h2>
+      <div class="row card-1-list">
+        <div class="card-1-wrapper col-12 col-sm-6 col-lg-4 col-xl-4" *ngFor="let user of card1Users">
+          <div class="card-1">
+            <cc-aspect-ratio [ratio]="{w: 5, h: 2}">
+              <cc-image-shell class="card-top-image add-overlay" [mode]="'cover'" [src]="user.top_image" [alt]="'user image'"></cc-image-shell>
+            </cc-aspect-ratio>
+            <div class="user-image-wrapper">
+              <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                <cc-image-shell class="user-image" [src]="user.image" [alt]="'user image'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+            <div class="user-details-wrapper">
+              <h5 class="user-name">{{ user.name }}</h5>
+              <p class="user-description">{{ user.description }}</p>
+              <div class="user-tags-wrapper">
+                <span class="user-tag" *ngFor="let tag of user.tags">{{tag}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Card #2</h2>
+      <div class="row card-2-list">
+        <div class="card-2-wrapper col-12 col-sm-6 col-lg-4 col-xl-4" *ngFor="let user of card2Users">
+          <div class="card-2">
+            <cc-aspect-ratio [ratio]="{w: 5, h: 2}">
+              <cc-image-shell class="card-top-image add-overlay" [mode]="'cover'" [src]="user.top_image" [alt]="'user image'"></cc-image-shell>
+            </cc-aspect-ratio>
+            <div class="user-details-wrapper">
+              <div class="user-image-wrapper">
+                <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                  <cc-image-shell class="user-image" [src]="user.image" [alt]="'user image'"></cc-image-shell>
+                </cc-aspect-ratio>
+              </div>
+              <div class="user-information">
+                <span class="user-name">{{ user.name }}</span>
+                <span class="user-location"><i class="fas fa-map-marker-alt"></i>{{ user.location }}</span>
+              </div>
+            </div>
+            <div class="followers-section">
+              <span class="followers-title"><b>{{ user.followers.length }}</b> followers you know</span>
+              <div class="no-gutters followers-list">
+                <div class="follower-image-container" *ngFor="let follower of user.followers">
+                  <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                    <cc-image-shell class="follower-image add-overlay" [src]="follower"></cc-image-shell>
+                  </cc-aspect-ratio>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row ">
+    <div class="col-12">
+      <h2 class="section-title">Card #3</h2>
+      <div class="row card-3-list">
+        <div class="card-3-wrapper col-12 col-lg-6 col-xl-6" *ngFor="let product of card3Products">
+          <div class="card-3 row no-gutters">
+            <div class="col-4">
+              <cc-image-shell class="product-image" [mode]="'cover'" animation="gradient" [src]="product.image" [alt]="'product image'"></cc-image-shell>
+            </div>
+            <div class="col-8">
+              <div class="product-information">
+                <div class="product-title-wrapper">
+                  <span class="product-title"> {{ product.name }} </span>
+                  <span class="product-price">${{ product.price }} </span>
+                </div>
+                <span class="product-location"> {{ product.location }} </span>
+                <span class="product-status" [attr.status]="product.status"> {{ product.status }} </span>
+                <p class="product-description"> {{ product.description }} </p>
+                <div class="actions-row">
+                  <button type="button" class="edit-btn">Edit</button>
+                  <button type="button" class="publish-btn">Publish</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Card #4</h2>
+      <div class="row card-4-list">
+        <div class="card-4-wrapper col-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let product of card4Products">
+          <div class="card-4 row no-gutters">
+            <div class="col-5 product-image-wrapper">
+              <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                <cc-image-shell class="product-image" [mode]="'cover'" animation="gradient" [src]="product.image" [alt]="'product image'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+            <div class="col-7">
+              <div class="product-information-wrapper">
+                <p class="product-title">{{ product.name }}</p>
+                <span class="product-price">USD {{ product.price }}</span>
+                <span class="product-stock"><b>{{ product.stock }}</b> left in stock</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Card #5</h2>
+      <div class="row card-5-list">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 card-5-wrapper" *ngFor="let product of card5Products">
+          <div class="card-5">
+            <cc-aspect-ratio [ratio]="{w: 5, h: 4}">
+              <cc-image-shell class="product-image" [mode]="'cover'" animation="gradient" [src]="product.image" [alt]="'product image'"></cc-image-shell>
+            </cc-aspect-ratio>
+            <div class="product-information-wrapper">
+              <span class="product-title"> {{ product.title }} </span>
+              <span class="product-subtitle"> {{ product.subtitle }} </span>
+              <span class="product-rating">
+                <ngb-rating [starTemplate]="star" [rate]="product.rating" [max]="5" [readonly]="true"></ngb-rating>
+                <span class="number_of_reviews"> ({{ product.number_of_reviews }}) </span>
+              </span>
+              <p class="product-description"> {{ product.description }} </p>
+              <div class="product-price-wrapper">
+                <span class="product-price">${{ product.price }} </span>
+                <button type="button" class="add-to-cart-btn">Add to cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #star let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+      <span class="half" [style.width.%]="fill">
+        <i class="fas fa-star"></i>
+      </span>
+      <i class="fas fa-star"></i>
+    </span>
+  </ng-template>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Card #6</h2>
+      <div class="row card-6-list">
+        <div class="card-6-wrapper col-12 col-md-6 col-lg-6 col-xl-4 " *ngFor="let user of card6Users">
+          <div class="card-6 row no-gutters">
+            <div class="col-3 user-image-wrapper">
+              <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                <cc-image-shell class="user-image" animation="gradient" [src]="user.image" [alt]="'user image'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+            <div class="col-9">
+              <div class="user-information-wrapper">
+                <span class="user-name">{{ user.name }}</span>
+                <span class="user-role">{{ user.role }}</span>
+                <span class="user-email">{{ user.email }}</span>
+                <span class="user-phone"> {{ user.phone }} </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Card #7</h2>
+      <div class="row card-7-list">
+        <div class="knowledge-article-wrapper col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let article of card7Articles">
+          <div class="card-7 knowledge-article">
+            <div class="article-cover-wrapper">
+              <cc-aspect-ratio [ratio]="{w: 35, h: 23}">
+                <cc-image-shell class="cover-image add-overlay" animation="spinner" [mode]="'cover'" [src]="article.featured_image" [alt]="'cover image'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+            <div class="article-info">
+              <div class="author-image-wrapper">
+                <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                  <cc-image-shell class="author-image" animation="spinner" [src]="article.author.picture" [alt]="'author image'"></cc-image-shell>
+                </cc-aspect-ratio>
+              </div>
+              <div class="article-details">
+                <span class="author-name">{{ article.author.name }}</span>
+                <span class="article-date">{{ article.published_date }}</span>
+              </div>
+            </div>
+            <h3 class="article-title">{{ article.title }}</h3>
+            <span class="article-category badge" [attr.category]="article.category">{{ article.category }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

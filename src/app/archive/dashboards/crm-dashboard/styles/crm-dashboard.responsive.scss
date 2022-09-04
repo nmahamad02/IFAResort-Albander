@@ -1,0 +1,230 @@
+@import 'shared';
+
+/*
+  Responsive styles
+*/
+:host {
+  /*
+    XS
+  */
+  @include media-breakpoint-only(xs) {
+
+  }
+
+  /*
+    SM and XS
+  */
+  @include media-breakpoint-down(sm) {
+    .highlighted-stats-visualization {
+      .stat-item {
+        border-color: transparent;
+
+        @include make-col(12);
+      }
+    } // .highlighted-stats-visualization
+
+    .activity-overview-visualization {
+      .visualization-stats {
+        flex-wrap: wrap;
+
+        .stat-item {
+          margin-inline-start: 0px !important;
+          padding: 0px;
+          border-color: transparent;
+
+          @include make-col(12);
+
+          &:not(:last-child) {
+            margin-bottom: 15px;
+          }
+        }
+      }
+    } // .activity-overview-visualization
+  }
+
+  /*
+    MD
+  */
+  @include media-breakpoint-only(md) {
+    .highlighted-stats-visualization {
+      // Force a flex break between the first three items (order: 0) and the remaining items (order: 2)
+      &::before {
+        content: '';
+        order: 1;
+        @include make-col(12);
+        padding: 15px 0px;
+      }
+
+      .stat-item {
+        // Make a 1/3 width item col
+        @include make-col(1, 3);
+
+        // Select the first three items
+        // (nth-child web tool, see: https://css-tricks.com/examples/nth-child-tester/)
+        &:nth-child(-n+3) {
+          order: 0;
+        }
+
+        // Select the remaining items
+        &:not(:nth-child(-n+3)) {
+          order: 2;
+        }
+
+        // Remove border end from third item (last in first row)
+        &:nth-child(3) {
+          border-color: transparent;
+        }
+      }
+    } // .highlighted-stats-visualization
+  }
+
+  /*
+    MD, SM and XS
+  */
+  @include media-breakpoint-down(md) {
+    .activity-overview-visualization-wrapper {
+      margin-bottom: 30px;
+    } // .activity-overview-visualization-wrapper
+
+    .analytics-highlights-visualization-wrapper {
+      &:not(:last-child) {
+        margin-bottom: 30px;
+      }
+    } // .analytics-highlights-visualization-wrapper
+  }
+
+  /*
+    LG
+  */
+  @include media-breakpoint-only(lg) {
+    .highlighted-stats-visualization {
+      .stat-item {
+        padding-inline-start: 15px;
+        padding-inline-end: 15px;
+
+        .stat-reference {
+          font-size: 16px;
+        }
+
+        .stat-info {
+          .stat-value {
+            font-size: 42px;
+          }
+
+          .stat-trend {
+            display: none;
+          }
+        }
+      }
+    } // .highlighted-stats-visualization
+
+    :host-context(.main-sidenav-opened) {
+      .highlighted-stats-visualization {
+        .stat-item {
+          display: flex;
+          flex-direction: column;
+
+          .stat-info {
+            margin-top: auto;
+          }
+        }
+      } // .highlighted-stats-visualization
+
+      .activity-overview-visualization-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(12);
+
+        margin-bottom: 30px;
+      } // .activity-overview-visualization-wrapper
+
+      .efficiency-banner-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(12);
+      } // .efficiency-banner-wrapper
+
+      .analytics-highlights-visualization-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(12);
+
+        &:not(:last-child) {
+          margin-bottom: 30px;
+        }
+      } // .analytics-highlights-visualization-wrapper
+
+      .seller-visualization-list {
+        .seller-visualization-wrapper {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(6);
+        }
+      } // .seller-visualization-list
+
+      .knowledge-articles-visualization {
+        .knowledge-article-wrapper {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(6);
+        }
+      } // .knowledge-articles-visualization
+    }
+  }
+
+  /*
+    XL
+  */
+  @include media-breakpoint-only(xl) {
+    :host-context(.main-sidenav-opened) {
+      .highlighted-stats-visualization {
+        .stat-item {
+          padding-inline-start: 15px;
+          padding-inline-end: 15px;
+          display: flex;
+          flex-direction: column;
+
+          .stat-info {
+            margin-top: auto;
+
+            .stat-value {
+              font-size: 48px;
+            }
+
+            .stat-trend {
+              .trend-reference {
+                display: none;
+              }
+            }
+          }
+        }
+      } // .highlighted-stats-visualization
+
+      .activity-overview-visualization {
+        .visualization-stats {
+          .stat-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+        }
+      } // .activity-overview-visualization
+
+      .seller-visualization-list {
+        .seller-visualization-wrapper {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(4);
+        }
+      } // .seller-visualization-list
+
+      .tasks-board-visualization {
+        .tasks-column {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(6);
+        }
+      } // .tasks-board-visualization
+
+      .knowledge-articles-visualization {
+        .knowledge-article-wrapper {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(4);
+        }
+      } // .knowledge-articles-visualization
+    }
+  }
+}

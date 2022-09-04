@@ -1,0 +1,606 @@
+<div class="content-wrapper">
+
+  <div class="highlighted-section">
+    <div class="container-fluid">
+
+      <div class="row no-gutters">
+        <div class="visualization-heading col-12">
+          <div class="heading-info">
+            <h2 class="heading-title">Overview</h2>
+            <p class="heading-message">
+              Ecommerce Data from <b>3 Sept 19</b> - <b>2 Feb 20</b>
+            </p>
+          </div>
+          <div class="heading-actions">
+            <ul class="visualization-period-selector nav">
+              <li class="period-item nav-item">
+                <a class="period-action nav-link">This year</a>
+              </li>
+              <li class="period-item nav-item">
+                <a class="period-action nav-link active">This month</a>
+              </li>
+              <li class="period-item nav-item">
+                <a class="period-action nav-link">This week</a>
+              </li>
+              <li class="period-item nav-item">
+                <a class="period-action nav-link disabled" tabindex="-1" aria-disabled="true">Today</a>
+              </li>
+              <li class="period-item period-alt-item nav-item">
+                <a class="period-action nav-link">
+                  <mat-icon class="calendar-icon" svgIcon="calendar"></mat-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlighted-stats-visualization row no-gutters">
+        <div class="stat-item col-md-6 col-lg-3" [ngClass]="{'highlighted-item': i === 0}" *ngFor="let item of values; let i = index">
+          <div class="stat-item-wrapper">
+            <div class="row no-gutters">
+              <div class="stat-icon col-2 col-md-3 col-lg-4 col-xl-3">
+                <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                  <mat-icon svgIcon="{{item.icon}}"></mat-icon>
+                </cc-aspect-ratio>
+              </div>
+              <div class="stat-info col-4 col-md-5 col-lg-12 col-xl-6 order-lg-2 order-xl-0">
+                <span class="stat-reference">{{item.name}}</span>
+                <span class="stat-value">{{item.value}}</span>
+              </div>
+              <div class="stat-trend col-4 col-md-4 col-lg-5 col-xl-3" [ngClass]="{'positive-trend': (item.trend > 0), 'negative-trend': (item.trend < 0)}">
+                <div class="trend-mini-chart" *ngIf="isBrowser" echarts [options]="item.miniChartOptions" [theme]="'admin-template'"></div>
+                <span class="trend-reference">{{ (item.trend > 0) ? '+' : '' }}{{ item.trend + '%' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="main-section">
+    <div class="container-fluid">
+
+      <div class="sales-visualization visualizations-section">
+        <div class="row no-gutters">
+          <div class="visualization-heading col-12">
+            <div class="heading-info">
+              <h4 class="heading-title">Sales</h4>
+            </div>
+            <div class="heading-actions">
+              <ul class="visualization-period-selector nav">
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link">This year</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link active">This month</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link">This week</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link disabled" tabindex="-1" aria-disabled="true">Today</a>
+                </li>
+                <li class="period-item period-alt-item nav-item">
+                  <a class="period-action nav-link">
+                    <mat-icon class="calendar-icon" svgIcon="calendar"></mat-icon>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-3">
+            <div class="visualization-stats row">
+              <div class="stat-summary-wrapper col-12 col-md-6 col-lg-12">
+                <div class="stat-summary sales-stats">
+                  <span class="stat-reference">Sales</span>
+                  <span class="stat-value">$38.100</span>
+                  <span class="stat-trend positive-trend">+8.5%</span>
+                </div>
+              </div>
+              <div class="stat-summary-wrapper col-12 col-md-6 col-lg-12">
+                <div class="stat-summary earnings-stats">
+                  <span class="stat-reference">Earnings</span>
+                  <span class="stat-value">$23.500</span>
+                  <span class="stat-trend negative-trend">-10%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-9">
+            <div class="visualization-chart" *ngIf="isBrowser" echarts [options]="salesChartOptions" [theme]="'admin-template'"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section row">
+        <div class="col-12 col-lg-7 col-xl-8">
+          <div class="orders-visualization">
+            <div class="row no-gutters">
+              <div class="visualization-heading col-12">
+                <div class="heading-info">
+                  <h4 class="heading-title">Orders</h4>
+                </div>
+                <div class="heading-actions">
+                  <div class="visualization-period-dropdown-selector" ngbDropdown placement="bottom-right">
+                    <button class="period-dropdown-toggle btn" ngbDropdownToggle>
+                      This year
+                      <mat-icon class="toggle-icon" svgIcon="half-arrow-down"></mat-icon>
+                    </button>
+                    <div class="period-dropdown" ngbDropdownMenu>
+                      <button class="period-option" ngbDropdownItem>2018</button>
+                      <button class="period-option" ngbDropdownItem>2017</button>
+                      <button class="period-option" ngbDropdownItem>2016</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="visualization-chart" *ngIf="isBrowser" echarts [options]="ordersChartOptions" [theme]="'admin-template'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-5 col-xl-4">
+          <div class="full-report-banner banner-callout vertical-callout">
+            <div class="callout-info">
+              <h4 class="callout-title">Want full report?</h4>
+              <p class="callout-message">
+                Awesome! You can see more detailed information and download it using this option.
+              </p>
+            </div>
+            <div class="callout-illustration-wrapper">
+              <cc-aspect-ratio [ratio]="{w: 39, h: 19}">
+                <cc-image-shell class="callout-illustration" [mode]="'cover'" animation="spinner" [src]="'/assets/illustrations/ecommerce-dashboard-full-report.svg'" [alt]="'Dashboard full report'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+            <button type="button" class="callout-btn btn">See reports</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="recent-orders-visualization visualizations-section">
+        <div class="row no-gutters">
+          <div class="visualization-heading col-12">
+            <div class="heading-info">
+              <h4 class="heading-title">Recent Orders</h4>
+            </div>
+            <div class="heading-actions">
+              <ul class="visualization-period-selector nav">
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link">This year</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link active">This month</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link">This week</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link disabled" tabindex="-1" aria-disabled="true">Today</a>
+                </li>
+                <li class="period-item period-alt-item nav-item">
+                  <a class="period-action nav-link">
+                    <mat-icon class="calendar-icon" svgIcon="calendar"></mat-icon>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="visualization-table col-12 table-responsive">
+            <table class="recent-orders-table table-borderless table-sm recent-orders-table" mat-table matSort #recentOrdersSort="matSort" [dataSource]="recentOrdersTableDataSource">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              </ng-container>
+              <ng-container matColumnDef="product">
+                <th mat-header-cell *matHeaderCellDef> Product </th>
+                <td mat-cell *matCellDef="let element" class="product-row">
+                  <div class="product-image-wrapper">
+                    <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                      <cc-image-shell animation="spinner" [src]="element.picture" [alt]="'product image'" class="product-image"></cc-image-shell>
+                    </cc-aspect-ratio>
+                  </div>
+                  <div class="product-details">
+                    <span class="product-name">{{ element.name }}</span><br>
+                    <span>{{ element.color }}</span> -
+                    <span>{{ element.sku }}</span>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+              </ng-container>
+              <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+                <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+              </ng-container>
+              <ng-container matColumnDef="customer">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
+                <td mat-cell *matCellDef="let element"> {{element.customer}} </td>
+              </ng-container>
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                <td mat-cell *matCellDef="let element" class="price-row"> ${{element.price}} </td>
+              </ng-container>
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td [attr.cell-name]="'status'" [attr.cell-value]="element.status" mat-cell *matCellDef="let element">
+                  <span class="order-status">{{element.status}}</span>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="recentOrdersTableDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: recentOrdersTableDisplayedColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section row">
+        <div class="col-12 col-lg-6 col-xl-5">
+          <div class="devices-visualization">
+            <div class="row no-gutters">
+              <div class="visualization-heading col-12">
+                <div class="heading-info">
+                  <h4 class="heading-title">Devices</h4>
+                </div>
+                <div class="heading-actions">
+                  <div class="visualization-period-dropdown-selector" ngbDropdown placement="bottom-right">
+                    <button class="period-dropdown-toggle btn" ngbDropdownToggle>
+                      This year
+                      <mat-icon class="toggle-icon" svgIcon="half-arrow-down"></mat-icon>
+                    </button>
+                    <div class="period-dropdown" ngbDropdownMenu>
+                      <button class="period-option" ngbDropdownItem>2018</button>
+                      <button class="period-option" ngbDropdownItem>2017</button>
+                      <button class="period-option" ngbDropdownItem>2016</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="visualization-chart-wrapper col-12 col-md-8 col-lg-6 col-xl-7">
+                <div class="visualization-chart" *ngIf="isBrowser" echarts [options]="devicesChartOptions" [theme]="'admin-template'"></div>
+              </div>
+              <div class="visualization-stats col-12 col-md-4 col-lg-6 col-xl-5">
+                <div class="visualization-stat" [attr.stat-reference]="'desktop'">
+                  <div class="stat-icon">
+                    <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                      <mat-icon svgIcon="desktop"></mat-icon>
+                    </cc-aspect-ratio>
+                  </div>
+                  <div class="stat-info">
+                    <span class="stat-reference">Desktop</span>
+                    <span class="stat-value">25.000</span>
+                  </div>
+                </div>
+                <div class="visualization-stat" [attr.stat-reference]="'tablet'">
+                  <div class="stat-icon">
+                    <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                      <mat-icon svgIcon="tablet"></mat-icon>
+                    </cc-aspect-ratio>
+                  </div>
+                  <div class="stat-info">
+                    <span class="stat-reference">Tablet</span>
+                    <span class="stat-value">15.000</span>
+                  </div>
+                </div>
+                <div class="visualization-stat" [attr.stat-reference]="'mobile'">
+                  <div class="stat-icon">
+                    <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                      <mat-icon svgIcon="mobile"></mat-icon>
+                    </cc-aspect-ratio>
+                  </div>
+                  <div class="stat-info">
+                    <span class="stat-reference">Mobile</span>
+                    <span class="stat-value">5.000</span>
+                  </div>
+                </div>
+                <div class="visualization-stat" [attr.stat-reference]="'watch'">
+                  <div class="stat-icon">
+                    <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                      <mat-icon svgIcon="watch"></mat-icon>
+                    </cc-aspect-ratio>
+                  </div>
+                  <div class="stat-info">
+                    <span class="stat-reference">Smartwatch</span>
+                    <span class="stat-value">500</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6 col-xl-7">
+          <div class="sales-distribution-visualization">
+            <div class="row">
+              <div class="visualization-heading col-12">
+                <div class="heading-info">
+                  <h4 class="heading-title">Sales per country</h4>
+                </div>
+                <div class="heading-actions">
+                  <div class="visualization-period-dropdown-selector" ngbDropdown placement="bottom-right">
+                    <button class="period-dropdown-toggle btn" ngbDropdownToggle>
+                      This year
+                      <mat-icon class="toggle-icon" svgIcon="half-arrow-down"></mat-icon>
+                    </button>
+                    <div class="period-dropdown" ngbDropdownMenu>
+                      <button class="period-option" ngbDropdownItem>2018</button>
+                      <button class="period-option" ngbDropdownItem>2017</button>
+                      <button class="period-option" ngbDropdownItem>2016</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="stats-highlights-outer col-12 col-lg-5 col-xl-4">
+                <div class="row">
+                  <div class="stat-highlight-wrapper col-12 col-md-6 col-lg-12">
+                    <div class="stat-highlight sales-stats">
+                      <span class="stat-value">$40.000</span>
+                      <span class="stat-reference">Total Sales</span>
+                    </div>
+                  </div>
+                  <div class="stat-highlight-wrapper col-12 col-md-6 col-lg-12">
+                    <div class="stat-highlight expenses-stats">
+                      <span class="stat-value">$12.000</span>
+                      <span class="stat-reference">Total Expenses</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="expanded-stats col-12 col-lg-7 col-xl-8">
+                <div class="stat-details">
+                  <div class="stat-info">
+                    <span class="stat-reference">United States</span>
+                    <span class="stat-value">$8000 / $20.000</span>
+                  </div>
+                  <ngb-progressbar class="stat-value-progressbar" [value]="85"></ngb-progressbar>
+                </div>
+                <div class="stat-details">
+                  <div class="stat-info">
+                    <span class="stat-reference">Brazil</span>
+                    <span class="stat-value">$7000 / $10.000</span>
+                  </div>
+                  <ngb-progressbar class="stat-value-progressbar" [value]="70"></ngb-progressbar>
+                </div>
+                <div class="stat-details">
+                  <div class="stat-info">
+                    <span class="stat-reference">Australia</span>
+                    <span class="stat-value">$3500 / $5000</span>
+                  </div>
+                  <ngb-progressbar class="stat-value-progressbar" [value]="76"></ngb-progressbar>
+                </div>
+                <div class="stat-details">
+                  <div class="stat-info">
+                    <span class="stat-reference">Russia</span>
+                    <span class="stat-value">$1500 / $3000</span>
+                  </div>
+                  <ngb-progressbar class="stat-value-progressbar" [value]="65"></ngb-progressbar>
+                </div>
+                <div class="stat-details">
+                  <div class="stat-info">
+                    <span class="stat-reference">Uruguay</span>
+                    <span class="stat-value">$500 / $2500</span>
+                  </div>
+                  <ngb-progressbar class="stat-value-progressbar" [value]="60"></ngb-progressbar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="latest-tickets-visualization visualizations-section">
+        <div class="row no-gutters">
+          <div class="visualization-heading col-12">
+            <div class="heading-info">
+              <h4 class="heading-title">Latest support tickets</h4>
+            </div>
+            <div class="heading-actions">
+              <ul class="visualization-period-selector nav">
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link">This year</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link active">This month</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link">This week</a>
+                </li>
+                <li class="period-item nav-item">
+                  <a class="period-action nav-link disabled" tabindex="-1" aria-disabled="true">Today</a>
+                </li>
+                <li class="period-item period-alt-item nav-item">
+                  <a class="period-action nav-link">
+                    <mat-icon class="calendar-icon" svgIcon="calendar"></mat-icon>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="visualization-table col-12 table-responsive">
+            <table class="latest-tickets-table table table-borderless table-sm" mat-table matSort #latestTicketsSort="matSort" [dataSource]="latestTicketsTableDataSource">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Customer </th>
+                <td mat-cell *matCellDef="let element" class="customer-row">
+                  <div class="customer-image-wrapper">
+                    <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                      <cc-image-shell class="customer-image" animation="spinner" [src]="element.picture" [alt]="'customer image'"></cc-image-shell>
+                    </cc-aspect-ratio>
+                  </div>
+                  <div class="customer-details">
+                    <span class="customer-name">{{ element.name }}</span><br>
+                    <span>{{ element.email }}</span>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="ticket_id">
+                <th mat-header-cell *matHeaderCellDef> Ticket ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.ticket_id}} </td>
+              </ng-container>
+              <ng-container matColumnDef="subject">
+                <th mat-header-cell *matHeaderCellDef> Subject </th>
+                <td mat-cell *matCellDef="let element" class="ticket-subject"> {{element.subject}} </td>
+              </ng-container>
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Phone </th>
+                <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+              </ng-container>
+              <ng-container matColumnDef="created_date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.created_date}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td [attr.cell-name]="'status'" [attr.cell-value]="element.status" mat-cell *matCellDef="let element">
+                  <span class="order-status">{{element.status}}</span>
+                </td>
+              </ng-container>
+               <tr mat-header-row *matHeaderRowDef="latestTicketsTableDisplayedColumns"></tr>
+               <tr mat-row *matRowDef="let row; columns: latestTicketsTableDisplayedColumns;"></tr>
+            </table>
+            <mat-paginator class="table-paginator" #latestTicketsPaginator [pageSizeOptions]="[5, 10, 25]" [pageSize]="5"></mat-paginator>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section row">
+        <div class="top-selling-visualization-wrapper col-12 col-lg-7 col-xl-8">
+          <div class="top-selling-visualization">
+            <div class="row no-gutters">
+              <div class="visualization-heading col-12">
+                <div class="heading-info">
+                  <h4 class="heading-title">Top selling categories</h4>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="visualization-chart" *ngIf="isBrowser" echarts [options]="topSellingCategoriesChartOptions" [theme]="'admin-template'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-visited-visualization-wrapper col-12 col-lg-5 col-xl-4">
+          <div class="top-visited-visualization">
+            <div class="row no-gutters">
+              <div class="visualization-heading col-12">
+                <div class="heading-info">
+                  <h4 class="heading-title">Top visited products</h4>
+                </div>
+                <div class="heading-actions">
+                  <div class="visualization-period-dropdown-selector" ngbDropdown placement="bottom-right">
+                    <button class="period-dropdown-toggle btn" ngbDropdownToggle>
+                      This year
+                      <mat-icon class="toggle-icon" svgIcon="half-arrow-down"></mat-icon>
+                    </button>
+                    <div class="period-dropdown" ngbDropdownMenu>
+                      <button class="period-option" ngbDropdownItem>2018</button>
+                      <button class="period-option" ngbDropdownItem>2017</button>
+                      <button class="period-option" ngbDropdownItem>2016</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <ul class="products-list list-group list-group-flush">
+                  <li class="product-item list-group-item">
+                    <div class="product-image-wrapper">
+                      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                        <cc-image-shell class="product-image" [src]="'/assets/imgs/products/nike-1.png'"></cc-image-shell>
+                      </cc-aspect-ratio>
+                    </div>
+                    <span class="product-name">Nike Air Force 1 - Mid</span>
+                    <span class="product-stat-value positive-trend badge">+20%</span>
+                  </li>
+                  <li class="product-item list-group-item">
+                    <div class="product-image-wrapper">
+                      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                        <cc-image-shell class="product-image" [src]="'/assets/imgs/products/iphone-x.jpg'"></cc-image-shell>
+                      </cc-aspect-ratio>
+                    </div>
+                    <span class="product-name">iPhone X - 64 GB</span>
+                    <span class="product-stat-value positive-trend badge">+8%</span>
+                  </li>
+                  <li class="product-item list-group-item">
+                    <div class="product-image-wrapper">
+                      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                        <cc-image-shell class="product-image" [src]="'/assets/imgs/products/bose.png'"></cc-image-shell>
+                      </cc-aspect-ratio>
+                    </div>
+                    <span class="product-name">Bose soundlink on ear</span>
+                    <span class="product-stat-value positive-trend badge">+15%</span>
+                  </li>
+                  <li class="product-item list-group-item">
+                    <div class="product-image-wrapper">
+                      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                        <cc-image-shell class="product-image" [src]="'/assets/imgs/products/ipad-mini.jpg'"></cc-image-shell>
+                      </cc-aspect-ratio>
+                    </div>
+                    <span class="product-name">Ipad 9,7" 2019</span>
+                    <span class="product-stat-value positive-trend badge">+9%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualizations-section row">
+        <div class="col-12 col-lg-5 col-xl-4">
+          <div class="latest-sales-visualization">
+            <div class="row no-gutters">
+              <div class="visualization-heading col-12">
+                <div class="heading-info">
+                  <h4 class="heading-title">Sales today</h4>
+                </div>
+              </div>
+              <div class="col-12">
+                <span class="stat-value">300</span>
+                <span class="stat-previous-value">150 yesterday</span>
+                <div class="latest-sales-chart" *ngIf="isBrowser" echarts [options]="salesTodayChartOptions" [theme]="'admin-template'"></div>
+                <div class="highlighted-stats">
+                  <h4 class="stats-reference">Top products</h4>
+                  <ul class="stats-list list-unstyled">
+                    <li class="stat-item">/products/woman/shoes</li>
+                    <li class="stat-item">/products/tablets/ipad</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-7 col-xl-8">
+          <div class="referrals-visualization">
+            <div class="row no-gutters">
+              <div class="visualization-heading col-12">
+                <div class="heading-info">
+                  <h4 class="heading-title">Referral Source</h4>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="visualization-chart" *ngIf="isBrowser" echarts [options]="referralSourceChartOptions" [theme]="'admin-template'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

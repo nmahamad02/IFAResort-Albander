@@ -1,0 +1,75 @@
+@import 'shared';
+
+/*
+  Responsive styles
+*/
+
+/*
+  XS
+*/
+@include media-breakpoint-only(xs) {
+
+}
+
+/*
+  LG
+*/
+@include media-breakpoint-only(lg) {
+  :host-context(.main-sidenav-opened) {
+    .card-1-list {
+      .card-1-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(6);
+      }
+    } // .card-1-list
+
+    .card-2-list {
+      .card-2-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(6);
+      }
+    } // .card-2-list
+
+    .card-3-list {
+      .card-3-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(12);
+      }
+    } // .card-3-list
+
+    .card-4-list {
+      .card-4-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(6);
+      }
+    } // .card-4-list
+
+    .card-5-list {
+      .card-5-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(6);
+      }
+    } // .card-5-list
+
+    .card-7-list {
+      .knowledge-article-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(6);
+      }
+    } // .card-7-list
+  }
+}
+
+/*
+  XL
+*/
+@include media-breakpoint-only(xl) {
+  :host-context(.main-sidenav-opened) {
+    .card-7-list {
+      .knowledge-article-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(4);
+      }
+    } // .card-7-list
+  }
+}

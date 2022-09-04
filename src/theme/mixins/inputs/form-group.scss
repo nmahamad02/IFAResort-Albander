@@ -1,0 +1,80 @@
+@mixin form-group-styles() {
+  --default-spacing: 10px;
+  --form-label-color: #{palette-color('grey-7')};
+  --form-input-background: #{palette-color('white')};
+  --form-input-border-color: #{palette-color('grey-6', 0.42)};
+  --form-input-color: #{palette-color('grey-9')};
+  --form-input-placeholder-color: #{palette-color('grey-5')};
+  --form-help-color: #{palette-color('grey-7')};
+  --form-input-addons-background: #{palette-color('secondary', 0.15)};
+  --form-input-addons-color: #{palette-color('secondary')};
+  --form-input-success-color: #{palette-color('success')};
+  --form-input-success-background: #{palette-color('success', 0.15)};
+  --form-input-error-color: #{palette-color('error')};
+  --form-input-error-background: #{palette-color('error', 0.15)};
+  --form-disabled-input-background: #{palette-color('grey-2')};
+  --form-disabled-input-color: #{palette-color('grey-9')};
+
+  label {
+    color: var(--form-label-color);
+    font-size: 16px;
+  }
+
+  .form-control {
+    background-color: var(--form-input-background);
+    border: 1px solid var(--form-input-border-color);
+    color: var(--form-input-color);
+
+    &::placeholder {
+      font-size: 16px;
+      color: var(--form-input-placeholder-color);
+    }
+
+    &.is-valid {
+      border: 1px solid var(--form-input-success-color);
+    }
+
+    &.is-invalid {
+      border: 1px solid var(--form-input-error-color);
+    }
+
+    &.disabled {
+      opacity: 0.8;
+      color: var(--form-disabled-input-color);
+      background-color: var(--form-disabled-input-background);
+    }
+  }
+
+  .form-text {
+    margin-top: calc(var(--default-spacing) / 2);
+    font-size: 14px;
+
+    &.help-text {
+      color: var(--form-help-color);
+    }
+  }
+
+  .custom-valid-feedback {
+    background-color: var(--form-input-success-background);
+    color: var(--form-input-success-color);
+    padding: calc(var(--default-spacing) / 2) var(--default-spacing);
+    border-radius: 6px;
+  }
+
+  .custom-invalid-feedback {
+    background-color: var(--form-input-error-background);
+    color: var(--form-input-error-color);
+    padding: calc(var(--default-spacing) / 2) var(--default-spacing);
+    border-radius: $input-border-radius;
+  }
+
+  .input-group {
+    .input-group-prepend, .input-group-append {
+      .input-group-text {
+        background-color: var(--form-input-addons-background);
+        color: var(--form-input-addons-color);
+        border: 1px solid var(--form-input-border-color);
+      }
+    }
+  }
+}

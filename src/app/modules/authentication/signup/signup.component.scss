@@ -1,0 +1,68 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --page-title-color: #{palette-color('grey-9')};
+  --page-text-color: #{palette-color('grey-8')};
+  --link-text-color: #{palette-color('primary')};
+  --side-image-overlay: #{palette-color('primary', 0.15)};
+  --page-spacing: 10px;
+  --button-padding: 6px 26px;
+}
+
+.signup-page {
+  min-height: 100vh;
+
+  .form-section {
+    padding: calc(var(--page-spacing) * 8);
+
+    @include media-breakpoint-down(md) {
+      padding: calc(var(--page-spacing) * 4);
+    }
+
+    .page-title {
+      color: var(--page-title-color);
+    }
+
+    .link-text {
+      color: var(--link-text-color);
+    }
+
+    .page-subtitle {
+      color: var(--page-text-color);
+      font-size: 18px;
+    }
+
+    .signup-form {
+      margin-top: calc(var(--page-spacing) * 4);
+
+      @include form-group-styles();
+
+      .custom-control.custom-checkbox {
+        @include bootstrap-checkbox-styles();
+      }
+
+      .form-call-to-actions {
+        display: flex;
+        align-items: baseline;
+        margin-top: calc(var(--page-spacing) * 3);
+
+        .create-account-btn {
+          margin-inline-start: auto;
+          @include button();
+          padding: var(--button-padding);
+
+          @include media-breakpoint-down(xs) {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .image-section {
+    cc-image-shell.signup-image {
+      --image-shell-overlay-background: var(--side-image-overlay);
+    }
+  }
+}

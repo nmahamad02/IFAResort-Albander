@@ -1,0 +1,22 @@
+@mixin fixed-sidenav() {
+  // Make fixed position optional
+  &.fixed-sidenav {
+    position: fixed;
+
+    @content;
+  }
+}
+
+@mixin clear-sidenav-background() {
+  // Make clear mode optional
+  &.clear-sidenav-background {
+    // Override Material styles
+    &.mat-drawer-side {
+      border: none;
+    }
+    &.mat-drawer {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+}

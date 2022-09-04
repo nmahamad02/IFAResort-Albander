@@ -1,0 +1,42 @@
+@import 'shared';
+
+:host {
+  // // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+  --text-color: #{palette-color('grey-5')};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title {
+    color: var(--page-title-color);
+    font-size: 30px;
+    margin-bottom: calc(var(--page-spacing) * 6);
+  }
+
+  .card {
+    min-height: 240px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: calc(var(--page-spacing) * 3);
+
+    .card-description {
+      font-size: 18px;
+      color: var(--text-color);
+    }
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: space-around;
+      padding: calc(var(--page-spacing) * 5);
+
+      .open-button {
+        @include button();
+      }
+    }
+  }
+}

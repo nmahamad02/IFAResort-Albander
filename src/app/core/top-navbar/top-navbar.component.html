@@ -1,0 +1,81 @@
+<!-- Conditional template Outlet (see: https://stackoverflow.com/a/52448001/1116959) -->
+<ng-container *ngTemplateOutlet="(_mode === 'condensed') ? condensedToolbar : expandedToolbar;">
+</ng-container>
+
+<ng-template #condensedToolbar>
+  <mat-toolbar class="top-navbar-toolbar">
+    <mat-toolbar-row>
+      <div class="navbar-branding">
+        <button class="btn toggle-sidenav-btn" type="button" (click)="toggleMainMenu()">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+      <span class="navbar-title">Title here</span>
+      <div class="navbar-user">
+        <div class="user-image-wrapper">
+          <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+            <cc-image-shell class="user-image" animation="spinner" [src]="loggedUser?.image" [alt]="'user image'"></cc-image-shell>
+          </cc-aspect-ratio>
+        </div>
+        <div ngbDropdown class="user-actions-dropdown" placement="bottom-right" display="static">
+          <button class="user-action-toggle-btn btn btn-link" id="accountMenu" ngbDropdownToggle></button>
+          <div ngbDropdownMenu aria-labelledby="accountMenu" class="dropdown-menu-right">
+            <a class="btn btn-link" ngbDropdownItem [routerLink]="['/forms/form-layouts']">Account</a>
+            <button class="btn btn-link" ngbDropdownItem (click)="logout()">Log out</button>
+          </div>
+        </div>
+      </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <div class="navbar-controls">
+        <div class="navbar-search">
+          <input class="search-input form-control form-control-lg" type="text" placeholder="Search">
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</ng-template>
+
+<ng-template #expandedToolbar>
+  <mat-toolbar class="top-navbar-toolbar">
+    <mat-toolbar-row>
+      <div class="navbar-branding">
+        <mat-icon class="brand-logo" svgIcon="angular-logo-2"></mat-icon>
+        <button class="btn toggle-sidenav-btn" type="button" (click)="toggleMainMenu()">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+      <div class="navbar-controls">
+        <div class="navbar-search d-none d-md-block">
+          <input class="search-input form-control form-control-lg" type="text" placeholder="Search">
+        </div>
+        <div class="navbar-actions">
+          <button type="button" class="action-button btn btn-link" (click)="toggleNotificationsMenu()">
+            <mat-icon class="navbar-icons" svgIcon="notifications"></mat-icon>
+          </button>
+          <button type="button" class="action-button btn btn-link" (click)="toggleSettingsMenu()">
+            <mat-icon class="navbar-icons" svgIcon="settings"></mat-icon>
+          </button>
+        </div>
+        <div class="navbar-user">
+          <div class="user-image-wrapper">
+            <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+              <cc-image-shell class="user-image" animation="spinner" [src]="loggedUser?.image" [alt]="'user image'"></cc-image-shell>
+            </cc-aspect-ratio>
+          </div>
+          <div ngbDropdown class="user-actions-dropdown" placement="bottom-right" display="static">
+            <button class="user-action-toggle-btn btn btn-link" id="accountMenu" ngbDropdownToggle>
+              <span class="user-name">
+                <cc-text-shell [data]="(loggedUser?.name) ? loggedUser?.name.concat(' ').concat(loggedUser?.lastname) : null"></cc-text-shell>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="accountMenu" class="dropdown-menu-right">
+              <a class="btn btn-link" ngbDropdownItem [routerLink]="['/forms/form-layouts']">Account</a>
+              <button class="btn btn-link" ngbDropdownItem (click)="logout()">Log out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</ng-template>

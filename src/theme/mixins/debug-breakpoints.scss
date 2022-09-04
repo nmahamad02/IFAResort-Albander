@@ -1,0 +1,53 @@
+// You can use these styles as a help to debug the media breakpoints
+
+// @import '../shared';
+//
+// app-root {
+//   &::before {
+//     content: '';
+//     position: fixed;
+//     bottom: 60px;
+//     width: 200px;
+//     height: 30px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     left: calc((100vw - 200px)/ 2);
+//     text-align: center;
+//     background-color: #FFF;
+//     border-radius: 5px;
+//     border: 2px solid #333;
+//     color: #333;
+//     z-index: 9;
+//   }
+//
+//   @include media-breakpoint-only(xs) {
+//     &::before {
+//       content: 'XS';
+//     }
+//   }
+//
+//   @include media-breakpoint-only(sm) {
+//     &::before {
+//       content: 'SM';
+//     }
+//   }
+//
+//   @include media-breakpoint-only(md) {
+//     &::before {
+//       content: 'MD';
+//     }
+//   }
+//
+//   @include media-breakpoint-only(lg) {
+//     &::before {
+//       content: 'LG';
+//     }
+//   }
+//
+//   @include media-breakpoint-only(xl) {
+//     &::before {
+//       content: 'XL';
+//     }
+//   }
+// }

@@ -1,0 +1,170 @@
+// Inspired in: http://archive.orderedlist.com/blog/archives/flared-borders-with-css/
+@mixin flared-tabs($tabs-selector, $tab-outer-selector, $tab-inner-selector, $active-selector: '.active') {
+  $default-outer-background: transparent;
+  $default-outer-hover-background: transparent;
+  $default-outer-active-background: transparent;
+
+  $default-border-color: transparent;
+  $default-border-hover-color: #DDDDDD;
+  $default-border-active-color: #BBBBBB;
+
+  $default-inner-background: transparent;
+  $default-inner-hover-background: #FFFFFF;
+  $default-inner-active-background: #FFFFFF;
+
+  $default-color: #CCCCCC;
+  $default-hover-color: #DDDDDD;
+  $default-active-color: #BBBBBB;
+
+  $default-gutter: -1px;
+  $default-border-radius: 0.25rem;
+  $default-border-width: 1px;
+
+  // Override Bootstrap styles
+  &.nav-tabs {
+    border-bottom: none;
+
+    .nav-item {
+      // Without interpolation, sass variables don't work inside calc() (see: https://github.com/sass/sass/issues/818)
+      margin-bottom: calc(var(--flared-tabs-border-width, #{$default-border-width}) * -1);
+    }
+
+    .nav-link {
+      border-top-left-radius: var(--flared-tabs-border-radius, $default-border-radius);
+      border-top-right-radius: var(--flared-tabs-border-radius, $default-border-radius);
+      border-width: var(--flared-tabs-border-width, $default-border-width);
+      border-color: var(--flared-tabs-border-color, $default-border-color) var(--flared-tabs-border-color, $default-border-color) transparent;
+
+      &:hover,
+      &:focus {
+        border-color: var(--flared-tabs-border-hover-color, $default-border-hover-color) var(--flared-tabs-border-hover-color, $default-border-hover-color) transparent;
+      }
+
+      &.active {
+        border-color: var(--flared-tabs-border-active-color, $default-border-active-color) var(--flared-tabs-border-active-color, $default-border-active-color) var(--flared-tabs-inner-active-background, $default-inner-active-background);
+      }
+    }
+  }
+
+  // Tabs styles
+  &#{$tabs-selector} {
+    position: relative;
+    padding-inline-start: var(--flared-tabs-border-radius, $default-border-radius);
+    padding-inline-end: var(--flared-tabs-border-radius, $default-border-radius);
+
+    // Add custom border bottom
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: calc(var(--flared-tabs-border-width, #{$default-border-width}) * -1);
+      left: 0px;
+      right: 0px;
+
+      height: var(--flared-tabs-border-width, $default-border-width);
+      background-color: var(--flared-tabs-border-active-color, $default-border-active-color);
+      z-index: 3;
+    }
+
+    // Tab item styles
+    #{$tab-outer-selector} {
+      --private-outer-background: var(--flared-tabs-outer-background, #{$default-outer-background});
+      --private-border-color: var(--flared-tabs-border-color, #{$default-border-color});
+      --private-inner-background: var(--flared-tabs-inner-background, #{$default-inner-background});
+      --private-color: var(--flared-tabs-color, #{$default-color});
+
+      position: relative;
+      z-index: 3;
+
+      & + #{$tab-outer-selector} {
+        margin-inline-start: var(--flared-tabs-gutter, $default-gutter);
+      }
+
+      &:hover,
+      &:focus {
+        --private-outer-background: var(--flared-tabs-outer-hover-background, #{$default-outer-hover-background});
+        --private-border-color: var(--flared-tabs-border-hover-color, #{$default-border-hover-color});
+        --private-inner-background: var(--flared-tabs-inner-hover-background, #{$default-inner-hover-background});
+        --private-color: var(--flared-tabs-hover-color, #{$default-hover-color});
+      }
+
+      &#{$active-selector} {
+        --private-outer-background: var(--flared-tabs-outer-active-background, #{$default-outer-active-background});
+        --private-border-color: var(--flared-tabs-border-active-color, #{$default-border-active-color});
+        --private-inner-background: var(--flared-tabs-inner-active-background, #{$default-inner-active-background});
+        --private-color: var(--flared-tabs-active-color, #{$default-active-color});
+
+        z-index: 4;
+      }
+
+      // Flared outer artifact
+      &::before,
+      &::after {
+        content: '';
+        // Disable :hover on these artifacts
+        pointer-events:none;
+        position: absolute;
+        bottom: 0px;
+
+        width: var(--flared-tabs-border-radius, $default-border-radius);
+        height: var(--flared-tabs-border-radius, $default-border-radius);
+        background-color: var(--private-inner-background);
+
+        z-index: 2;
+      }
+
+      &::before {
+        left: calc(calc(var(--flared-tabs-border-radius, #{$default-border-radius}) - var(--flared-tabs-border-width, #{$default-border-width})) * -1);
+      }
+
+      &::after {
+        right: calc(calc(var(--flared-tabs-border-radius, #{$default-border-radius}) - var(--flared-tabs-border-width, #{$default-border-width})) * -1);
+      }
+
+      // Tab item anchor styles
+      #{$tab-inner-selector} {
+        position: relative;
+        background-color: var(--private-inner-background);
+        color: var(--private-color);
+
+        // Flared inner artifact
+        &::before,
+        &::after {
+          content: '';
+          // Disable :hover on these artifacts
+          pointer-events:none;
+          position: absolute;
+          overflow: hidden;
+          bottom: calc(var(--flared-tabs-border-width, #{$default-border-width}) * -1);
+
+          width: var(--flared-tabs-border-radius, $default-border-radius);
+          height: var(--flared-tabs-border-radius, $default-border-radius);
+          background-color: var(--private-outer-background);
+
+          border-bottom-width: var(--flared-tabs-border-width, $default-border-width);
+          border-bottom-style: solid;
+          border-bottom-color: var(--private-border-color);
+
+          z-index: 3;
+        }
+
+        &::before {
+          left: calc(var(--flared-tabs-border-radius, #{$default-border-radius}) * -1);
+
+          border-bottom-right-radius: var(--flared-tabs-border-radius, $default-border-radius);
+          border-right-width: var(--flared-tabs-border-width, $default-border-width);
+          border-right-style: solid;
+          border-right-color: var(--private-border-color);
+        }
+
+        &::after {
+          right: calc(var(--flared-tabs-border-radius, #{$default-border-radius}) * -1);
+
+          border-bottom-left-radius: var(--flared-tabs-border-radius, $default-border-radius);
+          border-left-width: var(--flared-tabs-border-width, $default-border-width);
+          border-left-style: solid;
+          border-left-color: var(--private-border-color);
+        }
+      }
+    }
+  }
+}

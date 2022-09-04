@@ -1,0 +1,97 @@
+
+  {
+    "marketing_tasks": [
+      {
+        "id": "task1",
+        "assignee": {
+          "name": "Malcolm",
+          "picture": "/assets/imgs/users/user-4.jpeg"
+        },
+        "due_date": "20 Nov 2019",
+        "title": "Ads for Social networks",
+        "description": "Create ads for Cyber Monday Campaign.",
+        "priority": "Low"
+      },
+      {
+        "id": "task2",
+        "assignee": {
+          "name": "Jenny",
+          "picture": "/assets/imgs/users/user-6.jpeg"
+        },
+        "due_date": "15 Nov 2019",
+        "title": "Email Marketing",
+        "description": "Send November Newsletter.",
+        "priority": "Medium"
+      },
+      {
+        "id": "task3",
+        "assignee": {
+          "name": "Malcom",
+          "picture": "/assets/imgs/users/user-4.jpeg"
+        },
+        "due_date": "23 Dec 2019",
+        "title": "Think ads for Christmas",
+        "description": "Design and plan the ads strategy.",
+        "priority": "Medium"
+      }
+    ],
+    "sales_tasks": [
+      {
+        "id": "task1",
+        "assignee": {
+          "name": "Sam",
+          "picture": "/assets/imgs/users/user-1.jpeg"
+        },
+        "due_date": "12 Dic 2019",
+        "title": "Plan meeting",
+        "description": "Prepare meeting with investors.",
+        "priority": "High"
+      },
+      {
+        "id": "task2",
+        "assignee": {
+          "name": "John",
+          "picture": "/assets/imgs/users/user-5.jpeg"
+        },
+        "due_date": "29 Dic 2019",
+        "title": "Final Report",
+        "description": "Create report for the quarter.",
+        "priority": "Medium"
+      }
+    ],
+    "customer_support_tasks": [
+      {
+        "id": "task1",
+        "assignee": {
+          "name": "Elsa",
+          "picture": "/assets/imgs/users/user-7.jpeg"
+        },
+        "due_date": "20 Dec 2019",
+        "title": "End of the year presentation",
+        "description": "Prepare presentation with the metrics of the year.",
+        "priority": "Medium"
+      },
+      {
+        "id": "task2",
+        "assignee": {
+          "name": "John",
+          "picture": "/assets/imgs/users/user-2.jpeg"
+        },
+        "due_date": "07 Nov 2019",
+        "title": "Call lagging sellers",
+        "description": "Understand their issues and offer help",
+        "priority": "High"
+      },
+      {
+        "id": "task3",
+        "assignee": {
+          "name": "Roberto",
+          "picture": "/assets/imgs/users/user-8.jpeg"
+        },
+        "due_date": "04 Jan 2020",
+        "title": "Call best sellers",
+        "description": "Congratulate them and offer lower comission rates.",
+        "priority": "Low"
+      }
+    ]
+  }

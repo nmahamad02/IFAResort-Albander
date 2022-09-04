@@ -1,0 +1,132 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --page-title-color: #{palette-color('grey-9')};
+  --page-text-color: #{palette-color('grey-8')};
+  --link-text-color: #{palette-color('primary')};
+  --side-image-overlay: #{palette-color('primary', 0.15)};
+  --page-spacing: 10px;
+  --fb-button-color: #{palette-color('facebook')};
+  --tw-button-color: #{palette-color('twitter')};
+  --google-button-color: #{palette-color('google')};
+  --social-buttons-background: #{palette-color('white')};
+  --button-padding: 6px 26px;
+}
+
+.signin-page {
+  min-height: 100vh;
+
+  .form-section {
+    padding: calc(var(--page-spacing) * 8);
+
+    @include media-breakpoint-down(md) {
+      padding: calc(var(--page-spacing) * 4);
+    }
+
+    .page-title {
+      color: var(--page-title-color);
+    }
+
+    .link-text {
+      color: var(--link-text-color);
+    }
+
+    .page-subtitle {
+      color: var(--page-text-color);
+      font-size: 18px;
+    }
+
+    .signin-form {
+      margin-top: calc(var(--page-spacing) * 4);
+
+      @include form-group-styles();
+    }
+
+    .form-call-to-actions {
+      display: flex;
+      align-items: baseline;
+      margin-top: calc(var(--page-spacing) * 3);
+
+      .sign-in-btn {
+        margin-inline-start: auto;
+        @include button();
+        padding: var(--button-padding);
+      }
+    }
+
+    .register-divider {
+      align-items: center;
+      color: var(--page-text-color);
+      display: flex;
+      margin: calc(var(--page-spacing) * 2) 0px;
+
+      .line {
+        flex-grow: 1;
+      }
+
+      span {
+        margin: 0 calc(var(--page-spacing) * 1.5);
+      }
+    }
+
+    .social-logins {
+      // justify-content: space-between;
+      flex-wrap: nowrap;
+
+      button {
+        flex: 1 1 auto;
+        &:not(:last-child) {
+          margin-right: var(--page-spacing);
+        }
+      }
+
+      @include media-breakpoint-down(xs) {
+        flex-wrap: wrap;
+
+        button {
+          &:not(:last-child) {
+            margin-bottom: var(--page-spacing);
+            margin-right: 0px;
+          }
+        }
+      }
+
+      .fb-signin {
+        --button-background: var(--social-buttons-background);
+        --button-border: var(--fb-button-color);
+        --button-color: var(--fb-button-color);
+        @include button-outline();
+        padding: var(--button-padding);
+      }
+
+      .google-signin {
+        --button-background: var(--social-buttons-background);
+        --button-border: var(--google-button-color);
+        --button-color: var(--google-button-color);
+        @include button-outline();
+        padding: var(--button-padding);
+      }
+
+      .twitter-signin {
+        --button-background: var(--social-buttons-background);
+        --button-border: var(--tw-button-color);
+        --button-color: var(--tw-button-color);
+        @include button-outline();
+        padding: var(--button-padding);
+      }
+    }
+
+    .existing-account-section {
+      color: var(--page-text-color);
+      margin-top: calc(var(--page-spacing) * 4);
+      text-align: center;
+    }
+  }
+
+  .image-section {
+    cc-image-shell.signin-image {
+      --image-shell-overlay-background: var(--side-image-overlay);
+    }
+  }
+}

@@ -1,0 +1,19 @@
+// This mixin is useful when you want to limit your text to a certain amount of lines
+
+// The line-clamp property truncates text at a specific number of lines and adds 3 dots to the end
+// It works in all modern browsers (https://caniuse.com/#search=line-clamp)
+
+@mixin truncate-text() {
+  $default-max-lines: 3; // --max-lines
+  $default-line-height: 1.5; // --line-height
+  $default-font-size: 16px; // --font-size
+
+  display: -webkit-box;
+  -webkit-line-clamp: var(--max-lines, $default-max-lines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  // For backwards compatibility we use this solution that truncates the text but doesn't add the 3 dots at the end.
+  // height: line-height * font-size * max-lines
+  height: calc(var(--line-height, $default-line-height) * var(--font-size, $default-font-size) * var(--max-lines, $default-max-lines));
+}

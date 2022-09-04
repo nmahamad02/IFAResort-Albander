@@ -1,0 +1,99 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --modal-title-color: #{palette-color('primary')};
+  --text-color: #{palette-color('grey-7')};
+  --modal-spacing: 10px;
+  --checkbox-label-color: #{palette-color('primary')};
+  --facebook-btn-background: #{palette-color('facebook')};
+  --facebook-btn-color: #{palette-color('white')};
+  --facebook-btn-hover-background: #{palette-color('facebook-dark')};
+}
+
+.modal-container {
+  color: var(--text-color);
+  padding: calc(var(--modal-spacing) * 4);
+
+  .app-logo-container {
+    margin: 0px auto;
+    flex: 0 0 16%;
+    max-width: 16%;
+    margin-bottom: calc(var(--modal-spacing) / 2);
+  }
+
+  .modal-title {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: calc(var(--modal-spacing) * 3);
+    color: var(--modal-title-color);
+  }
+
+  .modal-form {
+    @include form-group-styles();
+
+    .custom-control.custom-checkbox {
+      @include bootstrap-checkbox-styles();
+      .custom-label {
+        color: var(--checkbox-label-color);
+      }
+    }
+
+    .buttons-row {
+      display: flex;
+      justify-content: space-between;
+      margin: calc(var(--modal-spacing) * 2) 0px;
+
+      .register-btn {
+        width: 100%;
+        margin-right: calc(var(--modal-spacing) / 2);
+        @include button();
+      }
+      .log-in-btn {
+        width: 100%;
+        margin-left: calc(var(--modal-spacing) / 2);
+        @include button-outline();
+      }
+    }
+  }
+
+  .register-divider {
+    align-items: center;
+    color: var(--text-color);
+    display: flex;
+
+    .line {
+      flex-grow: 1;
+    }
+
+    span {
+      margin: 0 calc(var(--modal-spacing) * 1.5);
+    }
+  }
+
+  .fb-signin {
+    margin: 0px auto;
+    margin-top: calc(var(--modal-spacing) * 1.5);
+    display: flex;
+    --button-background: var(--facebook-btn-background);
+    --button-border: var(--facebook-btn-background);
+    --button-color: var(--facebook-btn-color);
+
+    --button-hover-background: var(--facebook-btn-hover-background);
+    --button-hover-border: var(--facebook-btn-hover-background);
+    --button-hover-color: var(--facebook-btn-hover-color);
+
+    @include button();
+    padding-left: calc(var(--modal-spacing) * 3);
+    padding-right: calc(var(--modal-spacing) * 3);
+  }
+}
+
+::ng-deep {
+  .register-modal {
+    .mat-dialog-container {
+      border-radius: 6px;
+      padding: 0px;
+    }
+  }
+}

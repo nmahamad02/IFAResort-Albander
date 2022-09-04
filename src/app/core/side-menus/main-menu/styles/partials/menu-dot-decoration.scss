@@ -1,0 +1,69 @@
+@mixin dot-decoration() {
+  $default-color: #333333;
+  $default-size: 6px;
+
+  content: '';
+  position: absolute;
+  background-color: var(--decoration-color, $default-color);
+  width: var(--decoration-size, $default-size);
+  height: var(--decoration-size, $default-size);
+  border-radius: 50%;
+}
+
+:host(.use-active-item-dot-decoration) {
+  --decoration-color: var(--main-menu-active-color);
+  --decoration-size: 6px;
+  --decoration-padding: var(--main-menu-h-padding-start);
+
+  .menu-item {
+    &.active {
+      mat-expansion-panel-header.menu-link {
+        // Dot decoration
+        &::before {
+          @include dot-decoration();
+
+          top: calc((100% - var(--decoration-size)) / 2);
+          left: calc((var(--decoration-padding) - var(--decoration-size)) / 2);
+        }
+      }
+
+      &.expandable-item {
+        mat-expansion-panel {
+          &.mat-expanded {
+            // When the menu is expanded and the menu-item is active, set default color as one of the sub-menu items is already active as well
+            mat-expansion-panel-header.menu-link {
+              // Remove Dot decoration
+              &::before {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .menu-link {
+    &.active {
+      // Dot decoration
+      &::before {
+        @include dot-decoration();
+
+        top: calc((100% - var(--decoration-size)) / 2);
+        left: calc((var(--decoration-padding) - var(--decoration-size)) / 2);
+      }
+    }
+  }
+
+  // Dot decoration for sub-menu items
+  .menu-sub-navigation {
+    .menu-link {
+      &.active {
+        &::before {
+          // Aligned at the center with .menu-item-icon of the parent
+          left: calc((var(--main-menu-icon-size) - var(--decoration-size)) / 2);
+        }
+      }
+    }
+  }
+}

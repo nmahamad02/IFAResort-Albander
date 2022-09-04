@@ -1,0 +1,63 @@
+@mixin line-decoration() {
+  $default-color: #333333;
+  $default-width: 5px;
+
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: var(--decoration-color, $default-color);
+  width: var(--decoration-width, $default-width);
+  height: 100%;
+}
+
+:host(.use-active-item-line-decoration) {
+  --decoration-color: var(--main-menu-active-color);
+  --decoration-width: 5px;
+  --decoration-padding: var(--main-menu-h-padding-start);
+
+  .menu-item {
+    &.active {
+      mat-expansion-panel-header.menu-link {
+        // Line decoration
+        &::before {
+          @include line-decoration();
+        }
+      }
+
+      &.expandable-item {
+        mat-expansion-panel {
+          &.mat-expanded {
+            // When the menu is expanded and the menu-item is active, set default color as one of the sub-menu items is already active as well
+            mat-expansion-panel-header.menu-link {
+              // Remove Line decoration
+              &::before {
+                content: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .menu-link {
+    &.active {
+      // Line decoration
+      &::before {
+        @include line-decoration();
+      }
+    }
+  }
+
+  // Line decoration for sub-menu items
+  .menu-sub-navigation {
+    .menu-link {
+      &.active {
+        &::before {
+          left: calc(var(--decoration-padding) * -1);
+        }
+      }
+    }
+  }
+}

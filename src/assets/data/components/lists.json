@@ -1,0 +1,103 @@
+{
+  "list1Users": [
+    {
+      "image": "/assets/imgs/users/user-3.jpeg",
+      "name": "Sabrina Cohen",
+      "mutual_friends": 9,
+      "following": false
+    },
+    {
+      "image": "/assets/imgs/users/user-7.jpeg",
+      "name": "Santiago Fernandez",
+      "mutual_friends": 2,
+      "following": false
+    },
+    {
+      "image": "/assets/imgs/users/user-2.jpeg",
+      "name": "Nick Jhonson",
+      "mutual_friends": 30,
+      "following": true
+    }
+  ],
+  "list2Users": [
+    {
+      "image": "/assets/imgs/users/user-1.jpeg",
+      "name": "Sabrina Cohen",
+      "description": "Love getting inspiration on Dribbble to build templates. Frontend developer and UX enthusiast.",
+      "status": "online"
+    },
+    {
+      "image": "/assets/imgs/users/user-8.jpeg",
+      "name": "Santiago Fernandez",
+      "description": "Love getting inspiration on Dribbble to build templates. Frontend developer and UX enthusiast.",
+      "status": "offline"
+    },
+    {
+      "image": "/assets/imgs/users/user-9.jpeg",
+      "name": "Nick Jhonson",
+      "description": "Love getting inspiration on Dribbble to build templates. Frontend developer and UX enthusiast.",
+      "status": "away"
+    }
+  ],
+  "list3Articles": [
+    {
+      "image": "/assets/imgs/components/bicycle.jpg",
+      "title": "Mobile UI Design Patterns | Navigation",
+      "description": "We all know what a 'Sign In' is don’t we? A user wants to access an account, application, or content that is stored on the host site.",
+      "link": "examplelink.com"
+    },
+    {
+      "image": "/assets/imgs/components/living-room.jpg",
+      "title": "Engagement Mobile Components",
+      "description": "When people come to the site, you need to greet them and welcome them in a friendly manner and make them feel as if they are important and have value to add to the community.",
+      "link": "examplelink.com"
+    },
+    {
+      "image": "/assets/imgs/components/table.jpg",
+      "title": "Identity Mobile Components",
+      "description": "Identity is the key thing that will engage users in your system, and keep them returning to experience it. The profile is one of the key pieces of a social.",
+      "link": "examplelink.com"
+    }
+  ],
+  "list4WishList": [
+    {
+      "image": "/assets/imgs/components/book-cover-1.jpg",
+      "title": "How does our brain work? Misteries of our body.",
+      "author": {
+        "link": "https://examplelink.com",
+        "name": "Robert L. Norton"
+      },
+      "amout_of_reviews": 52,
+      "stock": 17,
+      "price": 56.99,
+      "rating": 3.5,
+      "date_added": "September 16, 2019"
+    },
+    {
+      "image": "/assets/imgs/components/book-cover-2.jpg",
+      "title": "A night alone with the moon. How this changed my life.",
+      "author": {
+        "link": "https://examplelink.com",
+        "name": "Amanda A. Thomas"
+      },
+      "amout_of_reviews": 1054,
+      "stock": 6,
+      "price": 32.00,
+      "rating": 5,
+      "date_added": "July 22, 2019"
+    },
+    {
+      "image": "/assets/imgs/components/book-cover-3.jpg",
+      "title": "Our world is burning. What are you going to do to revert this?",
+      "author": {
+        "link": "https://examplelink.com",
+        "name": "Leo Doe"
+      },
+      "amout_of_reviews": 133,
+      "stock": 23,
+      "price": 89.00,
+      "rating": 2.6,
+      "date_added": "October 3, 2019"
+    }
+  ]
+}

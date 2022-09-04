@@ -1,0 +1,6 @@
+// Properly configure Bootstrap so it works with the Angular-CLI
+//    - https://github.com/angular/angular-cli/blob/master/docs/documentation/stories/include-bootstrap.md#using-sass
+
+@import 'override-bootstrap-variables';
+
+@import '../../../node_modules/bootstrap/scss/bootstrap';

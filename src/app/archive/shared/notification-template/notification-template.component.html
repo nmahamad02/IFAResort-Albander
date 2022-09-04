@@ -1,0 +1,12 @@
+<ng-container>
+  <div class="custom-notification-wrapper">
+    <div role="alert" [ngClass]="classes">
+      <i *ngIf="icon" [ngClass]="'notification-icon fas fa-' + icon"></i>
+      <span *ngIf="message" class="notification-line">{{ message }}</span>
+      <button type="button" class="close" *ngIf="dismissible" (click)="dismiss()">
+        <i class="fas fa-times"></i>
+      </button>
+      <p *ngIf="text" class="notification-text">{{ text }}</p>
+    </div>
+  </div>
+</ng-container>

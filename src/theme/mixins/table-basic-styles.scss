@@ -1,0 +1,127 @@
+@import 'palettes/shared';
+
+@mixin table-basic-styles() {
+  --table-header-color: #{palette-color('primary-dark')};
+  --table-text-color: #{palette-color('grey-7')};
+  --table-row-hover-background: #{palette-color('white')};
+
+  --page-background: #{palette-color('grey-0')};
+  --page-spacing: 10px;
+
+  table {
+    width: 100%;
+    background: none;
+
+    &.table-sm {
+      td {
+        &.mat-cell {
+          padding: var(--page-spacing);
+        }
+      }
+      th {
+        &.mat-header-cell {
+          padding: var(--page-spacing);
+        }
+      }
+    }
+
+    th {
+      color: var(--table-header-color);
+      font-size: 15px;
+      font-weight: 600;
+
+      &.mat-header-cell {
+        border-bottom-style: none;
+        padding: calc(var(--page-spacing) * 2);
+      }
+    }
+
+    td {
+      color: var(--table-text-color);
+
+      &.mat-cell {
+        border-bottom-style: none;
+        padding: var(--page-spacing) calc(var(--page-spacing) * 2);
+      }
+    }
+
+    tr.mat-row {
+      height: auto;
+      cursor: pointer;
+      transition: background-color 1s;
+
+      td:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+      }
+      td:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+
+      &:hover {
+        background-color: var(--table-row-hover-background);
+        transition: background-color 1s;
+      }
+    }
+  }
+
+  ::ng-deep [mat-table] {
+    .mat-sort-header-arrow {
+      color: var(--table-header-color);
+    }
+  }
+}
+
+@mixin table-paginator-styles() {
+  --paginator-background: #{palette-color('grey-0')};
+  --paginator-text-color: #{palette-color('grey-5')};
+  --paginator-controls-color: #{palette-color('primary-dark')};
+  --paginator-disabled-controls-color: #{palette-color('primary-dark', 0.1)};
+
+  background-color: var(--paginator-background);
+
+  // Override Material styles
+  .mat-paginator-container {
+    justify-content: center;
+  }
+
+  .mat-paginator-page-size {
+    .mat-paginator-page-size-label {
+      color: var(--paginator-text-color);
+      font-size: 14px;
+    }
+
+    .mat-paginator-page-size-select {
+      .mat-select-value {
+        color: var(--paginator-controls-color);
+        font-size: 14px;
+      }
+
+      .mat-select-arrow {
+        color: var(--paginator-controls-color);
+      }
+
+      .mat-form-field-underline {
+        display: none;
+      }
+    }
+  } // .mat-paginator-page-size
+
+  .mat-paginator-range-actions {
+    .mat-paginator-range-label {
+      color: var(--paginator-text-color);
+      font-size: 14px;
+    }
+
+    .mat-paginator-navigation-previous,
+    .mat-paginator-navigation-next {
+      &:not([disabled]) {
+        color: var(--paginator-controls-color);
+      }
+      &[disabled] {
+        color: var(--paginator-disabled-controls-color);
+      }
+    }
+  } // .mat-paginator-range-actions
+}

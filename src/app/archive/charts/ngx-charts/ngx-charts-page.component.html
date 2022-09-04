@@ -1,0 +1,102 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">Ngx-echarts</h1>
+
+  <div class="callout-message-wrapper">
+    <div class="callout-icon">
+      <i class="fas fa-info-circle"></i>
+    </div>
+    <div class="callout-message">
+      <span>
+        <b>ngx-charts</b> is an open source declarative Charting Framework for Angular. It don't merely wrap d3, it uses Angular to render and animate the <b>SVG</b> elements with all of its binding and speed goodness, and uses <b>d3</b> for the excellent math functions, scales, axis and shape generators, etc.
+        <br>
+        For more info please visit the plugin's <a href="https://swimlane.gitbook.io/ngx-charts/" class="alert-link" target="_blank">Demo Page</a> or <a href="https://github.com/swimlane/ngx-charts" class="alert-link" target="_blank">Github Repo</a>.
+      </span>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12 chart-card">
+      <div>
+        <div class="chart-card-header">
+          <span>Sales by Country - This year</span>
+        </div>
+        <div class="chart-card-body bar-vertical">
+          <ngx-charts-bar-vertical *ngIf="isBrowser"
+            [scheme]="colorScheme"
+            [results]="countriesData"
+            [gradient]="verticalBarOptions.gradient"
+            [xAxis]="verticalBarOptions.showXAxis"
+            [yAxis]="verticalBarOptions.showYAxis"
+            [legend]="verticalBarOptions.showLegend"
+            [showXAxisLabel]="verticalBarOptions.showXAxisLabel"
+            [showYAxisLabel]="verticalBarOptions.showYAxisLabel"
+            [xAxisLabel]="verticalBarOptions.xAxisLabel"
+            [yAxisLabel]="verticalBarOptions.yAxisLabel"
+            [barPadding]="verticalBarOptions.barPadding"
+            [showGridLines]="verticalBarOptions.showGridLines">
+          </ngx-charts-bar-vertical>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 chart-card">
+      <div>
+        <div class="chart-card-header">
+          <span>Visitors distribution</span>
+        </div>
+        <div class="chart-card-body bar-horizontal">
+          <ngx-charts-bar-horizontal-2d *ngIf="isBrowser"
+            [scheme]="colorScheme"
+            [results]="countriesData2"
+            [legendPosition]="horizontalBarOptions.legendPosition"
+            [xAxis]="horizontalBarOptions.showXAxis"
+            [yAxis]="horizontalBarOptions.showYAxis"
+            [legend]="horizontalBarOptions.showLegend"
+            [showXAxisLabel]="horizontalBarOptions.showXAxisLabel"
+            [showYAxisLabel]="horizontalBarOptions.showYAxisLabel"
+            [xAxisLabel]="horizontalBarOptions.xAxisLabel"
+            [barPadding]="horizontalBarOptions.barPadding"
+            [groupPadding]="horizontalBarOptions.groupPadding"
+            [showGridLines]="horizontalBarOptions.showGridLines">
+          </ngx-charts-bar-horizontal-2d>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 chart-card">
+      <div>
+        <div class="chart-card-header">
+          <span>Contest Results - % of correct answers</span>
+        </div>
+        <div class="chart-card-body pie-grid">
+          <ngx-charts-pie-grid *ngIf="isBrowser"
+          [label]="'Points'"
+          [scheme]="colorScheme"
+          [results]="contestData">
+          </ngx-charts-pie-grid>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 chart-card">
+      <div>
+        <div class="chart-card-header">
+          <span>Page Vistis</span>
+        </div>
+        <div class="chart-card-body line-chart">
+          <ngx-charts-line-chart *ngIf="isBrowser"
+          [scheme]="colorScheme"
+          [results]="lineChartData"
+          [legendPosition]="lineChartOptions.legendPosition"
+          [xAxis]="lineChartOptions.showXAxis"
+          [yAxis]="lineChartOptions.showYAxis"
+          [legend]="lineChartOptions.showLegend"
+          [showXAxisLabel]="lineChartOptions.showXAxisLabel"
+          [showYAxisLabel]="lineChartOptions.showYAxisLabel"
+          [roundDomains]="lineChartOptions.roundDomains"
+          [autoScale]="lineChartOptions.autoScale"
+          [showGridLines]="lineChartOptions.showGridLines">
+          </ngx-charts-line-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

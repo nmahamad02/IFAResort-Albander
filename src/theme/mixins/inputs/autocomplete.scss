@@ -1,0 +1,30 @@
+@mixin material-autocomplete-styles() {
+  // material autocomplete styles
+  $shadow-color: 'grey-5';
+  --input-select-background: #{palette-color('white')};
+  --input-select-color: #{palette-color('grey-7')};
+  --input-select-hover-background: #{palette-color('primary', 0.2)};
+  --input-select-hover-color: #{palette-color('primary')};
+  --input-select-selected-background: #{palette-color('primary')};
+  --input-select-selected-color: #{palette-color('primary-contrast')};
+
+  &:not([class*=mat-elevation-z]) {
+    @include elevation(z2, $shadow-color);
+  }
+
+  .mat-option {
+    color: var(--input-select-color) !important;
+    background: var(--input-select-background) !important;
+
+    &:hover,
+    &.mat-active  {
+      --input-select-background: var(--input-select-hover-background);
+      --input-select-color: var(--input-select-hover-color);
+    }
+
+    &.mat-selected {
+      --input-select-background: var(--input-select-selected-background);
+      --input-select-color: var(--input-select-selected-color);
+    }
+  }
+}

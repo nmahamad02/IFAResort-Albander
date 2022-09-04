@@ -1,0 +1,56 @@
+/*
+  Shared
+*/
+
+@import 'preferences';
+@import 'interface';
+@import 'mode';
+
+// An abstract way to provide colors.
+// This function is an interface to both Sass variables and CSS 4 variables based color palettes.
+@function palette-color($color-name, $alpha: 1) {
+  // $color-palette-mode        =>  Defined in mode.scss
+  // $choosen-palette           =>  Defined in mode.scss
+  // $color-palette-interface   =>  Defined in interface.scss
+  // $css4-var-prefix           =>  Defined in preferences.scss
+  // $css4-color-format         =>  Defined in preferences.scss
+
+  @if ($color-palette-mode == 'css-4') {
+    $palette-reference: $color-palette-interface;
+
+    $color-variable-index: index($palette-reference, $color-name);
+
+    @if (type_of($color-variable-index) == 'number') {
+      $color-variable-name: nth($palette-reference, $color-variable-index);
+
+      @if ($alpha > 0 and $alpha < 1) {
+        @return #{'rgba(var(' + $css4-var-prefix + $color-variable-name + '-' + $css4-color-format +'), #{$alpha})'};
+      } @else if ($alpha == 1) {
+        @return #{'rgb(var(' + $css4-var-prefix + $color-variable-name + '-' + $css4-color-format + '))'};
+      } @else {
+        @error "Alpha (#{$alpha}) must be a number";
+      }
+    } @else {
+      @error "Color (#{$color-name}) was not found on Color Palette definition. Make sure it's defined in the theme/palettes/interface.scss file";
+    }
+  } @else if ($color-palette-mode == 'sass') {
+    $palette-reference: $choosen-palette;
+
+    $color-variable: map-get($palette-reference, $color-name);
+
+    // Check if it is a Sass color
+    @if (type_of($color-variable) == 'color') {
+      @if ($alpha > 0 and $alpha < 1) {
+        @return rgba($color-variable, $alpha);
+      } @else if ($alpha == 1) {
+        @return $color-variable;
+      } @else {
+        @error "Alpha (#{$alpha}) must be a number";
+      }
+    } @else {
+      @error "Color (#{$color-variable}) is not a Sass color";
+    }
+  } @else {
+    @error 'No Color Palette mode selected in theme/palettes/preferences.scss';
+  }
+}

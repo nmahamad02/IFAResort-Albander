@@ -1,0 +1,26 @@
+@mixin radio-styles() {
+  --default-spacing: 10px;
+  --radio-border-color: #{palette-color('primary')};
+  --radio-background: #{palette-color('primary')};
+  --radio-color: #{palette-color('white')};
+
+  .custom-control-label {
+
+    &::before {
+      width: 22px;
+      height: 22px;
+      top: 0px;
+    }
+    &::after {
+      width: 22px;
+      height: 22px;
+      top: 0px;
+    }
+  }
+
+  .custom-control-input:checked ~ .custom-control-label::before {
+    color: var(--radio-color);
+    border-color: var(--radio-border-color);
+    background-color: var(--radio-background);
+  }
+}

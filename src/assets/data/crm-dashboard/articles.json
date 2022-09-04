@@ -1,0 +1,42 @@
+[
+  {
+    "author": {
+      "name": "Elizabeth Hurton",
+      "picture": "/assets/imgs/users/user-7.jpeg"
+    },
+    "published_date": "14 Nov 2019",
+    "featured_image": "/assets/imgs/articles/article-1.png",
+    "title": "How to Plan a Profitable Cyber Monday Promotion",
+    "category": "Podcast"
+  },
+  {
+    "author": {
+      "name": "John Darlon",
+      "picture": "/assets/imgs/users/user-2.jpeg"
+    },
+    "published_date": "07 Nov 2019",
+    "featured_image": "/assets/imgs/articles/article-2.png",
+    "title": "Why Telling Stories is More Important Than Ads",
+    "category": "Article"
+  },
+  {
+    "author": {
+      "name": "Malcolm Quaday",
+      "picture": "/assets/imgs/users/user-5.jpeg"
+    },
+    "published_date": "03 Oct 2019",
+    "featured_image": "/assets/imgs/articles/article-3.png",
+    "title": "17 Best strategies to increase ecommerce sales",
+    "category": "Tutorial"
+  },
+  {
+    "author": {
+      "name": "Elizabeth Williams",
+      "picture": "/assets/imgs/users/user-4.jpeg"
+    },
+    "published_date": "25 Sept 2019",
+    "featured_image": "/assets/imgs/articles/article-4.png",
+    "title": "Marketing attribution: the customer journey",
+    "category": "Article"
+  }
+]

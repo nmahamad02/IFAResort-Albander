@@ -1,0 +1,273 @@
+@import 'shared';
+
+/*
+  Responsive styles
+*/
+:host {
+  /*
+    XS
+  */
+  @include media-breakpoint-only(xs) {
+    .sales-visualization {
+      margin-top: 30px;
+    }
+  }
+
+  /*
+    SM and XS
+  */
+  @include media-breakpoint-down(sm) {
+    .highlighted-stats-visualization {
+      .stat-item {
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+      }
+    } // .highlighted-stats-visualization
+
+    .sales-visualization {
+      .stat-summary-wrapper {
+        & + .stat-summary-wrapper {
+          // Line divider
+          &::before {
+            width: 60%;
+          }
+        }
+      }
+    } // .sales-visualization
+
+    .devices-visualization {
+      .visualization-stats {
+        flex-wrap: wrap;
+        flex-direction: row;
+        margin-top: 30px;
+        padding-inline-start: 0px;
+
+        .visualization-stat {
+          padding: 0px;
+
+          // Select everything but the last two items
+          // (nth-child web tool, see: https://css-tricks.com/examples/nth-child-tester/)
+          &:not(:nth-last-child(-n+2)) {
+            margin-bottom: 15px;
+          }
+
+          @include make-col(6);
+        }
+      }
+    } // .devices-visualization
+  }
+
+  /*
+    MD
+  */
+  @include media-breakpoint-only(md) {
+    .highlighted-stats-visualization {
+      .stat-item {
+        // Select everything but the last two items
+        // (nth-child web tool, see: https://css-tricks.com/examples/nth-child-tester/)
+        &:not(:nth-last-child(-n+2)) {
+          margin-bottom: 15px;
+        }
+      }
+    } // .highlighted-stats-visualization
+
+    .sales-visualization {
+      .visualization-stats {
+        justify-content: center;
+      }
+
+      .stat-summary-wrapper {
+        justify-content: center;
+
+        & + .stat-summary-wrapper {
+          margin-top: 0px;
+          padding-top: 0px;
+
+          // Line divider
+          &::before {
+            left: 0px;
+            width: 1px;
+            height: 100%;
+          }
+        }
+      }
+    } // .sales-visualization
+
+    .sales-distribution-visualization {
+      .stat-highlight-wrapper {
+        & + .stat-highlight-wrapper {
+          margin-top: 0px;
+        }
+      }
+    } // .sales-distribution-visualization
+  }
+
+  /*
+    MD, SM and XS
+  */
+  @include media-breakpoint-down(md) {
+    .visualizations-section {
+      & > .col-12 {
+        & + .col-12 {
+          margin-top: 80px;
+        }
+      }
+    }
+
+    .sales-visualization {
+      .visualization-stats {
+        padding-bottom: 30px;
+      }
+    } // .sales-visualization
+
+    .sales-distribution-visualization {
+      .expanded-stats {
+        margin-top: 30px;
+      }
+    } // .sales-distribution-visualization
+  }
+
+  /*
+    LG
+  */
+  @include media-breakpoint-only(lg) {
+    .highlighted-stats-visualization {
+      .stat-item {
+        .stat-info {
+          margin-top: 15px;
+          padding: 0px;
+        }
+      }
+    } // .highlighted-stats-visualization
+
+    :host-context(.main-sidenav-opened) {
+      .highlighted-stats-visualization {
+        .stat-item {
+          .stat-icon {
+            mat-icon {
+              border-radius: 10px;
+            }
+          }
+
+          .stat-trend {
+            .trend-reference {
+              display: none;
+            }
+          }
+        }
+      } // .highlighted-stats-visualization
+
+      .devices-visualization {
+        .visualization-chart-wrapper {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(12);
+        }
+
+        .visualization-stats {
+          flex-wrap: wrap;
+          flex-direction: row;
+          margin-top: 30px;
+          padding-inline-start: 0px;
+
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(12);
+
+          .visualization-stat {
+            padding: 0px;
+
+            // Select everything but the last two items
+            // (nth-child web tool, see: https://css-tricks.com/examples/nth-child-tester/)
+            &:not(:nth-last-child(-n+2)) {
+              margin-bottom: 15px;
+            }
+
+            @include make-col(6);
+          }
+        }
+      } // .devices-visualization
+
+      .sales-distribution-visualization {
+        .stats-highlights-outer {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(12);
+        }
+
+        .expanded-stats {
+          margin-top: 30px;
+
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(12);
+        }
+      } // .sales-distribution-visualization
+
+      .top-selling-visualization-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(6);
+      } // .top-selling-visualization-wrapper
+
+      .top-visited-visualization-wrapper {
+        // Override Bootstrap responsive layout classes applied to the DOM element
+        @include make-col(6);
+      } // .top-visited-visualization-wrapper
+    }
+  }
+
+  /*
+    XL
+  */
+  @include media-breakpoint-only(xl) {
+    :host-context(.main-sidenav-opened) {
+      .highlighted-stats-visualization {
+        .stat-item {
+          .stat-info {
+            order: 2;
+            margin-top: 15px;
+            padding: 0px;
+
+            // Override Bootstrap responsive layout classes applied to the DOM element
+            @include make-col(12);
+          }
+
+          .stat-icon {
+            // Override Bootstrap responsive layout classes applied to the DOM element
+            @include make-col(4);
+          }
+
+          .stat-trend {
+            // Override Bootstrap responsive layout classes applied to the DOM element
+            @include make-col(5);
+          }
+        }
+      } // .highlighted-stats-visualization
+
+      .devices-visualization {
+        .visualization-chart-wrapper {
+          padding-inline-end: 15px;
+
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(6);
+        }
+
+        .visualization-stats {
+          padding-inline-start: 0px;
+
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(6);
+        }
+      } // .devices-visualization
+
+      .sales-distribution-visualization {
+        .stats-highlights-outer {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(5);
+        }
+
+        .expanded-stats {
+          // Override Bootstrap responsive layout classes applied to the DOM element
+          @include make-col(7);
+        }
+      } // .sales-distribution-visualization
+    }
+  }
+}

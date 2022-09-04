@@ -1,0 +1,33 @@
+<!-- Multi sidenav layouts, see: https://github.com/angular/components/issues/1514#issuecomment-306778354 -->
+<mat-sidenav-container>
+  <mat-sidenav class="admin-alt-sidenav fixed-sidenav" #altSidenav mode="over" opened="false" position="start" (openedChange)="altSidenavToggled($event)">
+    <app-dynamic-menu></app-dynamic-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="layout-container">
+      <div class="side-navbar-container">
+        <app-side-navbar class="admin-side-navbar"></app-side-navbar>
+      </div>
+      <div class="drawer-container">
+        <mat-sidenav-container>
+          <mat-sidenav
+            class="admin-main-sidenav fixed-sidenav clear-sidenav-background"
+            #mainSidenav
+            [mode]="mainSideMenuMode"
+            [opened]="mainSidenavOpened"
+            position="start"
+            (openedStart)="openedStart()"
+            (openedChange)="mainSidenavToggled($event)">
+            <app-main-menu class="use-active-item-dot-decoration"></app-main-menu>
+          </mat-sidenav>
+          <mat-sidenav-content class="admin-main-content">
+            <button class="btn toggle-sidenav-btn" type="button" (click)="toggleMainMenu()">
+              <i class="fa fa-bars"></i>
+            </button>
+            <router-outlet></router-outlet>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

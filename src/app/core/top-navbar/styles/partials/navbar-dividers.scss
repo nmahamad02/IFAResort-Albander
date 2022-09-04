@@ -1,0 +1,41 @@
+@mixin line-divider() {
+  $default-color: #333333;
+  $default-width: 2px;
+
+  content: '';
+  position: absolute;
+  left: 0px;
+  background-color: var(--divider-color, $default-color);
+  width: var(--divider-width, $default-width);
+  height: 100%;
+}
+
+:host(.add-actions-divider, .add-user-divider) {
+  --top-navbar-divider-color: #E4E7EB;
+
+  --divider-width: 2px;
+  --divider-color: var(--top-navbar-divider-color);
+  --divider-spacing: calc(var(--top-navbar-spacing) * 2);
+
+  &.add-actions-divider {
+    .navbar-actions {
+      position: relative;
+      padding-inline-start: calc(var(--divider-spacing) + var(--divider-width));
+
+      &::before {
+        @include line-divider();
+      }
+    }
+  }
+
+  &.add-user-divider {
+    .navbar-user {
+      position: relative;
+      padding-inline-start: calc(var(--divider-spacing) + var(--divider-width));
+
+      &::before {
+        @include line-divider();
+      }
+    }
+  }
+}

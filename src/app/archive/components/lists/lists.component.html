@@ -1,0 +1,171 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">Lists</h1>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">List #1</h2>
+      <div class="row no-gutters list-1">
+        <div class="list-1-wrapper col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="list-header">
+            <span class="title">Who to follow</span>
+          </div>
+          <div class="list-group list-group-flush">
+            <div class="list-group-item" *ngFor="let user of list1Users">
+              <div class="row no-gutters list-item">
+                <div class="col-2">
+                  <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                    <cc-image-shell class="user-image" animation="spinner" [src]="user.image" [alt]="'user image'"></cc-image-shell>
+                  </cc-aspect-ratio>
+                </div>
+                <div class="user-details-col">
+                  <span class="user-name">{{ user.name }}</span>
+                  <span class="user-friends">{{ user.mutual_friends }} mutual friends</span>
+                </div>
+                <button type="button" [attr.following]="user.following" data-follow="Follow" data-following="Following" data-unfollow="Unfollow" class="follow-btn"></button>
+              </div>
+            </div>
+            <div class="list-group-item">
+              <a class="show-more-link">Show more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">List #2 opt A</h2>
+      <div class="row no-gutters list-2">
+        <div class="col-12 col-lg-10 col-xl-8">
+          <div class="list2-item opt-a" *ngFor="let user of list2Users">
+            <div class="col-2 user-image-col">
+              <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                <cc-image-shell class="user-image" [mode]="'cover'" animation="spinner" [src]="user.image" [alt]="'user image'"></cc-image-shell>
+              </cc-aspect-ratio>
+              <div class="user-status" data-toggle="tooltip" data-placement="top" title="{{user.status}}">
+                <i class="fas fa-circle status-icon" [attr.status]="user.status"></i>
+              </div>
+            </div>
+            <div class="col-7 user-details-col">
+              <span class="user-name">{{ user.name }}</span>
+              <span class="user-description">{{ user.description }}</span>
+            </div>
+            <div class="actions-col">
+              <button class="follow-btn">Follow</button>
+              <button class="popover-btn btn" placement="bottom" [ngbPopover]="popoverRef" popoverClass="actions-popover">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">List #2 opt B</h2>
+      <div class="row no-gutters list-2">
+        <div class="list-group list-group-flush col-12 col-lg-10 col-xl-8">
+          <div class="list-group-item opt-b list2-item" *ngFor="let user of list2Users">
+            <div class="col-2 user-image-col">
+              <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                <cc-image-shell class="user-image" [mode]="'cover'" animation="spinner" [src]="user.image" [alt]="'user image'"></cc-image-shell>
+              </cc-aspect-ratio>
+              <div class="user-status" data-toggle="tooltip" data-placement="top" title="{{user.status}}">
+                <i class="fas fa-circle status-icon" [attr.status]="user.status"></i>
+              </div>
+            </div>
+            <div class="col-7 user-details-col">
+              <span class="user-name">{{ user.name }}</span>
+              <span class="user-description">{{ user.description }}</span>
+            </div>
+            <div class="actions-col">
+              <button class="follow-btn">Follow</button>
+              <button class="popover-btn btn" placement="bottom" [ngbPopover]="popoverRef" popoverClass="actions-popover">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">List #3</h2>
+      <div class="row no-gutters list-3">
+        <div class="col-12 col-xl-10">
+          <div class="list3-item row no-gutters" *ngFor="let article of list3Articles">
+            <div class="col-3 image-col">
+              <cc-image-shell class="article-image" [mode]="'cover'" animation="gradient" [src]="article.image" [alt]="'image'"></cc-image-shell>
+            </div>
+            <div class="col post-details-col">
+              <p class="post-title">{{ article.title }}</p>
+              <p class="post-description">{{ article.description}}</p>
+              <a class="post-link" href="https://{{article.link}}">{{ article.link }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">List #4 - Wish List</h2>
+
+      <div class="row no-gutters list-4">
+        <div class="wishlist-wrapper col-12 col-xl-10">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item row no-gutters list4-item" *ngFor="let item of list4WishList">
+              <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2 product-image-wrapper">
+                <cc-image-shell class="product-image" [mode]="'cover'" animation="spinner" [src]="item.image" [alt]="'image'"></cc-image-shell>
+              </div>
+              <div class="col item-details-col">
+                <p class="item-title">{{item.title}}</p>
+                <p class="item-author-wrapper">By
+                  <a class="item-author-link" href="{{item.author.link}}" target="_blank">{{item.author.name}}</a>
+                </p>
+                <p class="item-rating">
+                  <ngb-rating [starTemplate]="star" [rate]="item.rating" [max]="5" [readonly]="true"></ngb-rating>
+                  <a href="https://examplelink.com" target="_blank" class="amount-of-reviews">({{item.amout_of_reviews}})</a>
+                </p>
+                <p class="item-price">${{item.price}}</p>
+                <p class="item-stock">{{item.stock}} left in stock</p>
+              </div>
+              <div class="col item-actions-col">
+                <p class="date-added-to-wishlist">Item added {{item.date_added}}</p>
+                <div class="buttons-wrapper">
+                  <button class="add-to-cart-btn">Add to Cart</button>
+                  <button class="btn btn-link delete-btn">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #popoverRef>
+  <ul class="actions-popover-list list-unstyled">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another Action</a></li>
+    <li><a href="#">Something else</a></li>
+  </ul>
+</ng-template>
+<ng-template #star let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">
+      <i class="fas fa-star"></i>
+    </span>
+    <i class="fas fa-star"></i>
+  </span>
+</ng-template>

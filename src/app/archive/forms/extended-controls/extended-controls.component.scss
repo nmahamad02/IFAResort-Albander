@@ -1,0 +1,315 @@
+@import 'shared';
+
+:host {
+  // // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+  --section-title-color: #{palette-color('grey-9')};
+  --section-card-background: #{palette-color('white')};
+
+  --slide-toggle-background: #{palette-color('primary', 0.6)};
+  --slide-toggle-color: #{palette-color('primary')};
+
+  --range-value-background: #{palette-color('primary', 0.2)};
+  --range-value-color: #{palette-color('primary')};
+  --range-fill-background: #{palette-color('primary')};
+  --range-track-background: #{palette-color('grey-2')};
+
+  --progress-bar-default-color: #{palette-color('primary')};
+  --progress-bar-default-background: #{palette-color('grey-2')};
+
+  --form-input-background-color: #{palette-color('grey-0')};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title {
+    color: var(--page-title-color);
+    font-size: 30px;
+    margin-bottom: calc(var(--page-spacing) * 6);
+  }
+
+  .section-card {
+    padding: calc(var(--page-spacing) * 4);
+    background-color: var(--section-card-background);
+    margin-bottom: calc(var(--page-spacing) * 4);
+    border-radius: 6px;
+
+    .section-card-title {
+      font-size: 26px;
+      margin-bottom: calc(var(--page-spacing) * 3);
+      color: var(--section-title-color);
+    }
+
+    .form-group {
+      margin-bottom: calc(var(--default-spacing) * 2);
+      @include form-group-styles();
+
+      .form-control {
+        background-color: var(--form-input-background-color);
+      }
+
+      .col-form-label {
+        align-self: center;
+      }
+
+      .chips {
+        @include chip-styles();
+
+        .custom-autocomplete-input {
+          margin: 0px;
+          width: 100%;
+          margin-bottom: var(--default-spacing);
+          padding: calc(var(--default-spacing) / 2) var(--default-spacing);
+        }
+      }
+
+      .datepicker-toggle-btn {
+        @include button-outline();
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+      }
+    }
+
+    .rating {
+      @include rating-styles();
+    }
+
+    .custom-select-wrapper {
+      @include bootstrap-select-styles();
+    }
+
+    .time-picker-wrapper {
+      // time picker
+      ngb-timepicker.time-picker {
+        // Need ::ng-deep because it's an encapsulated element
+        ::ng-deep {
+          // Override Bootstrap Styles
+          .btn-link {
+            color: var(--form-icons-color);
+          }
+        }
+      }
+      .time-picker-label {
+        margin: auto 0px;
+      }
+    }
+
+    &.checkboxes-section {
+      .form-group {
+        margin-bottom: calc(var(--page-spacing) * 2);
+      }
+
+      .inline-checkboxes {
+        display: flex;
+        align-items: center;
+
+        .custom-checkbox {
+          &:not(:last-child) {
+            margin-right: calc(var(--page-spacing) * 2);
+          }
+        }
+      }
+
+      .vertical-checkboxes {
+        display: flex;
+        flex-direction: column;
+
+        .custom-checkbox {
+          &:not(:last-child) {
+            margin-bottom: var(--page-spacing);
+          }
+        }
+      }
+
+      .custom-control.custom-checkbox {
+        @include bootstrap-checkbox-styles();
+      }
+
+      // For encapsulated components INSIDE the :host element
+      ::ng-deep {
+        mat-slide-toggle.mat-slide-toggle {
+          &.mat-checked {
+            .mat-slide-toggle-bar {
+              background-color: var(--slide-toggle-background);
+            }
+            .mat-slide-toggle-thumb {
+              background-color: var(--slide-toggle-color);
+            }
+          }
+        }
+      }
+    }
+
+    &.radios-section {
+      .form-group {
+        margin-bottom: calc(var(--page-spacing) * 2);
+      }
+
+      .inline-radios {
+        display: flex;
+        align-items: center;
+
+        .custom-radio {
+          &:not(:last-child) {
+            margin-right: calc(var(--page-spacing) * 2);
+          }
+        }
+      }
+
+      .vertical-radios {
+        display: flex;
+        flex-direction: column;
+
+        .custom-radio {
+          &:not(:last-child) {
+            margin-bottom: var(--page-spacing);
+          }
+        }
+      }
+
+      .custom-control.custom-radio {
+        @include radio-styles();
+      }
+    }
+
+    .range-container {
+      display: flex;
+      align-items: center;
+
+      .range-value-label {
+        padding: 2px 6px;
+        background-color: var(--range-value-background);
+        color: var(--range-value-color);
+        border-radius: 6px;
+        font-size: 14px;
+        margin-left: var(--page-spacing);
+      }
+    }
+
+    .custom-material-slider {
+      width: 100%;
+      padding: 0px;
+
+      // For encapsulated components INSIDE the :host element
+      ::ng-deep {
+        .mat-slider-thumb-label {
+          background-color: var(--range-value-background);
+        }
+        .mat-slider-thumb-label-text {
+          color: var(--range-value-color);
+        }
+        .mat-slider-track-fill {
+          background-color: var(--range-fill-background);
+        }
+        .mat-slider-track-background {
+          background-color: var(--range-track-background);
+        }
+        .mat-slider-thumb {
+          background-color: var(--range-value-color);
+        }
+      }
+    }
+
+    .progress-bar-wrapper {
+      display: flex;
+
+      .custom-material-progressbar {
+        width: 100%;
+        align-self: center;
+      }
+
+      // Override Bootstrap Styles
+      ::ng-deep ngb-progressbar.custom-progress-bar {
+        width: 100%;
+        align-self: center;
+
+        &[color='primary'] {
+          .progress {
+            background-color: #{palette-color('primary', 0.2)};
+            .progress-bar {
+              background-color: #{palette-color('primary')};
+            }
+          }
+        }
+
+        &[color='secondary'] {
+          .progress {
+            background-color: #{palette-color('secondary', 0.2)};
+            .progress-bar {
+              background-color: #{palette-color('secondary')};
+            }
+          }
+        }
+
+        &[color='tertiary'] {
+          .progress {
+            background-color: #{palette-color('tertiary', 0.2)};
+            .progress-bar {
+              background-color: #{palette-color('tertiary')};
+            }
+          }
+        }
+
+        &[color='quaternary'] {
+          .progress {
+            background-color: #{palette-color('quaternary', 0.2)};
+            .progress-bar {
+              background-color: #{palette-color('quaternary')};
+            }
+          }
+        }
+
+        &.rounded-progress-bar {
+          .progress {
+            border-radius: calc(var(--page-spacing) * 2);
+            .progress-bar {
+              border-radius: calc(var(--page-spacing) * 2);
+            }
+          }
+        }
+
+        &.value-indicator {
+          .progress {
+            overflow: visible;
+            .progress-bar {
+              position: relative;
+
+              &::after {
+                --span-width: 50px;
+                content: attr(aria-valuenow)'%';
+                position: absolute;
+                right: calc((var(--span-width) / 2) * -1);
+                bottom: calc((var(--span-width) / 2) * -1);
+                width: var(--span-width);
+                background-color: #{palette-color('quaternary', 0.2)};
+                color: #{palette-color('quaternary')};
+                padding: 2px 6px;
+                border-radius: 6px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// For encapsulated components INSIDE the :host element
+:host ::ng-deep {
+  .mat-progress-bar-fill::after {
+    background-color: var(--progress-bar-default-color);
+  }
+  .mat-progress-bar-buffer {
+    background-color: var(--progress-bar-default-background);
+  }
+}
+
+// For encapsulated components OUTSIDE the :host element
+::ng-deep {
+  .mat-autocomplete-panel.skills-autocomplete {
+    @include material-autocomplete-styles();
+  }
+}

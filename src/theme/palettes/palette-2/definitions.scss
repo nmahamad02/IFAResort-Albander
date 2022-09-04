@@ -1,0 +1,38 @@
+$palette-2: (
+  'primary': #9e34df,
+  'primary-light': mix(#FFFFFF, #9e34df, 10%), // Tint
+  'primary-dark': mix(#000000, #9e34df, 15%), // Shade
+  'primary-contrast': #fcf8fe, // violet-0 (4.99)
+  'secondary': #8BEDD3,
+  'secondary-light': mix(#FFFFFF, #8BEDD3, 10%), // Tint
+  'secondary-dark': mix(#000000, #8BEDD3, 12%), // Shade
+  'secondary-contrast': #695C5C, // (4.61)
+  'tertiary': #FFAF84,
+  'quaternary': #EF798A,
+  'success': #28a745,
+  'success-dark': mix(#000000, #28a745, 15%),
+  'success-light': mix(#FFFFFF, #28a745, 80%),
+  'error': #dc3545,
+  'error-dark': mix(#000000, #dc3545, 15%),
+  'error-light': mix(#FFFFFF, #dc3545, 80%),
+  'warning': #eba636,
+  'warning-light': mix(#FFFFFF, #eba636, 80%),
+  'info': #2e69c9,
+  'info-light': mix(#FFFFFF, #2e69c9, 80%),
+  'white': #FFFFFF,
+  'facebook': #3b5998,
+  'facebook-dark': mix(#000000, #3b5998, 15%),
+  'twitter': #00aced,
+  'google': #cc181e,
+  // Neutrals
+  'grey-0': #faf9fa,
+  'grey-1': #efedf1,
+  'grey-2': #e4dfe6,
+  'grey-3': #d7d1db,
+  'grey-4': #c9c1ce,
+  'grey-5': #baafc1,
+  'grey-6': #a99bb1,
+  'grey-7': #94839e,
+  'grey-8': #76677f,
+  'grey-9': #453c4a
+);

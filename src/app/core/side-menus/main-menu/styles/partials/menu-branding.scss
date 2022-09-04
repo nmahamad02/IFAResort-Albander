@@ -1,0 +1,23 @@
+:host {
+  // By default hide menu branding
+  .side-menu-branding {
+    display: none;
+  }
+}
+
+:host(.show-branding) {
+  // Branding variables
+  --main-menu-branding-height: initial;
+
+  .side-menu-branding {
+    height: var(--main-menu-branding-height);
+    margin-bottom: calc(var(--main-menu-spacing) * 4);
+    display: flex;
+    align-items: center;
+    padding-inline-start: var(--main-menu-h-padding-start);
+
+    .brand-logo {
+      font-size: 22px;
+    }
+  }
+}

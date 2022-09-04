@@ -1,0 +1,30 @@
+@import 'palettes/shared';
+
+@mixin popover-list-styles() {
+  --page-spacing: 10px;
+  --text-color: #{palette-color('grey-7')};
+
+  margin-bottom: 0px;
+  padding: calc(var(--page-spacing) / 2) var(--page-spacing);
+  color: var(--text-color);
+
+  li {
+    line-height: calc(var(--page-spacing) * 3);
+    a {
+      text-decoration: none;
+      color: var(--text-color);
+    }
+  }
+}
+
+@mixin popover-box-styles() {
+  --actions-popover-border: #{palette-color('grey-2')};
+  @include elevation(z3, 'grey-3');
+  border: 1px solid var(--actions-popover-border);
+
+  .arrow {
+    &::before {
+      border-bottom-color: var(--actions-popover-border);
+    }
+  }
+}

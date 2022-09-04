@@ -1,0 +1,12 @@
+@import 'palettes/core';
+@import 'definitions';
+
+// Set those CSS 4 variables in the :root element
+// Strip out the CSS attribute selector to set a default palette
+// :root {
+:root[color-palette='palette-1'] {
+  // $css4-palette will be a Sass map pointing to CSS 4 variable names and their corresponding values
+  $css4-palette: buildCSS4Palette($palette-1);
+
+  @include setCSS4Palette($css4-palette);
+}

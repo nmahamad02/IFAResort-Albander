@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Francesca Metts",
+    "company": "Metts LTD",
+    "picture": "/assets/imgs/users/user-1.jpeg",
+    "tags": ["Clothing", "Shoes", "Sports"],
+    "products_on_sale": 982,
+    "sold_units": 100,
+    "revenue": 5000
+  },
+  {
+    "name": "John Marston",
+    "company": "Marston LTD",
+    "picture": "/assets/imgs/users/user-5.jpeg",
+    "tags": ["Phones", "Electronics", "Bikes"],
+    "products_on_sale": 240,
+    "sold_units": 89,
+    "revenue": 4500
+  },
+  {
+    "name": "Lin Pam",
+    "company": "Let's Code",
+    "picture": "/assets/imgs/users/user-3.jpeg",
+    "tags": ["Books", "Courses", "Consulting"],
+    "products_on_sale": 150,
+    "sold_units": 80,
+    "revenue": 3200
+  },
+  {
+    "name": "Mario Brando",
+    "company": "Sunny Pie Corp",
+    "picture": "/assets/imgs/users/user-2.jpeg",
+    "tags": ["Clothing", "Bags", "Shoes"],
+    "products_on_sale": 650,
+    "sold_units": 10,
+    "revenue": 3000
+  }
+]

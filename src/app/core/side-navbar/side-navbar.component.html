@@ -1,0 +1,33 @@
+<div class="navbar-branding">
+  <mat-icon class="brand-logo" svgIcon="angular-logo"></mat-icon> IFAResort
+</div>
+<!--
+<div class="navbar-actions">
+  <button type="button" class="action-button btn btn-link" (click)="toggleSettingsMenu()">
+    <mat-icon class="navbar-icons" svgIcon="settings"></mat-icon>
+  </button>
+  <button type="button" class="action-button btn btn-link" (click)="toggleNotificationsMenu()">
+    <mat-icon class="navbar-icons" svgIcon="notifications"></mat-icon>
+  </button>
+  <button type="button" class="action-button btn btn-link" (click)="toggleSearchMenu()">
+    <mat-icon class="navbar-icons" svgIcon="search"></mat-icon>
+  </button>
+</div>
+-->
+<div class="navbar-user">
+  <div ngbDropdown class="user-actions-dropdown" placement="top-left" display="static">
+    <button class="user-action-toggle-btn btn btn-link dropright" id="accountMenu" ngbDropdownToggle>
+      <!--
+      <div class="user-image-wrapper">
+        <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+          <cc-image-shell class="user-image" animation="spinner" [src]="loggedUser?.image" [alt]="'user image'"></cc-image-shell>
+        </cc-aspect-ratio>
+      </div>
+      -->
+    </button>
+    <div ngbDropdownMenu aria-labelledby="accountMenu" class="dropdown-menu-left">
+      <a class="btn btn-link" ngbDropdownItem [routerLink]="['/forms/form-layouts']">Account</a>
+      <button class="btn btn-link" ngbDropdownItem (click)="logout()">Log out</button>
+    </div>
+  </div>
+</div>

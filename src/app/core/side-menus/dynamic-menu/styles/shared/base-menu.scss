@@ -1,0 +1,98 @@
+@import 'shared';
+
+:host {
+  display: block;
+  overflow-y: scroll;
+
+  width: var(--menu-width);
+  height: 100%;
+  padding: calc(var(--menu-spacing) * 2) var(--menu-padding);
+
+  background-color: var(--menu-background);
+  color: var(--menu-color);
+
+  .menu-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+
+    .heading-title {
+      font-size: 26px;
+      color: var(--menu-color);
+      margin: 0px;
+    }
+
+    .clear-notifications-btn {
+      @include button();
+    }
+  }
+
+  .menu-sub-heading {
+    font-size: 22px;
+    font-weight: 500;
+    color: #4C5661;
+    margin-bottom: calc(var(--menu-spacing) * 2);
+  }
+
+  .menu-illustration-wrapper {
+    width: 80%;
+    margin: calc(var(--menu-spacing) * 4) 10%;
+  }
+}
+
+:host(.actions-on-top) {
+  padding-top: var(--menu-top-actions-height);
+
+  // Typically for the close button
+  .menu-secondary-actions {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 3;
+
+    width: 100%;
+    height: var(--menu-top-actions-height);
+    padding: calc(var(--menu-spacing) / 2) var(--menu-padding);
+
+    display: flex;
+    align-items: baseline;
+
+    background-color: var(--menu-background);
+
+    .close-menu-btn {
+      height: 100%;
+      color: var(--menu-alt-color);
+
+      // Override Bootstrap styles
+      &.btn {
+        padding: calc(var(--menu-spacing) / 2) var(--menu-spacing);
+        border: none;
+        border-radius: 0px;
+      }
+    }
+  }
+}
+
+:host(.actions-on-bottom) {
+  padding-bottom: var(--menu-bottom-actions-height);
+
+  .menu-primary-actions {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 3;
+
+    width: 100%;
+    height: var(--menu-bottom-actions-height);
+    padding: calc(var(--menu-padding) / 2) var(--menu-padding);
+
+    background-color: var(--menu-background);
+
+    .preview-btn {
+      @include button();
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

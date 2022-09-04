@@ -1,0 +1,102 @@
+@import 'palettes/shared';
+
+@mixin button() {
+  // colors that can be redefined:
+  // --button-background
+  // --button-border
+  // --button-color
+
+  $default-background: #{palette-color('primary')}; // --button-background
+  $default-border: #{palette-color('primary')}; // --button-border
+  $default-color: #{palette-color('white')}; // --button-color
+
+  $default-hover-background: #{palette-color('primary-dark')}; // --button-hover-background
+  $default-hover-border: #{palette-color('primary-dark')}; // --button-hover-border
+  $default-hover-color: #{palette-color('white')}; // --button-hover-color
+
+  $default-active-background: var(--button-hover-background, $default-hover-background); // --button-active-background
+  $default-active-border: var(--button-hover-border, $default-hover-border); // --button-active-border
+  $default-active-color: var(--button-hover-color, $default-hover-color); // --button-active-color
+
+  background-color: var(--button-background, $default-background);
+  border-color: var(--button-border, $default-border);
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  color: var(--button-color, $default-color);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: normal;
+  padding: 6px 12px;
+  transition: border-color .5s, color .5s, background-color .5s;
+
+  &:hover {
+    &:not([disabled]) {
+      background-color: var(--button-hover-background, $default-hover-background);
+      border-color: var(--button-hover-border, $default-hover-border);
+      color: var(--button-hover-color, $default-hover-color);
+    }
+  }
+
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    &:not([disabled]) {
+      background-color: var(--button-active-background, $default-active-background);
+      border-color: var(--button-active-border, $default-active-border);
+      color: var(--button-active-color, $default-active-color);
+    }
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: .5;
+  }
+}
+
+@mixin button-outline() {
+  // colors that can be redefined:
+  // --button-background
+  // --button-border
+  // --button-color
+
+  $default-background: #{palette-color('white')}; // --button-background
+  $default-border: #{palette-color('primary')}; // --button-border
+  $default-color: #{palette-color('primary')}; // --button-color
+
+  background-color: var(--button-background, $default-background);
+  border-color: var(--button-border, $default-border);
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  color: var(--button-color, $default-color);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: normal;
+  padding: 6px 12px;
+  transition: border-color .5s, color .5s, background-color .5s;
+
+  &:hover {
+    &:not([disabled]) {
+      background-color: var(--button-color, $default-color);
+      border-color: var(--button-border, $default-border);
+      color: var(--button-background, $default-background);
+    }
+  }
+
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    &:not([disabled]) {
+      background-color: var(--button-color, $default-color);
+      border-color: var(--button-border, $default-border);
+      color: var(--button-background, $default-background);
+    }
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: .5;
+  }
+}

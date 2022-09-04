@@ -1,0 +1,23 @@
+// To make use of Bootstrap handy responsive mixins
+@import './third-party/override-bootstrap-variables';
+// Bootstrap Required
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/mixins';
+
+@import './mixins/flared-tabs';
+@import './mixins/buttons';
+@import './mixins/table-basic-styles';
+@import './mixins/popover';
+@import './mixins/elevations';
+@import './mixins/truncate-text';
+
+@import './mixins/inputs/form-group';
+@import './mixins/inputs/chips';
+@import './mixins/inputs/autocomplete';
+@import './mixins/inputs/rating';
+@import './mixins/inputs/select';
+@import './mixins/inputs/checkbox';
+@import './mixins/inputs/radio';
+
+@import 'palettes/shared';

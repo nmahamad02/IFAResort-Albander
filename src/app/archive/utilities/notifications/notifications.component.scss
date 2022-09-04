@@ -1,0 +1,40 @@
+@import 'shared';
+
+:host {
+  // // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --section-title-color: #{palette-color('grey-9')};
+  --section-subtitle-color: #{palette-color('grey-7')};
+  --section-subtitle-border-color: #{palette-color('grey-8')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title {
+    color: var(--page-title-color);
+    font-size: 30px;
+  }
+
+  .section-title {
+    margin-top: calc(var(--page-spacing) * 6);
+    font-size: 26px;
+    color: var(--section-title-color);
+    padding-bottom: var(--page-spacing);
+    border-bottom: 1px solid var(--section-subtitle-border-color);
+    margin-bottom: calc(var(--page-spacing) * 3);
+  }
+
+  .section-text {
+    color: var(--section-subtitle-color);
+    margin-bottom: calc(var(--page-spacing) * 3);
+  }
+
+  .btn {
+    @include button();
+    margin-bottom: calc(var(--page-spacing) * 2.5);
+    width: 100%;
+  }
+}

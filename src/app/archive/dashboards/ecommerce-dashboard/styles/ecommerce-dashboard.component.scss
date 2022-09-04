@@ -1,0 +1,789 @@
+@import 'shared';
+@import '../../styles/partials/visualization-heading';
+@import '../../styles/partials/banner-callout';
+
+// styles for layout-c for the overlap
+:host-context(.layout-c) {
+  --overlap-padding: 80px;
+
+  .highlighted-section {
+    --highlighted-background: #{palette-color('primary')};
+    --heading-color: #{palette-color('primary-contrast')};
+
+    padding-bottom: var(--overlap-padding);
+
+    // Next sibling
+    & + * {
+      margin-top: calc(var(--overlap-padding) * -1);
+    }
+
+    .highlighted-stats-visualization {
+      padding-bottom: 30px;
+    }
+
+    .visualization-heading {
+      --visualization-heading-color: #{palette-color('primary-contrast')};
+      --visualization-heading-action-color: #{palette-color('primary-contrast', 0.8)};
+      --visualization-heading-action-active-color: #{palette-color('primary-contrast')};
+      --visualization-heading-action-active-border-color: #{palette-color('primary-contrast')};
+    }
+  }
+}
+
+:host {
+  --highlighted-background: transparent;
+  --heading-color: #{palette-color('grey-8')};
+}
+
+:host {
+  display: block;
+
+  .content-wrapper {
+    min-height: 100vh;
+  }
+
+  .visualizations-section {
+    margin-bottom: 80px;
+  }
+
+  // Common styles for repeated element
+  .visualization-heading {
+    margin-bottom: 30px;
+  }
+
+  .highlighted-section {
+    padding: 30px;
+    padding-top: 60px;
+    background-color: var(--highlighted-background);
+
+    // Override Bootstrap styles
+    & > .container-fluid {
+      padding: 0px;
+    }
+  }
+
+  .main-section {
+    padding: 0px 30px;
+
+    // Override Bootstrap styles
+    & > .container-fluid {
+      padding: 0px;
+    }
+  }
+
+  .highlighted-stats-visualization {
+    margin-inline-start: -15px;
+    margin-inline-end: -15px;
+
+    .stat-item {
+      --stat-item-background: #{palette-color('white')};
+      --stat-item-color: #{palette-color('grey-8')};
+      --stat-item-alt-color: #{palette-color('grey-5')};
+      --stat-item-icon-background: #{palette-color('primary', 0.2)};
+      --stat-item-icon-color: #{palette-color('primary')};
+      --stat-trend-color: var(--stat-item-alt-color);
+
+      padding-inline-start: 15px;
+      padding-inline-end: 15px;
+
+      &.highlighted-item {
+        --stat-item-background: #{palette-color('secondary')};
+        --stat-item-color: #{palette-color('secondary-contrast')};
+        --stat-item-alt-color: #{palette-color('secondary-contrast')};
+        --stat-item-icon-background: #{palette-color('secondary-contrast', 0.2)};
+        --stat-item-icon-color: #{palette-color('secondary-contrast')};
+      }
+      &:not(.highlighted-item) {
+        .stat-trend {
+          &.positive-trend {
+            --stat-trend-color: #{palette-color('success')};
+          }
+          &.negative-trend {
+            --stat-trend-color: #{palette-color('error')};
+          }
+        }
+      }
+
+      .stat-item-wrapper {
+        background-color: var(--stat-item-background);
+        border-radius: 6px;
+        padding: 15px;
+      }
+
+      .stat-icon {
+        align-self: center;
+        mat-icon {
+          background: var(--stat-item-icon-background);
+          color: var(--stat-item-icon-color);
+          border-radius: 15px;
+          padding: 20%;
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .stat-info {
+        padding-inline-start: 15px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .stat-reference {
+          display: block;
+          color: var(--stat-item-alt-color);
+          font-size: 16px;
+          line-height: 20px;
+          margin-bottom: 5px;
+        }
+
+        .stat-value {
+          display: block;
+          color: var(--stat-item-color);
+          font-size: 24px;
+          line-height: 30px;
+        }
+      }
+
+      .stat-trend {
+        margin-inline-start: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .trend-mini-chart {
+          height: 30px;
+        }
+
+        .trend-reference {
+          display: block;
+          margin-top: 5px;
+          font-size: 14px;
+          line-height: 1;
+          text-align: end;
+          color: var(--stat-trend-color);
+        }
+      }
+    } // .stat-item
+  } // .highlighted-stats-visualization
+
+  .sales-visualization {
+    --visualization-background: #{palette-color('white')};
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+
+    .visualization-stats {
+      display: flex;
+      justify-content: space-around;
+      height: 100%;
+      // To account for the chart legend height
+      padding-bottom: 60px;
+    }
+
+    .stat-summary-wrapper {
+      display: flex;
+      align-items: center;
+
+      & + .stat-summary-wrapper {
+        position: relative;
+        margin-top: 10px;
+        padding-top: 10px;
+
+        // Line divider
+        &::before {
+          position: absolute;
+          top: 0px;
+          // To account for the .col horizontal padding
+          left: 15px;
+          content: '';
+          background-color: #{palette-color('grey-2')};
+          // To account for the .col horizontal padding
+          width: calc(100% - (15px *2));
+          height: 1px;
+        }
+      }
+    }
+
+    .stat-summary {
+      --stat-color: #{palette-color('grey-7')};
+      --stat-highlighted-color: #{palette-color('grey-5')};
+      --stat-trend-color: #{palette-color('grey-5')};
+
+      &.sales-stats {
+        --stat-highlighted-color: #{palette-color('secondary')};
+      }
+      &.earnings-stats {
+        --stat-highlighted-color: #{palette-color('primary')};
+      }
+
+      .stat-reference {
+        display: block;
+        font-size: 16px;
+        color: var(--stat-highlighted-color);
+      }
+
+      .stat-value {
+        display: block;
+        font-size: 30px;
+        color: var(--stat-highlighted-color);
+      }
+
+      .stat-trend {
+        display: block;
+        font-weight: 300;
+        font-size: 14px;
+        color: var(--stat-trend-color);
+
+        // &.positive-trend {
+        //   --stat-trend-color: #{palette-color('success')};
+        // }
+        // &.negative-trend {
+        //   --stat-trend-color: #{palette-color('error')};
+        // }
+      }
+    }
+
+    .visualization-chart {
+      width: 100%;
+    }
+  } // .sales-visualization
+
+  .orders-visualization {
+    --visualization-background: transparent;
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+    // Same height as the .full-report-banner
+    height: 100%;
+
+    .visualization-chart {
+
+    }
+  } // .orders-visualization
+
+  .full-report-banner {
+    // Same height as the .orders-visualization
+    height: 100%;
+  } // .full-report-banner
+
+  .recent-orders-visualization {
+    --visualization-background: transparent;
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+
+    .visualization-table {
+      @include table-basic-styles();
+
+      .recent-orders-table {
+        .mat-cell {
+          vertical-align: middle;
+
+          &[cell-name = 'status'] {
+            .order-status {
+              padding: 2px 6px;
+              border-radius: 6px;
+            }
+            &[cell-value = 'Delivered'] {
+              color: #{palette-color('success')};
+              .order-status {
+                background-color: #{palette-color('success-light')};
+              }
+            }
+            &[cell-value = 'Pending'] {
+              color: #{palette-color('error')};
+              .order-status {
+                background-color: #{palette-color('error-light')};
+              }
+            }
+          }
+        }
+
+        .product-row {
+          display: flex;
+
+          .product-image-wrapper {
+            width: 50px;
+            margin-right: 20px;
+
+            cc-image-shell.product-image {
+              --image-shell-spinner-size: 20px;
+
+              height: initial;
+            }
+          }
+
+          .product-name {
+            color: #{palette-color('grey-7')};
+          }
+          .product-details {
+            color:  #{palette-color('grey-4')};
+            margin: auto 0px;
+          }
+        }
+      }
+    }
+  } // .recent-orders-visualization
+
+  .devices-visualization {
+    --visualization-background: #{palette-color('white')};
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+    // Make sure it has the same height as .sales-distribution-visualization
+    height: 100%;
+
+    .visualization-chart {
+      width: 100%;
+      height: 100%;
+    }
+
+    .visualization-stats {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      padding-inline-start: 15px;
+
+      .visualization-stat {
+        --stat-color: #{palette-color('grey-5')};
+        --stat-alt-color: #{palette-color('grey-4')};
+        --stat-icon-background: #{palette-color('grey-5', 0.2)};
+        --stat-icon-color: var(--stat-color);
+
+        display: flex;
+        padding: 5px 0px;
+
+        &[stat-reference="desktop"] {
+          --stat-color: #3b86ff;
+          --stat-icon-background: rgba(#3b86ff, 0.2);
+        }
+        &[stat-reference="tablet"] {
+          --stat-color: #38D997;
+          --stat-icon-background: rgba(#38D997, 0.2);
+        }
+        &[stat-reference="mobile"] {
+          --stat-color: #ffc200;
+          --stat-icon-background: rgba(#ffc200, 0.2);
+        }
+        &[stat-reference="watch"] {
+          --stat-color: #FF0E18;
+          --stat-icon-background: rgba(#FF0E18, 0.2);
+        }
+
+        .stat-icon {
+          width: 50px;
+          flex-shrink: 0;
+
+          mat-icon {
+            background: var(--stat-icon-background);
+            color: var(--stat-icon-color);
+            border-radius: 6px;
+            padding: 10px;
+            height: 100%;
+            width: 100%;
+          }
+        }
+
+        .stat-info {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          padding-inline-start: 10px;
+
+          .stat-reference {
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--stat-color);
+          }
+
+          .stat-value {
+            display: block;
+            font-size: 16px;
+            color: var(--stat-alt-color);
+          }
+        }
+      }
+    } // .visualization-stats
+  } // .devices-visualization
+
+  .sales-distribution-visualization {
+    --visualization-background: #{palette-color('white')};
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+    // Make sure it has the same height as .devices-visualization
+    height: 100%;
+
+    .stat-highlight-wrapper {
+      &+ .stat-highlight-wrapper {
+        margin-top: 15px;
+      }
+    }
+
+    .stat-highlight {
+      --stat-color: #{palette-color('white')};
+      --stat-alt-color: #{palette-color('grey-0')};
+      --stat-background: #{palette-color('grey-2')};
+
+      background-color: var(--stat-background);
+      border-radius: 6px;
+      padding: 20px;
+
+      &.sales-stats {
+        --stat-background: #{palette-color('primary')};
+        --stat-color: #{palette-color('primary-contrast')};
+      }
+      &.expenses-stats {
+        --stat-background: #{palette-color('secondary')};
+        --stat-color: #{palette-color('secondary-contrast')};
+        --stat-alt-color: #{palette-color('secondary-contrast')};
+      }
+
+      .stat-value {
+        display: block;
+        font-size: 26px;
+        text-align: center;
+        color: var(--stat-color);
+      }
+
+      .stat-reference {
+        display: block;
+        font-size: 14px;
+        text-align: center;
+        color: var(--stat-alt-color);
+      }
+    }
+
+    .expanded-stats {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .stat-details {
+        --stat-color: #{palette-color('grey-7')};
+        --stat-alt-color: #{palette-color('grey-4')};
+
+        &+ .stat-details {
+          margin-top: 15px;
+        }
+
+        .stat-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          margin-bottom: 5px;
+
+          .stat-reference {
+            display: block;
+            font-size: 14px;
+            color: var(--stat-color);
+          }
+
+          .stat-value {
+            display: block;
+            font-size: 14px;
+            color: var(--stat-alt-color);
+          }
+        }
+
+        ngb-progressbar.stat-value-progressbar {
+          --progressbar-height: 8px;
+          --progressbar-background: #{palette-color('secondary', 0.4)};
+          --progressbar-active-background: #{palette-color('primary-light', 0.8)};
+
+          // Override Bootstrap styles
+          ::ng-deep .progress {
+            height: var(--progressbar-height);
+            border-radius: calc(var(--progressbar-height) / 2);
+            background-color: var(--progressbar-background);
+
+            .progress-bar {
+              border-radius: calc(var(--progressbar-height) / 2);
+              background-color: var(--progressbar-active-background);
+            }
+          }
+        }
+      }
+    }
+  } // .sales-distribution-visualization
+
+  .latest-tickets-visualization {
+    --visualization-background: transparent;
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+
+    .visualization-table {
+      @include table-basic-styles();
+
+      .latest-tickets-table {
+        .mat-cell {
+          vertical-align: middle;
+
+          &[cell-name = 'status'] {
+            .order-status {
+              padding: 2px 6px;
+              border-radius: 6px;
+            }
+            &[cell-value = 'Open'] {
+              color: #{palette-color('success')};
+              .order-status {
+                background-color: #{palette-color('success-light')};
+              }
+            }
+            &[cell-value = 'Closed'] {
+              color: #{palette-color('error')};
+              .order-status {
+                background-color: #{palette-color('error-light')};
+              }
+            }
+          }
+        }
+
+        .ticket-subject {
+          max-width: 300px;
+        }
+
+        .customer-row {
+          display: flex;
+
+          .customer-image-wrapper {
+            width: 50px;
+            margin-right: 20px;
+
+            cc-image-shell.customer-image {
+              --image-shell-border-radius: 50%;
+              --image-shell-spinner-size: 20px;
+
+              height: initial;
+            }
+
+            .customer-image {
+              border-radius: 50%;
+            }
+          }
+
+          .customer-name {
+            color: #{palette-color('grey-7')};
+          }
+          .customer-details {
+            color: #{palette-color('grey-4')};
+            align-self: center;
+          }
+        }
+      }
+
+      .table-paginator {
+        margin-top: 20px;
+
+        // For encapsulated components INSIDE the :host element
+        ::ng-deep {
+          // Override Material styles
+          @include table-paginator-styles();
+        }
+      }
+    }
+  } // .latest-tickets-visualization
+
+  .top-selling-visualization {
+    --visualization-background: transparent;
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+    // Make sure it has the same height as .top-visited-visualization
+    height: 100%;
+
+    .visualization-chart {
+      width: 100%;
+    }
+  } // .top-selling-visualization
+
+  .top-visited-visualization {
+    --visualization-background: #{palette-color('white')};
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+    // Make sure it has the same height as .top-selling-visualization
+    height: 100%;
+
+    .products-list {
+      .product-item {
+        display: flex;
+        align-items: center;
+
+        // Override Bootstrap styles
+        &.list-group-item {
+          padding: 15px 0px;
+        }
+
+        .product-image-wrapper {
+          width: 60px;
+        }
+
+        .product-name {
+          display: block;
+          padding-inline-start: 30px;
+          color: #{palette-color('grey-6')};
+        }
+
+        .product-stat-value {
+          --stat-value-background: #{palette-color('grey-2')};
+          --stat-value-color: #{palette-color('grey-8')};
+
+          display: block;
+          margin-inline-start: auto;
+          min-width: 6ch;
+          padding: 5px;
+
+          &.positive-trend {
+            --stat-value-background: #{palette-color('success-light')};
+            --stat-value-color: #{palette-color('success')};
+          }
+          &.negative-trend {
+            --stat-value-background: #{palette-color('error-light')};
+            --stat-value-color: #{palette-color('error')};
+          }
+
+          // Override Bootstrap styles
+          &.badge {
+            font-size: 12px;
+            font-weight: 400;
+            border-radius: 6px;
+            background-color: var(--stat-value-background);
+            color: var(--stat-value-color);
+          }
+        }
+      }
+    } // .products-list
+  } // .top-visited-visualization
+
+  .latest-sales-visualization {
+    --visualization-background: #{palette-color('secondary')};
+
+    color: #{palette-color('secondary-contrast')};
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+    // Make sure it has the same height as .referrals-visualization
+    height: 100%;
+
+    .visualization-heading {
+      --visualization-heading-color: #{palette-color('secondary-contrast')};
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 28px;
+    }
+
+    .stat-previous-value {
+      display: block;
+      font-size: 14px;
+    }
+
+    .latest-sales-chart {
+      height: 200px;
+      margin: 30px 0px;
+    }
+
+    .highlighted-stats {
+      .stats-reference {
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+
+      .stats-list {
+        // Override Bootstrap styles
+        &.list-unstyled {
+          margin-bottom: 0px;
+        }
+
+        .stat-item {
+          font-weight: 300;
+          font-size: 14px;
+
+          &:not(:last-child) {
+            margin-bottom: 5px;
+          }
+        }
+      }
+    } // .highlighted-stats
+  } // .latest-sales-visualization
+
+  .referrals-visualization {
+    --visualization-background: transparent;
+
+    background-color: var(--visualization-background);
+    border-radius: 6px;
+    padding: 30px;
+    // Make sure it has the same height as .latest-sales-visualization
+    height: 100%;
+
+    .visualization-chart {
+      width: 100%;
+    }
+  } // .referrals-visualization
+}
+
+
+// For encapsulated components OUTSIDE the :host element
+::ng-deep {
+  // Custom styles for tables pagination page size select
+  @include material-select-styles();
+
+  // Tooltip for the pagination arrow buttons
+  mat-tooltip-component {
+    .mat-tooltip {
+      color: #{palette-color('primary')};
+      background: #{palette-color('primary', 0.2)};
+    }
+  }
+}
+
+.shadow-showcase {
+  $shadow-color: 'grey-5';
+
+  display: flex;
+  margin-bottom: 60px;
+
+  // &.alt-color {
+  //   $shadow-color: 'primary';
+  // }
+
+  .box {
+    width: 80px;
+    height: 80px;
+    background-color: #FFF;
+    margin: 20px;
+  }
+
+  .z1 {
+    @include elevation(z1, $shadow-color);
+  }
+
+  .z2 {
+    @include elevation(z2, $shadow-color);
+  }
+
+  .z3 {
+    @include elevation(z3, $shadow-color);
+  }
+
+  .z4 {
+    @include elevation(z4, $shadow-color);
+  }
+
+  .z5 {
+    @include elevation(z5, $shadow-color);
+  }
+}

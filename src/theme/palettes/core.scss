@@ -1,0 +1,50 @@
+@import 'utils';
+@import 'preferences';
+
+/*
+  Core
+*/
+
+// Function to build a Color Palette based on CSS 4 variables
+@function buildCSS4Palette($palette-colors) {
+  // $css4-var-prefix           =>  Defined in preferences.scss
+  // $css4-color-format         =>  Defined in preferences.scss
+
+  $temp-palette: ();
+
+  @each $color-name, $color-value in $palette-colors {
+    $color-variable: (
+      '#{$color-name}': ('#{$css4-var-prefix}#{$color-name}-#{$css4-color-format}': #{getRGB($color-value)})
+    );
+    $temp-palette: map-merge($temp-palette, $color-variable);
+  }
+
+  @return $temp-palette;
+}
+
+// Function to build a Color Palette based on Sass variables
+@function buildSassPalette($palette-colors) {
+  $temp-palette: ();
+
+  @each $color-name, $color-value in $palette-colors {
+    $color-variable: (
+      '#{$color-name}': map-get($palette-colors, $color-name)
+    );
+    $temp-palette: map-merge($temp-palette, $color-variable);
+  }
+
+  @return $temp-palette;
+}
+
+// Mixin to set a Color Palette based on CSS 4 variables
+@mixin setCSS4Palette($palette-colors) {
+  @each $color-name, $color-variable in $palette-colors {
+    // $color-variable should be a map in the form of '--name': (R, G, B)
+    // $var-name should be a string in the form of '--name'
+    $var-name: nth(map-keys($color-variable), 1);
+    // $var-value should be a list in the form of (R, G, B)
+    $var-value: map-get($color-variable, $var-name);
+
+    #{$var-name}: $var-value;
+  }
+}

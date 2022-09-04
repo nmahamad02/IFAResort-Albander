@@ -1,0 +1,100 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">Ngx-echarts</h1>
+
+  <div class="callout-message-wrapper">
+    <div class="callout-icon d-none d-md-block">
+      <i class="fas fa-info-circle"></i>
+    </div>
+    <div class="callout-message">
+      <span>
+        <b>ng2-charts</b> is an open-source library with beautiful charts for Angular based on <a href="https://github.com/chartjs/Chart.js" class="callout-link" target="_blank">Chart.js</a> which uses the <b>canvas</b> tag.
+        <br>
+        For more info please visit the plugin's <a href="https://valor-software.com/ng2-charts/" class="callout-link" target="_blank">Demo Page</a> or <a href="https://github.com/valor-software/ng2-charts" class="callout-link" target="_blank">Github Repo</a>.
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Total transactions</span>
+        </div>
+        <div class="chart-card-body">
+          <canvas *ngIf="isBrowser" baseChart
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Sales by source</span>
+        </div>
+        <div class="chart-card-body">
+          <canvas *ngIf="isBrowser" baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="pieChartType"
+            [options]="pieChartOptions"
+            [colors]="pieChartColors"
+            [legend]="pieChartLegend">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Sales by Product</span>
+        </div>
+        <div class="chart-card-body">
+          <canvas *ngIf="isBrowser" baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Sales by device</span>
+        </div>
+        <div class="chart-card-body">
+          <canvas *ngIf="isBrowser" baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [colors]="doughnutChartColors"
+            [chartType]="doughnutChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Project Hours Distribution</span>
+        </div>
+        <div class="chart-card-body">
+          <canvas *ngIf="isBrowser" baseChart
+            [datasets]="radarChartData"
+            [options]="radarChartOptions"
+            [labels]="radarChartLabels"
+            [chartType]="radarChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

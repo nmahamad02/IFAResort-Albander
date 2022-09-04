@@ -1,0 +1,94 @@
+@import '../dynamic-menu/styles/shared/base-menu';
+
+:host {
+  // Default values. These may be overridden in the component's parent
+  --menu-background: var(--dynamic-menu-background, #{palette-color('grey-0')});
+  --menu-color: var(--dynamic-menu-color, #{palette-color('grey-9')});
+  --menu-alt-color: var(--dynamic-menu-alt-color, #{palette-color('grey-4')});
+  --menu-divider-color: var(--dynamic-menu-divider-color, #{palette-color('grey-9', 0.1)});
+
+  --menu-options-label: #{palette-color('grey-9')};
+  --menu-width: 400px;
+
+  // Used mainly at the top and bottom of the menu
+  --menu-padding: var(--dynamic-menu-padding, 35px);
+  // Used mainly to space items inside the menu
+  --menu-spacing: var(--dynamic-menu-spacing, 10px);
+
+  --menu-top-actions-height: calc(var(--menu-spacing) * 5);
+  --menu-bottom-actions-height: calc(var(--menu-spacing) * 7);
+
+  --radio-border-color: #{palette-color('primary')};
+  --radio-background: #{palette-color('primary')};
+  --radio-color: #{palette-color('white')};
+}
+
+:host {
+  .menu-secondary-actions {
+    .close-menu-btn {
+      margin-inline-start: auto;
+      margin-inline-end: calc(var(--menu-spacing) * -1);
+    }
+  }
+
+  .menu-illustration-wrapper {
+    width: 60%;
+    margin: calc(var(--menu-spacing) * 2) auto;
+  }
+
+  .layouts-form {
+    margin-bottom: var(--menu-spacing);
+  }
+
+  .section-divider {
+    margin: calc(var(--menu-spacing) * 3) 0px;
+    color: var(--menu-divider-color);
+  }
+
+  .layout-chooser {
+    display: flex;
+    flex-wrap: wrap;
+
+    .layout-option {
+      flex: 1 0 50%;
+      padding-bottom: var(--menu-padding);
+
+      &:nth-child(odd) {
+        padding-inline-end: calc(var(--menu-padding) / 4);
+      }
+
+      &:nth-child(even) {
+        padding-inline-start: calc(var(--menu-padding) / 4);
+      }
+
+      // Select the last two items
+      // (nth-child web tool, see: https://css-tricks.com/examples/nth-child-tester/)
+      &:nth-last-child(-n+2) {
+        padding-bottom: 0px;
+      }
+
+      .option-radio {
+        margin-bottom: var(--menu-spacing);
+
+        .custom-control-input:checked ~ .custom-control-label::before {
+          color: var(--radio-color);
+          border-color: var(--radio-border-color);
+          background-color: var(--radio-background);
+        }
+      }
+      
+      .option-label {
+        font-size: 14px;
+        color: var(--menu-options-label);
+
+        .option-name {
+          font-size: 14px;
+          line-height: 1.2;
+          height: 2.4em;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

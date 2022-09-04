@@ -1,0 +1,67 @@
+<div class="container-fluid content-wrapper">
+
+  <div class="page-title-wrapper">
+    <h1 class="page-title">Extended table</h1>
+    <span class="page-subtitle">Regular table with customized cells</span>
+  </div>
+
+  <div class="row">
+    <div class="col-12 table-wrapper table-responsive">
+      <table mat-table [dataSource]="dataSource" class="table table-borderless">
+        <ng-container matColumnDef="picture">
+          <th mat-header-cell *matHeaderCellDef> User </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="user-image-wrapper">
+              <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+                <cc-image-shell animation="spinner" [mode]="'cover'" class="user-image" [src]="element.picture" [alt]="'user image'"></cc-image-shell>
+              </cc-aspect-ratio>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td [attr.cell-name]="'status'" [attr.cell-value]="element.status" mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+        <ng-container matColumnDef="progress">
+          <th mat-header-cell *matHeaderCellDef> Progress </th>
+          <td [attr.cell-name]="'progress'" [attr.cell-value]="element.progress" mat-cell *matCellDef="let element">
+            <ngb-progressbar class="rounded-progress-bar" height="10px" [value]="element.progress"></ngb-progressbar>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="renewal_date">
+          <th mat-header-cell *matHeaderCellDef> Renewal Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.renewal_date}} </td>
+        </ng-container>
+        <ng-container matColumnDef="subscription">
+          <th mat-header-cell *matHeaderCellDef> Subscription </th>
+          <td [attr.cell-name]="'subscription'" [attr.cell-value]="element.subscription" mat-cell *matCellDef="let element">
+            <span class="subscription-value">${{ element.subscription }}</span>
+            <span *ngIf="element.subscription === 0" class="subscription-plan subscription-plan-free">Free Trial</span>
+            <span *ngIf="element.subscription >= 5000 && element.subscription < 10000" class="subscription-plan subscription-plan-basic">Basic Plan</span>
+            <span *ngIf="element.subscription >= 10000 && element.subscription < 20000 " class="subscription-plan subscription-plan-pro">Pro Plan</span>
+            <span *ngIf="element.subscription >= 20000" class="subscription-plan subscription-plan-king">King Plan</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element">
+            <button class="btn" placement="bottom-right" [ngbPopover]="popoverRef" popoverClass="actions-popover"><i class="actions-icon fas fa-ellipsis-h"></i></button>
+          </td>
+        </ng-container>
+        <ng-template #popoverRef>
+          <ul class="actions-popover-list list-unstyled">
+            <li><span>Send email</span></li>
+            <li><span>Call user</span></li>
+            <li><span>Conversation history</span></li>
+          </ul>
+        </ng-template>
+         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>

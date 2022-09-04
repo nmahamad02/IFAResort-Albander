@@ -1,0 +1,10 @@
+// Properly configure Fontawesome so it works with the Angular-CLI
+//    - https://github.com/angular/angular-cli/blob/master/docs/documentation/stories/include-font-awesome.md#using-sass
+
+@import 'override-font-awesome-variables';
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+// A list of all free icons: https://origin.fontawesome.com/icons?d=gallery&m=free
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';

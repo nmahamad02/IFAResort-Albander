@@ -1,0 +1,23 @@
+@mixin rating-styles() {
+  --default-spacing: 10px;
+  --form-icons-color: #{palette-color('primary')};
+  --form-icons-shade-color: #{palette-color('primary', 0.3)};
+
+  // rating component
+  .star {
+    position: relative;
+    display: inline-block;
+    font-size: 18px;
+    margin-right: calc(var(--default-spacing) / 2);
+    color: var(--form-icons-shade-color);
+  }
+  .full {
+    color: var(--form-icons-color);
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: var(--form-icons-color);
+  }
+}

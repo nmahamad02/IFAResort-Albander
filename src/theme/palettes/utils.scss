@@ -1,0 +1,45 @@
+/*
+  Utils
+*/
+// Convert any color to 'R, G, B' format
+// (ref: https://stackoverflow.com/a/54750277/1116959)
+@function getRGB($color) {
+  @if (type_of($color) == 'color') {
+    @return red($color) + ', ' + green($color) + ', ' + blue($color);
+  } @else {
+    @error "Color (#{$color}) has an incorrect type.";
+  }
+}
+
+@function toRGB($color) {
+  @return 'rgb(' + getRGB($color) + ')';
+}
+
+// Convert any color to 'H, S, L' format
+@function getHSL($color) {
+  @if (type_of($color) == 'color') {
+    @return hue($color) + ', ' + saturation($color) + ', ' + lightness($color);
+  } @else {
+    @error "Color (#{$color}) has an incorrect type.";
+  }
+}
+
+@function toHSL($color) {
+  @return 'hsl(' + getHSL($color) + ')';
+}
+
+// (ref: https://hugogiraudel.com/2014/01/27/casting-types-in-sass/)
+@function to-list($args...) {
+  @return append((), $args);
+}
+
+// See: https://makandracards.com/makandra/42500-sass-how-to-convert-an-rgba-color-to-its-rgb-look-alike
+@function rgba-to-rgb($rgba, $background: #FFF) {
+  @return mix(rgb(red($rgba), green($rgba), blue($rgba)), $background, alpha($rgba) * 100%);
+}
+
+// a map-set function (not included with Sass)
+@function map-set($map, $key, $value) {
+  $new: ($key: $value);
+  @return map-merge($map, $new); 
+}

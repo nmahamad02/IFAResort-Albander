@@ -1,0 +1,151 @@
+@import 'shared';
+
+:host {
+  --icon-height: 84px;
+  --alert-spacing: 10px;
+  --alert-text-color: #{palette-color('grey-6')};
+  --success-color: #{palette-color('success')};
+  --success-background: #{palette-color('success', 0.2)};
+  --success-background-overflow: #{palette-color('success-light')};
+  --success-hover-background: #{palette-color('success-dark')};
+  --success-hover-color: #{palette-color('white')};
+  --error-color: #{palette-color('error')};
+  --error-background: #{palette-color('error', 0.2)};
+  --error-background-overflow: #{palette-color('error-light')};
+  --error-hover-background: #{palette-color('error-dark')};
+  --error-hover-color: #{palette-color('white')};
+  --button-text-color: #{palette-color('white')};
+  --modal-padding: calc(var(--alert-spacing) * 1.5);
+
+  display: block;
+  padding: var(--modal-padding);
+}
+
+.alert-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  min-height: 150px;
+
+  .alert-title {
+    color: var(--alert-text-color);
+    font-size: 26px;
+    margin-bottom: var(--alert-spacing);
+  }
+
+  .alert-text {
+    color: var(--alert-text-color);
+    font-size: 16px;
+  }
+
+  .icon-container-wrapper {
+    width: var(--icon-height);
+    margin-bottom: calc(var(--alert-spacing) * 1.5);
+
+    .icon-container {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+
+      .alert-icon {
+        font-size: 30px;
+
+        &.icon-success {
+          color: var(--success-color);
+        }
+
+        &.icon-error {
+          color: var(--error-color);
+        }
+      }
+    }
+
+    .icon-background {
+      border-radius: 50%;
+
+      &.icon-overflow {
+        margin-top: calc(calc(calc(var(--icon-height ) / 2) + var(--modal-padding)) * -1);
+        &.success {
+          background-color: var(--success-background-overflow);
+        }
+        &.error {
+          background-color: var(--error-background-overflow);
+        }
+      }
+
+      &.icon-default {
+        &.success {
+          background-color: var(--success-background);
+        }
+        &.error {
+          background-color: var(--error-background);
+        }
+      }
+    }
+  }
+
+  .alert-with-input {
+    width: 100%;
+  }
+
+  .alert-buttons {
+    margin-top: calc(var(--alert-spacing) * 2);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .button-info {
+      @include button();
+      width: 100%;
+    }
+
+    .button-success {
+      --button-background: var(--success-color);
+      --button-border: var(--success-color);
+      --button-color: var(--button-text-color);
+
+      --button-hover-background: var(--success-hover-background);
+      --button-hover-border: var(--success-hover-background);
+      --button-hover-color: var(--success-hover-color);
+
+      @include button();
+      width: 100%;
+      margin-right: var(--alert-spacing);
+    }
+
+    .button-error {
+      --button-background: var(--error-color);
+      --button-border: var(--error-color);
+      --button-color: var(--button-text-color);
+
+      --button-hover-background: var(--error-hover-background);
+      --button-hover-border: var(--error-hover-background);
+      --button-hover-color: var(--error-hover-color);
+      @include button();
+      width: 100%;
+      margin-left: var(--alert-spacing);
+    }
+  }
+}
+
+:host-context(.overflow-icon-alert-wrapper) {
+  --modal-padding: 40px;
+}
+
+::ng-deep {
+  // this applies to all the mat-dialog-container
+  .mat-dialog-container {
+    border-radius: 6px;
+  }
+
+  // this applies only to the mat-dialog-container with overflow icon
+  .overflow-icon-alert-wrapper {
+    .mat-dialog-container {
+      padding: 0px;
+      overflow: visible; // to be able to show overflow icon
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@mixin material-select-styles() {
+  // material select styles
+  .mat-select-panel {
+    @include material-autocomplete-styles();
+  }
+}
+
+@mixin bootstrap-select-styles() {
+  // select component with custom icon
+  --select-padding: 12px;
+  --select-icon-width: 14px;
+  --form-icons-color: #{palette-color('primary')};
+  --form-input-background: #{palette-color('grey-0')};
+
+  position: relative;
+
+  .custom-select {
+    padding: calc(var(--select-padding) / 2) var(--select-padding);
+    padding-inline-end: calc(var(--select-padding) + var(--select-icon-width));
+    background: none;
+    background-color: var(--form-input-background);
+  }
+  .half-arrow-icon {
+    right: var(--select-padding);
+    top: 0px;
+    pointer-events: none;
+    height: 100%;
+    width: var(--select-icon-width);
+    color: var(--form-icons-color);
+    position: absolute;
+  }
+}

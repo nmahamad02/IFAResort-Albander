@@ -1,0 +1,91 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">Ngx-echarts</h1>
+
+  <div class="callout-message-wrapper">
+    <div class="callout-icon">
+      <i class="fas fa-info-circle"></i>
+    </div>
+    <div class="callout-message">
+      <span>
+        <b>ngx-echarts</b> is an open source Angular directive for <a href="https://github.com/apache/incubator-echarts" target="_blank" class="callout-link">echarts</a>. We really love this library because it allows you to customize every single detail from every chart. Also, its documentation is super complete and clear.
+        <br>
+        <code>echarts</code> is written in pure JavaScript and based on zrender, which is a whole new lightweight <b>canvas</b> library.
+        <br>
+        For more info please visit the plugin's <a href="https://xieziyu.github.io/ngx-echarts/#/home" class="callout-link" target="_blank">Demo Page</a> or <a href="https://github.com/xieziyu/ngx-echarts" class="callout-link" target="_blank">Github Repo</a>.
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Page Views</span>
+        </div>
+        <div class="chart-card-body">
+          <div *ngIf="isBrowser" echarts [options]="multipleLineChartOption" [theme]="'admin-template'"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Transactions Completed - By Country</span>
+        </div>
+        <div class="chart-card-body">
+          <div *ngIf="isBrowser" echarts [options]="pieChartOption" [theme]="'admin-template'"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Monthly Transactions</span>
+        </div>
+        <div class="chart-card-body">
+          <div *ngIf="isBrowser" echarts [options]="barChartOption" [theme]="'admin-template'"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Sales</span>
+        </div>
+        <div class="chart-card-body">
+          <div *ngIf="isBrowser" echarts [options]="smoothLineOption" [theme]="'admin-template'"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Project Distribution</span>
+        </div>
+        <div class="chart-card-body">
+          <div *ngIf="isBrowser" echarts [options]="multiplePieChartOption" [theme]="'admin-template'"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Devices</span>
+        </div>
+        <div class="chart-card-body">
+          <div *ngIf="isBrowser" echarts [options]="doughnutChartOption" [theme]="'admin-template'"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span>Referral Source</span>
+        </div>
+        <div class="chart-card-body">
+          <div *ngIf="isBrowser" echarts [options]="areaStackChartOption" [theme]="'admin-template'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,213 @@
+@import 'shared';
+
+/*
+  Responsive styles
+*/
+:host {
+  .visualization-heading {
+    /*
+      SM and XS
+    */
+    @include media-breakpoint-down(sm) {
+      .visualization-period-selector {
+        .period-item {
+          display: none;
+
+          // Calendar sub menu item
+          &.period-alt-item {
+            display: block;
+          }
+        }
+      }
+    }
+
+    /*
+      MD
+    */
+    @include media-breakpoint-only(md) {
+      .visualization-period-selector {
+        .period-item {
+          // Everything but calendar sub menu item
+          &:not(.period-alt-item) {
+            .period-action {
+              display: none;
+
+              &.active {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /*
+      LG
+    */
+    @include media-breakpoint-only(lg) {
+      :host-context(.main-sidenav-opened) {
+        .visualization-period-selector {
+          .period-item {
+            // Everything but calendar sub menu item
+            &:not(.period-alt-item) {
+              .period-action {
+                display: none;
+
+                &.active {
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
+
+:host {
+  --visualization-heading-line-height: 40px;
+  --visualization-heading-color: #{palette-color('grey-8')};
+  --visualization-heading-action-color: #{palette-color('grey-8', 0.8)};
+  --visualization-heading-action-active-color: #{palette-color('primary')};
+  --visualization-heading-action-active-border-color: #{palette-color('primary')};
+  --visualization-heading-dropdown-option-color: #{palette-color('grey-6')};
+  --visualization-heading-dropdown-option-background: #{palette-color('grey-1', 0.8)};
+
+  .visualization-heading {
+    display: flex;
+
+    .heading-info {
+      .heading-title {
+        color: var(--visualization-heading-color);
+        line-height: var(--visualization-heading-line-height);
+        margin: 0px;
+
+        &h2 {
+          font-size: 34px;
+        }
+
+        &h4 {
+          font-size: 26px;
+        }
+      }
+
+      .heading-message {
+        font-size: 16px;
+        color: var(--visualization-heading-color);
+        margin-top: 10px;
+        margin-bottom: 0px;
+      }
+    }
+
+    .heading-actions {
+      margin-inline-start: auto;
+      align-self: baseline;
+      // Same as .heading-title so they get aligned
+      height: var(--visualization-heading-line-height);
+    }
+
+    .visualization-period-dropdown-selector {
+      height: inherit;
+
+      .period-dropdown-toggle {
+        @include button();
+
+        display: flex;
+        align-items: baseline;
+        height: inherit;
+        padding: 5px 15px;
+
+        // Reset Bootstrap styles
+        &.dropdown-toggle {
+          &::after {
+            display: initial;
+            margin: 0px;
+            vertical-align: initial;
+            border: none;
+          }
+        }
+
+        mat-icon.toggle-icon {
+          display: flex;
+          height: 8px;
+          width: 16px;
+          margin-inline-start: 10px;
+        }
+      }
+
+      .period-dropdown {
+        &.dropdown-menu {
+          min-width: 130px;
+        }
+
+        .period-option {
+          // Override Bootstrap styles
+          &.dropdown-item {
+            text-align: end;
+            color: var(--visualization-heading-dropdown-option-color);
+
+            &:hover,
+            &:focus {
+              background-color: var(--visualization-heading-dropdown-option-background);
+            }
+          }
+        }
+      }
+    } // .visualization-period-dropdown-selector
+
+    .visualization-period-selector {
+      height: inherit;
+
+      // Override Bootstrap styles
+      &.nav {
+        align-items: baseline;
+      }
+
+      .period-item {
+        // Calendar sub menu item
+        &.period-alt-item {
+          align-self: flex-start;
+        }
+
+        &:last-child {
+          .period-action {
+            margin-inline-end: 0px;
+
+            // Override Bootstrap styles
+            &.nav-link {
+              padding-inline-end: 0px;
+            }
+          }
+        }
+
+        .period-action {
+          margin: 0px 10px;
+          color: var(--visualization-heading-action-color);
+          border-bottom: 1px solid transparent;
+
+          // Override Bootstrap styles
+          &.nav-link {
+            padding: 5px;
+          }
+
+          &.active {
+            color: var(--visualization-heading-action-active-color);
+            border-bottom-color: var(--visualization-heading-action-active-border-color);
+          }
+
+          &.disabled {
+            opacity: 0.6;
+          }
+
+          mat-icon {
+            display: block;
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    } // .visualization-period-selector
+  } // .section-heading
+}

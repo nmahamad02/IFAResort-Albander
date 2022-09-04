@@ -1,0 +1,206 @@
+<div class="container-fluid content-wrapper">
+  <h1 class="page-title">Controls and Validations</h1>
+
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="validationsForm">
+        <h3 class="section-title">Simple validations</h3>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="requiredText">Required text</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="requiredText" [ngClass]="{ 'is-invalid': isInvalid('requiredText'), 'is-valid': isValid('requiredText') }" id="requiredText">
+            <ng-container *ngFor="let validation of validationMessages.requiredText">
+              <div class="form-text invalid-feedback" *ngIf="hasError('requiredText', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="optionalText">Optional text</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="optionalText" id="optionalText">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="email">Email</label>
+          <div class="col-sm-8">
+            <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid('email'), 'is-valid': isValid('email') }" id="email">
+            <ng-container *ngFor="let validation of validationMessages.email">
+              <div class="form-text invalid-feedback" *ngIf="hasError('email', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row" formGroupName="equal">
+          <label class="col-sm-2 col-form-label" for="equal1">Equal</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" formControlName="equal1" [ngClass]="{ 'is-invalid': isInvalid('equal'), 'is-valid': isValid('equal') }" id="equal1">
+            <ng-container *ngFor="let validation of validationMessages.equal">
+              <div class="form-text invalid-feedback" *ngIf="hasError('equal', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" formControlName="equal2">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="maxLength">Max length</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="maxLength" [ngClass]="{ 'is-invalid': isInvalid('maxLength'), 'is-valid': isValid('maxLength') }" id="maxLength">
+            <span class="form-text help-text">
+              The length of this input must be 10 characters or fewer.
+            </span>
+            <ng-container *ngFor="let validation of validationMessages.maxLength">
+              <div class="form-text invalid-feedback" *ngIf="hasError('maxLength', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="minLength">Min length</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="minLength" [ngClass]="{ 'is-invalid': isInvalid('minLength'), 'is-valid': isValid('minLength') }" id="minLength">
+            <ng-container *ngFor="let validation of validationMessages.minLength">
+              <div class="form-text invalid-feedback" *ngIf="hasError('minLength', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="number">Number</label>
+          <div class="col-sm-3">
+            <input type="number" class="form-control" formControlName="number" id="number">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="minValue">Min value</label>
+          <div class="col-sm-3">
+            <input type="number" class="form-control" formControlName="minValue" [ngClass]="{ 'is-invalid': isInvalid('minValue'), 'is-valid': isValid('minValue') }" id="minValue">
+            <ng-container *ngFor="let validation of validationMessages.minValue">
+              <div class="form-text invalid-feedback" *ngIf="hasError('minValue', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="maxValue">Max value</label>
+          <div class="col-sm-3">
+            <input type="number" class="form-control" formControlName="maxValue" [ngClass]="{ 'is-invalid': isInvalid('maxValue'), 'is-valid': isValid('maxValue') }" id="maxValue">
+            <ng-container *ngFor="let validation of validationMessages.maxValue">
+              <div class="form-text invalid-feedback" *ngIf="hasError('maxValue', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="date">Date</label>
+          <div class="col-sm-3">
+            <div class="row no-gutters">
+              <div class="input-group">
+                <input class="form-control" placeholder="YYYY-MM-DD" name="date" formControlName="date" ngbDatepicker #datepicker="ngbDatepicker" [ngClass]="{ 'is-invalid': isInvalid('date') }">
+                <div class="input-group-append">
+                  <button class="datepicker-toggle-btn" (click)="datepicker.toggle()" type="button"><i class="fas fa-calendar-alt"></i></button>
+                </div>
+                <ng-container *ngFor="let validation of validationMessages.date">
+                  <div class="form-text invalid-feedback" *ngIf="hasError('date', validation.type)">
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="termsCheckbox" formControlName="termsCheckbox" [ngClass]="{ 'is-invalid': isInvalid('termsCheckbox')}">
+          <label class="custom-control-label" for="termsCheckbox">
+            <span class="custom-label">Accept terms and conditions</span>
+          </label>
+          <ng-container *ngFor="let validation of validationMessages.termsCheckbox">
+            <div class="form-text invalid-feedback" *ngIf="hasError('termsCheckbox', validation.type)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+        <h3 class="section-title">Passwords validations</h3>
+        <p>
+          Your password must be at least 5 characters long and must contain at least one uppercase, one lowercase, and one number.
+        </p>
+        <div formGroupName="matching_passwords">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="password">Password</label>
+            <div class="col-sm-8">
+              <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid('matching_passwords.password'), 'is-valid': isValid('matching_passwords.password') }" id="password">
+              <ng-container *ngFor="let validation of validationMessages.password">
+                <div class="form-text invalid-feedback" *ngIf="hasError('matching_passwords.password', validation.type)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="confirm_password">Password confirmation</label>
+            <div class="col-sm-8">
+              <input type="password" class="form-control" formControlName="confirm_password" [ngClass]="{ 'is-invalid': (isInvalid('matching_passwords') || isInvalid('matching_passwords.confirm_password')), 'is-valid': isValid('matching_passwords.confirm_password') }" id="confirm_password">
+              <ng-container *ngFor="let validation of validationMessages.confirm_password">
+                <div class="form-text invalid-feedback" *ngIf="hasError('matching_passwords', validation.type) || hasError('matching_passwords.confirm_password', validation.type)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <h3 class="section-title">Phone Validation</h3>
+        <p>
+          Validate if a phone number corresponds to the selected country.
+          <br> It works both for mobile and fixed phones.
+        </p>
+        <div class="row" formGroupName="country_phone">
+          <div class="col-5 form-group">
+            <label class="col-form-label">Country</label>
+            <input class="form-control" type="text" placeholder="Where do you live?" formControlName="country" [matAutocomplete]="countriesAutocomplete" [ngClass]="{ 'is-invalid': isInvalid('country_phone.country') }">
+            <mat-autocomplete #countriesAutocomplete="matAutocomplete" class="countries-autocomplete" [displayWith]="countriesAutocompleteDisplay">
+              <mat-option *ngFor="let country of filteredCountries | async" [value]="country" >
+                {{ country.name }}
+              </mat-option>
+            </mat-autocomplete>
+            <ng-container *ngFor="let validation of validationMessages.country">
+              <div class="form-text invalid-feedback" *ngIf="hasError('country_phone.country', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <div class="col-5 form-group">
+            <label class="col-form-label">Phone</label>
+            <input class="form-control" type="tel" formControlName="phone" [ngClass]="{ 'is-invalid': isInvalid('country_phone.phone'), 'is-valid': isValid('country_phone.phone') }">
+            <div class="phone-input-text-helpers">
+              <span class="form-text help-text" *ngIf="validationsForm.value.country_phone.country">
+                <b>Mobile:</b> {{ validationsForm.value.country_phone.country.sampleMobilePhone }}
+              </span>
+              <span class="form-text help-text" *ngIf="validationsForm.value.country_phone.country">
+                <b>Fixed:</b> {{ validationsForm.value.country_phone.country.sampleFixedPhone }}
+              </span>
+            </div>
+            <ng-container *ngFor="let validation of validationMessages.phone">
+              <div class="form-text invalid-feedback" *ngIf="hasError('country_phone.phone', validation.type)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="buttons-row">
+          <button class="outline-btn" type="reset">Reset form</button>
+          <button class="outline-btn" type="button" (click)="validateFields()">Validate</button>
+          <button class="submit-btn" type="submit" [disabled]="!validationsForm.valid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

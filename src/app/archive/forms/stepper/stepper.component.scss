@@ -1,0 +1,28 @@
+@import 'shared';
+
+:host {
+  // // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title {
+    color: var(--page-title-color);
+    font-size: 30px;
+    margin-bottom: calc(var(--page-spacing) * 6);
+  }
+
+  .coming-soon-section {
+    text-align: center;
+  }
+
+  .coming-soon-illustration-wrapper {
+    width: 50%;
+    margin: 0px auto;
+    margin-top: 50px;
+  }
+}

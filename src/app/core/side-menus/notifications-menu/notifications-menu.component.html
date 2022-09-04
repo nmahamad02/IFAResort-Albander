@@ -1,0 +1,74 @@
+<div class="menu-secondary-actions">
+  <button type="button" class="close-menu-btn btn btn-link" (click)="closeAltMenu()">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+
+<div class="menu-heading">
+  <h3 class="heading-title">Notifications</h3>
+  <button type="button" class="clear-notifications-btn">Mark all as read</button>
+</div>
+
+<div class="menu-illustration-wrapper">
+  <cc-aspect-ratio [ratio]="{w: 430, h: 225}">
+    <cc-image-shell class="menu-illustration" animation="spinner" [src]="'/assets/illustrations/notifications-illustration.svg'" [alt]="'Notifications Illustration'"></cc-image-shell>
+  </cc-aspect-ratio>
+</div>
+
+<ul class="notifications-list list-group list-group-flush">
+  <li class="notification-item list-group-item">
+    <div class="user-image-wrapper">
+      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+        <cc-image-shell class="user-image" animation="spinner" [src]="'/assets/imgs/users/user-1.jpeg'" [alt]="'Francesca Metts'"></cc-image-shell>
+      </cc-aspect-ratio>
+    </div>
+    <div class="notification-info">
+      <span class="user-name">Francesca Metts</span>
+      <span class="notification-message">Added a new comment in a chart #2</span>
+    </div>
+  </li>
+  <li class="notification-item list-group-item">
+    <div class="user-image-wrapper">
+      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+        <cc-image-shell class="user-image" animation="spinner" [src]="'/assets/imgs/users/user-2.jpeg'" [alt]="'Malcolm Quaday'"></cc-image-shell>
+      </cc-aspect-ratio>
+    </div>
+    <div class="notification-info">
+      <span class="user-name">Malcolm Quaday</span>
+      <span class="notification-message">Added a new comment in a chart #2</span>
+    </div>
+  </li>
+  <li class="notification-item list-group-item">
+    <div class="user-image-wrapper">
+      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+        <cc-image-shell class="user-image" animation="spinner" [src]="'/assets/imgs/users/user-3.jpeg'" [alt]="'Elizabeth Hurton'"></cc-image-shell>
+      </cc-aspect-ratio>
+    </div>
+    <div class="notification-info">
+      <span class="user-name">Elizabeth Hurton</span>
+      <span class="notification-message">Added a new comment in a chart #2</span>
+    </div>
+  </li>
+  <li class="notification-item list-group-item">
+    <div class="user-image-wrapper">
+      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+        <cc-image-shell class="user-image" animation="spinner" [src]="'/assets/imgs/users/user-4.jpeg'" [alt]="'John Marston'"></cc-image-shell>
+      </cc-aspect-ratio>
+    </div>
+    <div class="notification-info">
+      <span class="user-name">John Marston</span>
+      <span class="notification-message">Added a new comment in a chart #2</span>
+    </div>
+  </li>
+  <li class="notification-item list-group-item">
+    <div class="user-image-wrapper">
+      <cc-aspect-ratio [ratio]="{w: 1, h: 1}">
+        <cc-image-shell class="user-image" animation="spinner" [src]="'/assets/imgs/users/user-5.jpeg'" [alt]="'Elizabeth Hurton'"></cc-image-shell>
+      </cc-aspect-ratio>
+    </div>
+    <div class="notification-info">
+      <span class="user-name">Elizabeth Hurton</span>
+      <span class="notification-message">Added a new comment in a chart #2</span>
+    </div>
+  </li>
+</ul>

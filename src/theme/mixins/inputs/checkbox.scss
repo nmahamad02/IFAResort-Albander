@@ -1,0 +1,30 @@
+@mixin bootstrap-checkbox-styles() {
+  --default-spacing: 10px;
+  --checkbox-border-color: #{palette-color('primary')};
+  --checkbox-background: #{palette-color('primary')};
+  --checkbox-color: #{palette-color('white')};
+
+  .custom-control-label {
+    .custom-label {
+      margin-left: calc(var(--default-spacing) / 2);
+    }
+
+    &::before {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      top: 0px;
+    }
+    &::after {
+      width: 22px;
+      height: 22px;
+      top: 0px;
+    }
+  }
+
+  .custom-control-input:checked ~ .custom-control-label::before {
+    color: var(--checkbox-color);
+    border-color: var(--checkbox-border-color);
+    background-color: var(--checkbox-background);
+  }
+}

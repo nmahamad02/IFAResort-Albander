@@ -1,0 +1,122 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-subtitle-color: #{palette-color('grey-8')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+
+  --table-text-color: #{palette-color('grey-7')};
+
+  --status-active-color: #{palette-color('success')};
+  --status-inactive-color: #{palette-color('error')};
+
+  --subscription-free-plan-color: #{palette-color('tertiary')};
+  --subscription-basic-plan-color: #{palette-color('quaternary')};
+  --subscription-pro-plan-color: #{palette-color('secondary')};
+  --subscription-king-plan-color: #{palette-color('primary')};
+
+  --progress-bar-color: #{palette-color('primary')};
+  --progress-bar-background: #{palette-color('primary', 0.2)};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title-wrapper {
+    margin-bottom: calc(var(--page-spacing) * 6);
+
+    .page-title {
+      color: var(--page-title-color);
+      font-size: 30px;
+    }
+
+    .page-subtitle {
+      color: var(--page-subtitle-color);
+    }
+  }
+
+  .table-wrapper {
+    @include table-basic-styles();
+    text-align: center;
+
+    th.mat-header-cell {
+      border: none;
+      text-align: center;
+    }
+
+    .user-image-wrapper {
+      width: calc(var(--page-spacing) * 4);
+      margin: 0px auto;
+    }
+    .user-image {
+      border-radius: 50%;
+    }
+
+    // tbody
+    .mat-cell {
+      vertical-align: middle;
+
+      &[cell-name = 'status'] {
+        &[cell-value = 'ACTIVE'] {
+          color: var(--status-active-color);
+          letter-spacing: 1px;
+        }
+        &[cell-value = 'INACTIVE'] {
+          color:  var(--status-inactive-color);
+          letter-spacing: 1px;
+        }
+      }
+
+      &[cell-name = 'subscription'] {
+        .subscription-plan {
+          display: block;
+
+          &.subscription-plan-free {
+            color: var(--subscription-free-plan-color);
+          }
+
+          &.subscription-plan-basic {
+            color: var(--subscription-basic-plan-color);
+          }
+
+          &.subscription-plan-pro {
+            color: var(--subscription-pro-plan-color);
+          }
+
+          &.subscription-plan-king {
+            color: var(--subscription-king-plan-color);
+          }
+        }
+      }
+    }
+
+    .actions-icon {
+      color: var(--table-text-color);
+    }
+
+    .actions-popover-list {
+      @include popover-list-styles();
+    }
+  }
+}
+
+::ng-deep {
+  .rounded-progress-bar {
+    .progress {
+      max-width: 80%;
+      margin: auto;
+      border-radius: calc(var(--page-spacing) * 2);
+      background-color: var(--progress-bar-background);
+
+      .progress-bar {
+        border-radius: calc(var(--page-spacing) * 2);
+        background-color: var(--progress-bar-color);
+      }
+    }
+  }
+  .actions-popover {
+    @include popover-box-styles();
+  }
+}

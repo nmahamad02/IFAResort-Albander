@@ -1,0 +1,96 @@
+@import 'shared';
+
+:host {
+  // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-subtitle-color: #{palette-color('grey-8')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+
+  --status-completed-color: #{palette-color('success')};
+  --status-in-progress-color: #{palette-color('warning')};
+  --status-canceled-color: #{palette-color('error')};
+
+  --form-input-background: #{palette-color('grey-0')};
+  --form-input-color: #{palette-color('grey-9')};
+  --form-input-placeholder-color: #{palette-color('grey-5')};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title-wrapper {
+    margin-bottom: calc(var(--page-spacing) * 6);
+
+    .page-title {
+      color: var(--page-title-color);
+      font-size: 30px;
+    }
+
+    .page-subtitle {
+      color: var(--page-subtitle-color);
+    }
+  }
+
+  .filter-wrapper {
+    padding: 0px calc(var(--page-spacing) * 2) calc(var(--page-spacing) * 3);
+
+    .form-control {
+      color: var(--form-input-color);
+
+      &::placeholder {
+        font-size: 16px;
+        color: var(--form-input-placeholder-color);
+      }
+    }
+  }
+
+  .table-wrapper {
+    @include table-basic-styles();
+
+    th.mat-header-cell {
+      border: none;
+    }
+
+    .user-image-wrapper {
+      width: calc(var(--page-spacing) * 4);
+      margin: 0px var(--page-spacing);
+    }
+    .user-image {
+      border-radius: 50%;
+    }
+
+    td.mat-cell {
+      vertical-align: middle;
+
+      &[cell-name = 'status'] {
+        &[cell-value = 'Completed'] {
+          color: var(--status-completed-color);
+        }
+        &[cell-value = 'In Progress'] {
+          color: var(--status-in-progress-color);
+        }
+        &[cell-value = 'Canceled'] {
+          color: var(--status-canceled-color);
+        }
+      }
+    }
+    .table-paginator {
+      margin-top: calc(var(--page-spacing) * 2);
+
+      // For encapsulated components INSIDE the :host element
+      ::ng-deep {
+        // Override Material styles
+        @include table-paginator-styles();
+      }
+    }
+  }
+}
+
+::ng-deep {
+  mat-checkbox {
+    .mat-checkbox-layout {
+      margin: auto;
+    }
+  }
+}

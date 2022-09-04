@@ -1,0 +1,73 @@
+@import '../dynamic-menu/styles/shared/base-menu';
+
+:host {
+  // Default values. These may be overridden in the component's parent
+  --menu-background: var(--dynamic-menu-background, #{palette-color('grey-0')});
+  --menu-color: var(--dynamic-menu-color, #{palette-color('grey-9')});
+  --menu-alt-color: var(--dynamic-menu-alt-color, #{palette-color('grey-4')});
+  --menu-divider-color: var(--dynamic-menu-divider-color, #{palette-color('grey-9', 0.1)});
+
+  --menu-width: 400px;
+
+  // Used mainly at the top and bottom of the menu
+  --menu-padding: var(--dynamic-menu-padding, 35px);
+  // Used mainly to space items inside the menu
+  --menu-spacing: var(--dynamic-menu-spacing, 10px);
+
+  --menu-top-actions-height: calc(var(--menu-spacing) * 5);
+}
+
+:host {
+  .menu-secondary-actions {
+    .close-menu-btn {
+      margin-inline-start: auto;
+      margin-inline-end: calc(var(--menu-spacing) * -1);
+    }
+  }
+
+  .notifications-list {
+    .notification-item {
+      --notification-height: 50px;
+
+      display: flex;
+      align-items: center;
+      padding: var(--menu-spacing) 0px;
+
+      // Override Bootstrap styles
+      &.list-group-item {
+        border-color: var(--menu-divider-color);
+      }
+
+      .user-image-wrapper {
+        width: var(--notification-height);
+        flex-shrink: 0;
+
+        cc-image-shell.user-image {
+          --image-shell-border-radius: 50%;
+          --image-shell-spinner-size: calc(var(--menu-spacing) * 2);
+        }
+      }
+
+      .notification-info {
+        margin: calc(var(--menu-spacing) / 2) 0px;
+        padding-inline-start: var(--menu-spacing);
+
+        // These two must have the same height as the .user-image
+        .user-name {
+          display: block;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: calc((var(--notification-height) - var(--menu-spacing)) / 2);
+          color: var(--menu-color);
+        }
+
+        .notification-message {
+          display: block;
+          font-size: 14px;
+          line-height: calc((var(--notification-height) - var(--menu-spacing)) / 2);
+          color: var(--menu-alt-color);
+        }
+      }
+    }
+  }
+}

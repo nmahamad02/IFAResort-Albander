@@ -1,0 +1,112 @@
+@import 'shared';
+
+:host {
+  // // Default variables
+  --page-title-color: #{palette-color('primary')};
+  --page-padding: 60px 40px;
+  --page-spacing: 10px;
+  --text-color: #{palette-color('grey-7')};
+  --section-title-color: #{palette-color('grey-9')};
+  --section-border-bottom-color: #{palette-color('grey-8')};
+
+  --autocomplete-active-background: #{palette-color('primary', 0.2)};
+  --autocomplete-active-color: #{palette-color('primary')};
+}
+
+.content-wrapper {
+  padding: var(--page-padding);
+
+  .page-title {
+    color: var(--page-title-color);
+    font-size: 30px;
+  }
+
+  .section-title {
+    margin-top: calc(var(--page-spacing) * 6);
+    font-size: 26px;
+    color: var(--section-title-color);
+    padding-bottom: var(--page-spacing);
+    border-bottom: 1px solid var(--section-border-bottom-color);
+    margin-bottom: calc(var(--page-spacing) * 3);
+  }
+
+  .autocomplete-example {
+    margin-top: calc(var(--page-spacing) * 6);
+    color: var(--text-color);
+  }
+
+  .user-autocomplete-result {
+    display: flex;
+
+    .image-container {
+      width: 36px;
+      margin-right: var(--page-spacing);
+
+      .user-image {
+        border-radius: 50%;
+      }
+    }
+    .name-container {
+      align-self: center;
+      text-align: left;
+    }
+  }
+}
+
+// For encapsulated components INSIDE the :host element
+:host ::ng-deep {
+  .bootstrap-users-example, .bootstrap-fruits-example {
+    ngb-typeahead-window.dropdown-menu
+    {
+      padding: 0px;
+      min-width: 300px;
+
+      .dropdown-item {
+        padding: calc(var(--page-spacing) / 2) var(--page-spacing);
+        color: var(--text-color);
+        font-size: 14px;
+
+        &.active {
+          background: var(--autocomplete-active-background);
+          color: var(--autocomplete-active-color);
+        }
+      }
+    }
+  }
+}
+
+// For encapsulated components OUTSIDE the :host element
+::ng-deep {
+  .mat-autocomplete-panel.task-owners-autocomplete {
+    --page-spacing: 10px;
+    --text-color: #{palette-color('grey-7')};
+    --text-light-color: #{palette-color('grey-5')};
+
+    .mat-option-text {
+      display: flex;
+      align-items: center;
+
+      .user-name {
+        margin-left: var(--page-spacing);
+        color: var(--text-color);
+        font-size: 14px;
+        margin-right: 1ch;
+      }
+      .image-container {
+        width: 34px;
+
+        .user-image {
+          border-radius: 50%;
+        }
+      }
+      .user-role {
+        font-size: 14px;
+        color: var(--text-light-color);
+      }
+    }
+  }
+
+  .mat-autocomplete-panel.countries-autocomplete {
+    @include material-autocomplete-styles();
+  }
+}
