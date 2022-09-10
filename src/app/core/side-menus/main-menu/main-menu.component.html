@@ -1,8 +1,11 @@
+<!--
 <div class="side-menu-branding">
   <mat-icon class="brand-logo" svgIcon="angular-logo"></mat-icon>
 </div>
+-->
 
 <ul class="side-menu-navigation nav flex-column">
+  <!--
   <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
     <mat-expansion-panel [expanded]="false">
       <mat-expansion-panel-header class="menu-link">
@@ -195,7 +198,7 @@
             <mat-icon class="menu-item-icon" svgIcon="components"></mat-icon>
             <span class="menu-item-title">Components</span>
           </mat-panel-title>
-          <!-- <mat-panel-description class="menu-item-description">Coming soon</mat-panel-description> -->
+          <mat-panel-description class="menu-item-description">Coming soon</mat-panel-description>
         </div>
       </mat-expansion-panel-header>
       <ul class="menu-sub-navigation nav flex-column">
@@ -221,6 +224,163 @@
           <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/components/tabsets']">
             <i class="menu-item-icon"></i>
             <span class="menu-item-title">Tabsets</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  -->
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <i class="fa fa-id-card"></i>
+            <span class="menu-item-title">&nbsp;&nbsp;&nbsp;Members & CRM</span>
+          </mat-panel-title>
+          <!-- <mat-panel-description class="menu-item-description">Coming soon</mat-panel-description> -->
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/crm/customers']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Customer Profiles</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/crm/contacts']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Contacts & Parties</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/crm/members']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Members</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/crm/agreements']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Agreements</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/crm/invoices']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Billing & Invoices</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/crm/receipts']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Receipts & Payments</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <i class="fa fa-object-group"></i>
+            <span class="menu-item-title">&nbsp;&nbsp;&nbsp;Club Services</span>
+          </mat-panel-title>
+          <!-- <mat-panel-description class="menu-item-description">Coming soon</mat-panel-description> -->
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/club/services']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Services</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/club/boats']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Boats</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/club/taxes']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Tax Category</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/club/references']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Amenities & References </span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/club/cost-centres']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Cost Centres</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <i class="fa fa-list-alt  "></i>
+            <span class="menu-item-title">&nbsp;&nbsp;&nbsp;Management</span>
+          </mat-panel-title>
+          <!-- <mat-panel-description class="menu-item-description">Coming soon</mat-panel-description> -->
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/reports/sales']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Sales Revenues</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/reports/receivables']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Receivables</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/reports/members']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Members</span>
+          </a>
+        </li>
+      </ul>
+    </mat-expansion-panel>
+  </li>
+  <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header class="menu-link">
+        <div class="item-header-content">
+          <mat-panel-title>
+            <i class="fa fa-cogs "></i>
+            <span class="menu-item-title">&nbsp;&nbsp;&nbsp;Admin Control</span>
+          </mat-panel-title>
+          <!-- <mat-panel-description class="menu-item-description">Coming soon</mat-panel-description> -->
+        </div>
+      </mat-expansion-panel-header>
+      <ul class="menu-sub-navigation nav flex-column">
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/admin/premises']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Premises</span>
+          </a>
+        </li>
+        <li class="menu-item nav-item" [routerLinkActive]="['active']">
+          <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/admin/users']">
+            <i class="menu-item-icon"></i>
+            <span class="menu-item-title">Users</span>
           </a>
         </li>
       </ul>

@@ -55,9 +55,9 @@
 
   .top-navbar-toolbar {
     .navbar-controls {
-      flex: 1 0 auto;
+     // flex: 1 0 auto;
       display: flex;
-      align-items: center;
+      align-items:flex-start;
     } // .navbar-controls
 
     .navbar-search {
@@ -89,7 +89,7 @@
       height: var(--top-navbar-controls-height);
       margin-inline-start: auto;
       display: flex;
-      align-items: center;
+      align-items: left;
 
       .action-button {
         color: var(--top-navbar-color);

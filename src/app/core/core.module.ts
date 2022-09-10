@@ -35,6 +35,7 @@ import { ColorPalettesService } from './color-palettes/color-palettes.service';
 import { CustomIconsService } from './custom-icons/custom-icons.service';
 import { MobileLayoutComponent } from './layouts/mobile/mobile-layout.component';
 import { DynamicLayoutComponent } from './layouts/dynamic/dynamic-layout.component';
+import { ReportsService } from '../services/reports/reports.service';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { DynamicLayoutComponent } from './layouts/dynamic/dynamic-layout.compone
       },
       deps: [CustomIconsService],
       multi: true
-    }
+    },
+    ReportsService
   ]
 })
 export class CoreModule { }

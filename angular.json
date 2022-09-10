@@ -33,9 +33,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/theme/main.scss"
+              "src/theme/main.scss",
+              "src/assets/styles/app.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.min.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -95,7 +98,8 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "styles": [
-              "src/theme/main.scss"
+              "src/theme/main.scss",
+              "src/assets/styles/app.scss"
             ],
             "scripts": [],
             "assets": [

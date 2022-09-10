@@ -1,0 +1,105 @@
+// .ellipsisMenu {
+//     .mat-menu-content {
+//         padding-top: 0px;
+//         padding-bottom: 0px;
+//     }
+// }
+
+// ::ng-deep .mat-menu-content {
+//     padding-top: 0px;
+//     padding-bottom: 0px;
+// }
+
+// .mat-menu-content:not(:empty) {
+//     padding-top: 8px;
+//     padding-bottom: 8px;
+// }
+    
+// ::ng-deep .mat-menu-content:not(:empty) {
+//     padding-top: 0px;
+//     padding-bottom: 0px;
+// }
+
+// :host ::ng-deep .mat-menu-content:not(:empty) {
+//     padding: 0!important;
+//   }
+
+.ellipsisMenu {
+    color: rgba(0,0,0,.54);    
+}
+
+.mat-card-header-dark .ellipsisMenu {
+    color: white !important;   
+}
+
+.rowExpander {
+    color: rgba(0,0,0,.54);
+    user-select: none;
+}
+
+
+.fileDownload {
+    color: #16478B;
+    text-decoration: underline;
+	font-size: 1.0rem;
+}
+
+.gridTable {
+
+    .mat-column-expansionMenu {
+        flex: 0 0 50px;
+        cursor: initial;
+    }
+
+    // .mat-column-providerName {
+    //     flex: 0 0 300px;
+    // }
+
+    // .mat-column-isNSC {
+    //     flex: 0 0 50px;
+    // }
+
+    .mat-column-referral-emailAddress {
+        flex: 0 0 20px;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .detail-row-container {
+            display: flex;
+
+            .detail-cell-container {
+                // width: 25%;
+                // max-width: 25%;
+                padding: 20px 10px;
+                border-right: 1px solid #DFE3E7;
+
+                &:last-of-type {
+                    border-right: none;
+                }
+
+                .detail-cell-title {
+                    //display: flex;
+                    justify-content: space-between;
+                    color: rgba(0,0,0,.54);
+                    // font-weight: bold;
+                    font-size: 12px;
+                    margin-bottom: 8px;
+                    text-align: center;
+                }
+
+                .detail-cell-content {
+                    font-size: 14px;
+                    line-height: 21px;
+                    // color: #555555;
+                    white-space: initial;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

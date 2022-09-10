@@ -1,0 +1,388 @@
+<div class="container">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-4">
+                <mat-card-title>Receipts</mat-card-title>  
+            </div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-block"  (click)="viewHelp()" title="View Help">
+                          <mat-icon>help_outline</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-primary btn btn-block" (click)="newForm()" title="New Receipt">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col"> <!-- [routerLinkActive]="['active']" [routerLink]="['/crm/invoicereport']" (click)="setReportData(invReportApiUrl, invReportName)" -->
+                        <button class="btn-secondary btn btn-block" (click)="savePDF()" title="Print receipt">  
+                            <mat-icon>print</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-success btn btn-block" (click)="onFormSubmit()" title="Submit this receipt">
+                            <mat-icon>note_add</mat-icon>  
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-info text-white btn btn-block" title="Cancel this Receipt">
+                            <mat-icon>delete</mat-icon> 
+                        </button> 
+                    </div>
+                    <div class="col">
+                        <button class="bg-danger text-white btn btn-block" (click)="refreshForm()" title="Refresh this form">
+                            <mat-icon>cancel</mat-icon> 
+                        </button>
+                    </div> 
+                    <div class="col">
+                        <button class="bg-warning text-white btn btn-block" [routerLink]="['/crm/receipts']" title="Return to Receipt List">
+                            <mat-icon>arrow_back</mat-icon> 
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <form [formGroup]="receiptForm" class="form-container">
+                <div class="col-12"> 
+                    <div class="form-row">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <mat-form-field class="full-width">
+                                            <mat-label i18n="@@CMMContactsNameFormControl">Voucher Number</mat-label>
+                                            <input matInput #rvcNo formControlName="rvcNo" (keydown.f2)="lookUpReceipt(rvcNo.value)" (keydown.enter)="searchReceipt(rvcNo.value)">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field class="full-width"> 
+                                            <mat-label i18n="@@CMMContactsMobileFormControl">Receipt Date</mat-label>
+                                            <input type="text" formControlName="rvcDate" matInput>
+                                            <mat-error i18n="@@CMMContactsMobileFormControlError">Date <strong>required</strong></mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field class="full-width"> 
+                                            <mat-label i18n="@@CMMContactsMobileFormControl">Customer Code</mat-label>
+                                            <input type="text" formControlName="rvcPcode" matInput #pcode (keydown.f2)="lookUpPcode(pcode.value)">
+                                            <mat-error i18n="@@CMMContactsMobileFormControlError">Customer code <strong>required</strong></mat-error>
+                                        </mat-form-field>   
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <mat-form-field class="full-width">
+                                            <mat-label i18n="@@CMMContactsNameFormControl">
+                                                Payment Type
+                                            </mat-label>
+                                            <mat-select formControlName="rvcPaymentType" required>
+                                                <mat-option> ----- </mat-option>
+                                                <mat-option *ngFor="let payType of paymenttypeArr" [value]="payType.PMTNAME">
+                                                    {{ payType.PMTNAME }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error i18n="@@CMMContactsNameFormControlError">
+                                                Payment Type is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div> 
+                                    <div class="col-3">
+                                        <mat-form-field class="full-width">
+                                            <mat-label i18n="@@CMMContactsNameFormControl">
+                                                Bank
+                                            </mat-label>
+                                            <mat-select formControlName="rvcBank" required>
+                                                <mat-option value = "null"> ----- </mat-option>
+                                                <mat-option *ngFor="let bankDetails of bankdetailArr" [value]="bankDetails.BANK_ID">
+                                                    {{ bankDetails.BANK_NAME }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field class="full-width">
+                                            <mat-label i18n="@@CMMContactsNameFormControl">Amount (BHD)</mat-label>
+                                            <input matInput formControlName="rvcAmount">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field class="full-width">
+                                            <mat-label i18n="@@CMMContactsNameFormControl">Description</mat-label>
+                                            <input matInput formControlName="rvcDesc">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p><strong>{{ mPartyName }}</strong> <br> {{ mPartyAdd1 }}, {{ mPartyAdd2 }}, {{ mPartyAdd3 }} <br> {{ mPartyPhone }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n="@@CMMContactsNameFormControl">Narration</mat-label>
+                                    <input matInput formControlName="rvcRemarks">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-3">
+                                <mat-form-field class="full-width">
+                                    <mat-label i18n="@@CMMContactsNameFormControl">Balance (BHD)</mat-label>
+                                    <input matInput formControlName="rvcBalance">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>Unallocated Invoices:</p>
+                <hr>
+                <div style="border:1px solid grey; border-radius: 20px;">
+                    <table class="table table-striped table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Invoice Number</th>
+                                <th>Date</th>
+                                <th>Amount (BHD)</th>
+                                <th>Balance (BHD)</th>
+                                <th></th>
+                              <!--   <th>Description</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of unalcInvArr">
+                                <td>{{ row.INV_NO }}</td>
+                                <td>{{ row.INV_DATE | date: 'dd-MM-yyyy'}}</td>
+                                <td>{{ row.AMOUNT | number : '1.3'}}</td>
+                                <td>{{ row.BALANCE | number : '1.3'}}</td>
+                                <td>
+                                    <button class="bg-warning text-white btn btn-block" (click)="viewAllocation(row)" title="Allocate this invoice">
+                                        <mat-icon>arrow_right_alt</mat-icon> 
+                                    </button>
+                                </td>
+                              <!--   <td>{{ row.DESCRIPTION }}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-6">
+                <p>Allocated Invoices:</p>
+                <hr>                        
+                <div style="border:1px solid grey; border-radius: 20px;">
+                    <table class="table table-striped table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Invoice Number</th>
+                                <th>Date</th>
+                                <th>Amount (BHD)</th>
+                                <th>Receipt Amount (BHD)</th>
+                                <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of parAlcInvArr">
+                                <td>{{ row.INV_NO }}</td>
+                                <td>{{ row.INV_DATE | date: 'dd-MM-yyyy'}}</td>
+                                <td>{{ row.AMOUNT | number : '1.3'}}</td>
+                                <td>{{ row.REFAMOUNT | number : '1.3'}}</td>
+                                <td>
+                                    <button class="bg-danger text-white btn btn-block" (click)="deallocate(row)" title="Deallocate this invoice">
+                                        <mat-icon>cancel</mat-icon> 
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <ng-template #partyLookupDialog 
+        style="width: 60%;">
+            <h3 matDialogTitle>
+                <b>Look up contacts: {{ partyArr.length }}</b>
+            </h3>
+            <hr>
+            <div mat-dialog-content>
+                <table mat-table 
+                [dataSource]="partyDataSource" 
+                class="mat-elevation-z8" 
+                style="width: 65vw; height: 50vh;">
+                    <ng-container matColumnDef="cust_name">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Customer Name </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.cust_name }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="party_id">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Contact ID </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.party_id }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Contact Name </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.name }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="add1">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Address 1 </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.add1 }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="add2">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Address 2 </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.add2 }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="add3">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Address 3 </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.add3 }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="phone1">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Phone number </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.phone1 }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="mobile">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Telephone </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.mobile }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="email_id">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Email </th>
+                        <td mat-cell 
+                        *matCellDef="let party"> {{ party.email_id }} </td>
+                    </ng-container>
+                    <tr mat-header-row 
+                    *matHeaderRowDef="partyDisplayedColumns"></tr>
+                    <tr mat-row 
+                    *matRowDef="let row; columns: partyDisplayedColumns;  let i= index"
+                    [ngClass]="{'highlight': selectedRowIndex == i}"
+                    (click)="highlight('party',i)"
+                    tabindex="999"
+                    (keydown.arrowdown)="arrowDownEvent('party',selectedRowIndex)"
+                    (keydown.arrowup)="arrowUpEvent('party',selectedRowIndex)" 
+                    (keydown.enter)="selectPcode(partyArr[selectedRowIndex],'lut')"></tr>
+                </table>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button 
+                matDialogClose="close">Close</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>
+
+    <div class="col-12">
+        <ng-template #receiptLookupDialog 
+        style="width: 60%;">
+            <h3 matDialogTitle>
+                <b>Look up receipts: {{ receiptArr.length }}</b>
+            </h3>
+            <hr>
+            <div mat-dialog-content>
+                <table mat-table 
+                [dataSource]="receiptDataSource" 
+                class="mat-elevation-z8" 
+                style="width: 65vw; height: 50vh;">
+                    <ng-container matColumnDef="custcode">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Code </th>
+                        <td mat-cell 
+                        *matCellDef="let row"> {{ row.CUST_CODE }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="custname">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Name </th>
+                        <td mat-cell 
+                        *matCellDef="let row"> {{ row.CUST_NAME }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="recno">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Receipt Number </th>
+                        <td mat-cell 
+                        *matCellDef="let row"> {{ row.REFNO }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="recdt">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Date</th>
+                        <td mat-cell 
+                        *matCellDef="let row"> {{ row.REFDT | date: 'dd-MM-yyyy' }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="recdesc">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Description </th>
+                        <td mat-cell 
+                        *matCellDef="let row"> {{ row.DESCRIPTION }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Amount (BHD) </th>
+                        <td mat-cell 
+                        *matCellDef="let row"> {{ row.AMOUNT }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="recamount">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Receipt Amount (BHD) </th>
+                        <td mat-cell 
+                        *matCellDef="let row"> {{ row.REFAMOUNT }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="recbal">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Balance (BHD) </th>
+                        <td mat-cell 
+                        *matCellDef="let row"> {{ row.BALANCEAMOUNT }} </td>
+                    </ng-container>
+                    <tr mat-header-row 
+                    *matHeaderRowDef="receiptDisplayedColumns"></tr>
+                    <tr mat-row 
+                    *matRowDef="let row; columns: receiptDisplayedColumns;  let i= index"
+                    [ngClass]="{'highlight': selectedRowIndex == i}"
+                    (click)="highlight('receipt',i)"
+                    tabindex="999"
+                    (keydown.arrowdown)="arrowDownEvent('receipt',selectedRowIndex)"
+                    (keydown.arrowup)="arrowUpEvent('receipt',selectedRowIndex)" 
+                    (keydown.enter)="selectReceipt(receiptArr[selectedRowIndex])"></tr>
+                </table>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button 
+                matDialogClose="close">Close</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>
+
+    <div class="col-12">
+        <ng-template #HelpDialog style="width: 100%;">
+            <div mat-dialog-content>
+              <video width="100%">
+                <source src="https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/receipt.mp4" type="video/mp4">
+              </video>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button matDialogClose="close">Close</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>
+</div>

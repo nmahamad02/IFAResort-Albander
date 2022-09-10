@@ -1,0 +1,662 @@
+<div class="container">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-4">
+                <mat-card-title i18n="@@CMMContactsTitle">
+                    Member Details
+                </mat-card-title> 
+            </div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col">
+                        <button class="btn-primary btn btn-block" (click)="newForm()" style="float: right;">
+                            <mat-icon>add</mat-icon>
+                        </button> 
+                    </div>
+                    <div class="col">
+                        <button class="btn-success btn btn-block" (click)="submitForm()" style="float: right;">
+                            <mat-icon>note_add</mat-icon> 
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-info btn btn-block" style="float: right;">
+                            <mat-icon>delete</mat-icon> 
+                        </button> 
+                    </div>
+                    <div class="col">
+                        <button class="btn-danger btn btn-block" (click)="refreshForm()" style="float: right;">
+                            <mat-icon>cancel</mat-icon> 
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-warning btn btn-block" [routerLink]="['/crm/members']" style="float: right;">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-12">
+        <form class="form-container"
+        [formGroup]="memberForm">
+            <div class="row">
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-form-field class="full-width"> 
+                                <mat-label i18n="@@CMMContactsMobileFormControl"> 
+                                    Member Code  
+                                </mat-label>
+                                <input #memCode type="text" formControlName="memberNo" matInput required
+                                (keydown.f2)="lookUpMembers(memCode.value,'I')"
+                                (keydown.enter)="getMemberData(memCode.value,'I')">
+                                <mat-error i18n="@@CMMContactsMobileFormControlError">
+                                    Member code is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field class="full-width"> 
+                                <mat-label i18n="@@CMMContactsMobileFormControl"> 
+                                    Member Reference Number 
+                                </mat-label>
+                                <input #memRefNbr type="text" formControlName="memberRefNo" matInput required 
+                                (keydown.f2)="lookUpMembers(memRefNbr.value,'R')"
+                                (keydown.enter)="getMemberData(memRefNbr.value,'R')">
+                                <mat-error i18n="@@CMMContactsMobileFormControlError">
+                                    Member reference number is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field class="full-width"> 
+                                <mat-label i18n="@@CMMContactsMobileFormControl">
+                                    Billing Account
+                                </mat-label>
+                                <input type="text" #accode formControlName="billingCode" matInput required 
+                                (keydown.f2)="lookUpAccode(accode.value)">
+                                <mat-error i18n="@@CMMContactsMobileFormControlError">
+                                    Billing Account is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field class="full-width"> 
+                                <input type="text"  formControlName="billingname" matInput required
+                                (keydown.f2)="lookUpAccode(accode.value)"> 
+                                <mat-error i18n="@@CMMContactsMobileFormControlError">
+                                    Billing Account is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Title
+                                </mat-label>
+                                <mat-select formControlName="title" required>
+                                    <mat-option> ----- </mat-option>
+                                    <mat-option *ngFor="let title of titlesArr" [value]="title.TITTLE_NAME">
+                                        {{ title.TITTLE_NAME }}
+                                    </mat-option>
+                                  </mat-select>
+                                <mat-error i18n="@@CMMContactsNameFormControlError">
+                                    Title is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    First Name
+                                </mat-label>
+                                <input #fName type="text" formControlName="firstname" matInput required 
+                                (keydown.f2)="lookUpMembers(fName.value,'N')">
+                                <mat-error i18n="@@CMMContactsNameFormControlError">
+                                    First Name is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width"> 
+                                <mat-label i18n="@@CMMContactsMobileFormControl">
+                                    Sur Name
+                                </mat-label>
+                                <input #sName type="text" formControlName="surname" matInput required
+                                (keydown.f2)="lookUpMembers(sName.value,'N')">
+                                <mat-error i18n="@@CMMContactsMobileFormControlError">
+                                    Sur Name is <strong>required</strong>
+                                </mat-error>        
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Member Type
+                                </mat-label>
+                                <mat-select #memberType formControlName="memberType" required 
+                                (focusout)="checkDependents(memberType.value)">
+                                    <mat-option value="S"> Single </mat-option>
+                                    <mat-option value="F"> Family </mat-option>
+                                    <mat-option value="C"> Corporate </mat-option>
+                                  </mat-select>
+                                <mat-error i18n="@@CMMContactsNameFormControlError">
+                                    Member Type is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-2">
+                            <mat-form-field class="full-width"> 
+                                <mat-label i18n="@@CMMContactsMobileFormControl">
+                                    Birth date
+                                </mat-label>
+                                <input matInput formControlName="birthdate" [matDatepicker]="picker">
+                                <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+                                <mat-datepicker #picker> </mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-2">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Marital Status
+                                </mat-label>
+                                <mat-select formControlName="marital" required>
+                                    <mat-option value="S"> Single </mat-option>
+                                    <mat-option value="M"> Married </mat-option>
+                                </mat-select>
+                                <mat-error i18n="@@CMMContactsNameFormControlError">
+                                    Member Type is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Employer
+                                </mat-label>
+                                <input formControlName="employer" matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Position
+                                </mat-label>
+                                <mat-select formControlName="position">
+                                    <mat-option> ----- </mat-option>
+                                    <mat-option *ngFor="let position of positionArr" [value]="position.POSITION_NAME">
+                                        {{ position.POSITION_NAME }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-form-field class="full-width"> 
+                                <mat-label i18n="@@CMMContactsMobileFormControl">
+                                    CPR Number
+                                </mat-label>
+                                <input #cprNbr type="text" formControlName="cprNbr" matInput required 
+                                (keydown.f2)="lookUpMembers(cprNbr.value,'C')"
+                                (keydown.enter)="getMemberData(cprNbr.value,'C')">
+                                <mat-error i18n="@@CMMContactsMobileFormControlError">
+                                    CPR Number is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Nationality
+                                </mat-label>
+                                <mat-select formControlName="nation">
+                                    <mat-option> ----- </mat-option>
+                                    <mat-option *ngFor="let nation of nationsArr" [value]="nation.NCode">
+                                        {{ nation.NationName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                      <!--  <div class="col-2">
+                            <mat-form-field class="full-width"> 
+                                <mat-label i18n="@@CMMContactsMobileFormControl">
+                                    Insurance Number
+                                </mat-label>
+                                <input type="text" formControlName="insuranceNbr" matInput >
+                            </mat-form-field>
+                        </div> -->
+                        <div class="col-2">
+                            <mat-form-field class="full-width">
+                                <mat-label  i18n="@@CMMContactsNameFormControl">
+                                    Address 1
+                                </mat-label>
+                                <input formControlName="add1" matInput>
+                            </mat-form-field>
+                        </div>                                
+                        <div class="col-2">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Address 2
+                                </mat-label>
+                                <input formControlName="add2" matInput>
+                            </mat-form-field>
+                        </div>                                
+                        <div class="col-2">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Address 3
+                                </mat-label>
+                                <input formControlName="add3" matInput>
+                            </mat-form-field>
+                        </div>                                
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Email ID
+                                </mat-label>
+                                <input formControlName="email" matInput>
+                            </mat-form-field>
+                        </div>                                
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Residence Telephone
+                                </mat-label>
+                                <input formControlName="telRes" matInput>
+                            </mat-form-field>
+                        </div>                                
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Office Telephone
+                                </mat-label>
+                                <input formControlName="telOff" matInput>
+                            </mat-form-field>
+                        </div> 
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Fax Nbr
+                                </mat-label>
+                                <input formControlName="faxNbr" matInput>
+                            </mat-form-field>
+                        </div>                                
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-12">
+                            <mat-form-field class="full-width">
+                                <mat-label i18n="@@CMMContactsNameFormControl">
+                                    Remarks
+                                </mat-label>
+                                <textarea formControlName="email"></textarea>
+                            </mat-form-field>
+                        </div>                                                         
+                    </div> -->
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <img [src]="imageSrc" *ngIf="imageSrc" style="width:100%">
+                        <input formControlName="image" id="image" type="file" class="form-control" 
+                        (change)="onFileChange($event)">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="col-12" style="height: 50vh; overflow-y: auto;">
+                <div *ngIf="openCorporateMembers">
+                    <table class="table table-borderless table-hover table-responsive-xxl" 
+                    formArrayName="corporateMembers">
+                        <thead>
+                            <tr class="table-reflow" style="background-color: rgb(2, 46, 82); color: white;">
+                                <th style="width: 7.5%;">
+                                    Member No
+                                </th>
+                                <th style="width: 7.5%;">
+                                    Reference No
+                                </th>
+                                <th style="width: 5%;">
+                                    Title
+                                </th>
+                                <th style="width: 12.5%;">
+                                    Firstname
+                                </th>
+                                <th style="width: 12.5%;">
+                                    Surname
+                                </th>
+                                <th style="width: 10%;">
+                                    CPR Number
+                                </th>
+                                <th style="width: 5%;">
+                                    Type
+                                </th>
+                                <th style="width: 20%;">
+                                    Date of Birth
+                                </th>
+                                <th style="width: 10%;">
+                                    Telephone
+                                </th>
+                                <th style="width: 10%;">
+                                    Email
+                                </th>
+                                <th style="width: 10%;">
+                                    Position
+                                </th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody (keydown.alt.n)="addDependentMember('C')">
+                            <tr #depMem *ngFor="let dM of corporateMembers.controls; let i = index;" 
+                            [formGroupName]="i" (keydown.alt.x)="deleteDependentMember('C',i)">
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dMemberNo">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dMemberRefNo">
+                                </td>
+                                <td>
+                                    <select class="form-control form-control-sm" formControlName="dTitle">
+                                        <option *ngFor="let title of titlesArr" [value]="title.TITTLE_NAME">
+                                            {{ title.TITTLE_NAME }}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dFirstname">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dSurname">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dCprNbr">
+                                </td>
+                                <td>
+                                    <select class="form-control form-control-sm" formControlName="dMemberType">
+                                        <option value="S"> Single </option>
+                                        <option value="F"> Family </option>
+                                        <option value="C"> Corporate </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input matInput formControlName="dDob" [matDatepicker]="picker1">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"> </mat-datepicker-toggle>
+                                    <mat-datepicker #picker1> </mat-datepicker>
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dTelRes">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dEmail">
+                                </td>
+                                <td>
+                                    <select class="form-control form-control-sm" formControlName="dPosition">
+                                        <option *ngFor="let position of positionArr" [value]="position.POSITION_NAME">
+                                            {{ position.POSITION_NAME }}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" (click)="deleteDependentMember('C',i)"> &#10005; </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-success" type="button" (click)="addDependentMember('C')"> &#43; </button>
+                </div>
+                <div *ngIf="openFamilyMembers">
+                    <table class="table table-borderless table-hover table-responsive-xxl" formArrayName="familyMembers">
+                        <thead>
+                            <tr class="table-reflow" style="background-color: rgb(2, 46, 82); color: white;">
+                                <th style="width: 10%;">
+                                    Member No
+                                </th>
+                                <th style="width: 10%;">
+                                    Reference No
+                                </th>
+                                <th style="width: 5%;"> 
+                                    Title
+                                </th>
+                                <th style="width: 15%;">
+                                    Firstname
+                                </th>
+                                <th style="width: 15%;">
+                                    Surname
+                                </th>
+                                <th style="width: 15%;">
+                                    CPR Number</th>
+                                <th style="width: 20%;">
+                                    Date of Birth
+                                </th>
+                                <th style="width: 10%;">
+                                    Relation
+                                </th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody (keydown.alt.n)="addDependentMember('F')">
+                            <tr #depMem *ngFor="let dM of familyMembers.controls; let i = index;" [formGroupName]="i" 
+                            (keydown.alt.x)="deleteDependentMember('F',i)">
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dMemberNo">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dMemberRefNo">
+                                </td>
+                                <td>
+                                    <select class="form-control form-control-sm" formControlName="dTitle">
+                                        <option *ngFor="let title of titlesArr" [value]="title.TITTLE_NAME">
+                                           {{ title.TITTLE_NAME }}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dFirstname">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dSurname">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" formControlName="dCprNbr">
+                                </td>
+                                <td>
+                                    <input matInput formControlName="dDob" [matDatepicker]="picker2">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"> </mat-datepicker-toggle>
+                                <mat-datepicker #picker2> </mat-datepicker>
+                                </td>
+                                <td>
+                                    <select class="form-control form-control-sm" formControlName="dRelation">
+                                        <option *ngFor="let relation of relationArr" [value]="relation.RELATION_NAME"> 
+                                            {{ relation.RELATION_NAME }}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" type="button" (click)="deleteDependentMember('F',i)"> &#10005; </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-success" type="button" (click)="addDependentMember('F')">&#43;</button>
+                </div>
+            </div>
+        </form> 
+    </div>
+
+    <div class="col-12">
+        <ng-template #membLookupDialog 
+        style="width: 60%;">
+            <h3 matDialogTitle>
+                <b>Look up Members: {{ membArr.length }}</b>
+            </h3>
+            <hr>
+            <div mat-dialog-content>
+                <table mat-table 
+                [dataSource]="membDataSource" 
+                class="mat-elevation-z8" 
+                style="width: 65vw; height: 50vh;">
+                    <ng-container matColumnDef="memberNo">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Member Nbr </th>
+                        <td mat-cell 
+                        *matCellDef="let memb"> {{ memb.MemberNo }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="memberRefNo">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Reference Nbr </th>
+                        <td mat-cell 
+                        *matCellDef="let memb"> {{ memb.REFMEMBNO }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Title </th>
+                        <td mat-cell 
+                        *matCellDef="let memb"> {{ memb.TITLE }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="firstname">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Firstname </th>
+                        <td mat-cell 
+                        *matCellDef="let memb"> {{ memb.NAME }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="surname">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> LName </th>
+                        <td mat-cell 
+                        *matCellDef="let memb"> {{ memb.SURNAME }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cprno">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> CPR Nbr </th>
+                        <td mat-cell 
+                        *matCellDef="let memb"> {{ memb.CPRNo }} </td>
+                    </ng-container>
+                    <tr mat-header-row 
+                    *matHeaderRowDef="membDisplayedColumns"></tr>
+                    <tr mat-row 
+                    *matRowDef="let row; columns: membDisplayedColumns;  let i= index"
+                    [ngClass]="{'highlight': selectedRowIndex == i}"
+                    (click)="highlight('membs',i)"
+                    tabindex="999"
+                    (keydown.arrowdown)="arrowDownEvent('membs',selectedRowIndex)"
+                    (keydown.arrowup)="arrowUpEvent('membs',selectedRowIndex)" 
+                    (keydown.f4)="lookUpBoat(membArr[selectedRowIndex])"
+                    (keydown.enter)="selectMemb(membArr[selectedRowIndex])" ></tr>
+                </table>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button 
+                matDialogClose="close">Close</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>
+
+    <div class="col-12">
+        <ng-template #accodeLookupDialog    
+        style="width: 60%;">
+            <h3 matDialogTitle>
+                <b>Look up Accode</b>
+            </h3>
+            <hr>
+            <div mat-dialog-content>
+                <table mat-table 
+                [dataSource]="accDataSource" 
+                class="mat-elevation-z8" 
+                style="width: 65vw; height: 50vh;">
+                    <ng-container matColumnDef="accode">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Account Code </th>
+                        <td mat-cell 
+                        *matCellDef="let acc"> {{ acc.PCODE }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="accname">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Customer Name </th>
+                        <td mat-cell 
+                        *matCellDef="let acc"> {{ acc.CUST_NAME }} </td>
+                    </ng-container>
+                    <tr mat-header-row 
+                    *matHeaderRowDef="accDisplayedColumns"></tr>
+                    <tr mat-row 
+                    *matRowDef="let row; columns: accDisplayedColumns;  let i= index"
+                    [ngClass]="{'highlight': selectedRowIndex == i}"
+                    (click)="highlight('accs',i)"
+                    tabindex="999"
+                    (keydown.arrowdown)="arrowDownEvent('accs',selectedRowIndex)"
+                    (keydown.arrowup)="arrowUpEvent('accs',selectedRowIndex)" 
+                    (keydown.enter)="selectAccode(accArr[selectedRowIndex])" ></tr>
+                </table>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button 
+                matDialogClose="close">Close</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>
+
+    <!--
+    <div class="col-12">
+        <ng-template #BoatLookupDialog 
+        style="width: 60%;">
+            <h3 matDialogTitle>
+                <b>Look up Boat Master: {{ boatArr.length }}</b>
+            </h3>
+            <hr>
+            <div mat-dialog-content>
+                <table mat-table 
+                [dataSource]="BoatDataSource" 
+                class="mat-elevation-z8" 
+                style="width: 65vw; height: 50vh;">
+                    <ng-container matColumnDef="boatid">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Boat Master Code </th>
+                        <td mat-cell 
+                        *matCellDef="let boat"> {{ boat.BoatMasterID }} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="boatname">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Boat Name </th>
+                        <td mat-cell 
+                        *matCellDef="let boat"> {{ boat.BoatName }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="membercode">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Member Code </th>
+                        <td mat-cell 
+                        *matCellDef="let boat"> {{ boat.MemberCode }} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="registerno">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Registration Number </th>
+                        <td mat-cell 
+                        *matCellDef="let boat"> {{ boat.RegistrationNo }} </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row 
+                    *matHeaderRowDef="BoatDisplayedColumns"></tr>
+                    <tr mat-row 
+                    *matRowDef="let row; columns: BoatDisplayedColumns;  let i= index"
+                    [ngClass]="{'highlight': selectedRowIndex == i}"
+                    (click)="highlight('boat',i)"
+                    tabindex="999"></tr>
+                    
+                </table>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button 
+                matDialogClose="close">Close</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>
+    -->
+</div>

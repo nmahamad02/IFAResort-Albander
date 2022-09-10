@@ -1,1 +1,93 @@
-<p>dashboard works!</p>
+<div class="container">
+    <div class="row no-gutters">
+        <div class="visualization-heading col-12">
+            <div class="heading-info">
+                <h2 class="heading-title">Overview</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="visualizations-section">
+                <div class="orders-visualization">
+                    <div class="row no-gutters">
+                        <div class="visualization-heading col-12">
+                            <div class="heading-info">
+                                <h4 class="heading-title">Agreements due for renewal</h4>
+                            </div>
+                            <div class="heading-actions">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="visualization-chart" >
+                                <canvas baseChart [chartType]="'bar'" [legend]="true"[datasets]="agrChartData" [labels]="yearChartLabels" [options]="chartOptions"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="visualizations-section">
+                <div class="orders-visualization">
+                    <div class="row no-gutters">
+                        <div class="visualization-heading col-12">
+                            <div class="heading-info">
+                                <h4 class="heading-title">Member Breakdown</h4>
+                            </div>
+                            <div class="heading-actions">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="visualization-chart" >
+                                <canvas baseChart [chartType]="'pie'" [legend]="true"[datasets]="memChartData" [labels]="membChartLabels" [options]="chartOptions"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="visualizations-section">
+                <div class="orders-visualization">
+                    <div class="row no-gutters">
+                        <div class="visualization-heading col-12">
+                            <div class="heading-info">
+                                <h4 class="heading-title">Monthwise Billing</h4>
+                            </div>
+                            <div class="heading-actions">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="visualization-chart" >
+                                <canvas baseChart [chartType]="'line'" [legend]="true"[datasets]="invChartData" [labels]="yearChartLabels" [options]="chartOptions"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="visualizations-section">
+                <div class="orders-visualization">
+                    <div class="row no-gutters">
+                        <div class="visualization-heading col-12">
+                            <div class="heading-info">
+                                <h4 class="heading-title">Monthwise collection</h4>
+                            </div>
+                            <div class="heading-actions">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="visualization-chart" >
+                                <canvas baseChart [chartType]="'line'" [legend]="true"[datasets]="rvcChartData" [labels]="yearChartLabels" [options]="chartOptions"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+.mat-table .mat-header-cell {
+  border: 2px;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  font-weight: bold;
+  font-size: small;
+  background-color: lavender;
+  min-height: 40px;
+}
+
+.mat-table .mat-row {
+  border-bottom: 2px solid #ddd;
+  background-color: aliceblue;
+  min-height: 1px !important;
+  min-height: 30px;
+}
+
+.mat-row:hover > .mat-cell {
+  cursor: pointer;
+}
+
+.mat-header-row, .mat-row {
+  min-height: 30px;
+  font-size: small;
+}
+
+/*.mat-row:nth-child(even) {
+  background-color: #87CEFA;
+}*/
+
+.mat-row:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+.mat-button {
+  background-color: cornflowerblue;
+}
