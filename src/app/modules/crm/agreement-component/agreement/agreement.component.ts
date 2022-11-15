@@ -192,8 +192,8 @@ export class AgreementComponent implements OnInit {
       });
 
       const salesorderGrid = new FormGroup({
-        srvCode: new FormControl('', [ Validators.required]),
-        srvDesc: new FormControl('', [ Validators.required]),
+        srvCode: new FormControl('99', [ Validators.required]),
+        srvDesc: new FormControl('Membership Charges', [ Validators.required]),
         srvMember: new FormControl('', [ Validators.required]),
         srvMemberName: new FormControl('', [ Validators.required]),
         srvFrom: new FormControl(this.mCurDate, [ Validators.required]),
@@ -203,7 +203,7 @@ export class AgreementComponent implements OnInit {
         srvDisc: new FormControl('', [ Validators.required]),
         srvDiscount: new FormControl('', [ Validators.required]),
         srvGross: new FormControl('', [ Validators.required]),
-        srvVatCat: new FormControl('', [ Validators.required]),
+        srvVatCat: new FormControl('10%', [ Validators.required]),
         srvVat: new FormControl('', [ Validators.required]),
         srvNetValue: new FormControl('', [ Validators.required]),
       });
@@ -233,7 +233,7 @@ export class AgreementComponent implements OnInit {
   }
 
   getSalesorder(argno: any) {
-      this.crmservice.getagreementmaster(argno).subscribe((res: any) => {
+    this.crmservice.getagreementmaster(argno).subscribe((res: any) => {
         this.selectSalesOrder(res.recordset[0]);
       }, (err: any) => {
     })
@@ -366,6 +366,7 @@ export class AgreementComponent implements OnInit {
       srvGross: this.grossvalue
     }
     this.srvItem.at(index).patchValue(rowData);
+    this.gettaxValue(10, index);
   }
 
   selectRef(obj: any){
@@ -478,6 +479,7 @@ export class AgreementComponent implements OnInit {
   }
 
   selectSalesOrder(obj: any) {
+    this.refreshForm();
     this.sonumber = obj.AGR_NO;
     this.invReportApiUrl = "coa/getinvoiceprint/" + obj.AGR_NO ;
     this.invReportName = "membership_inovice_MANZ.rdlx-json";
@@ -669,7 +671,7 @@ export class AgreementComponent implements OnInit {
         console.log(err);
       });
     });
-    this.refreshForm();
+    this.getSalesorder(agrData.voucherNo);
   }
 
   /*convertToSalesOrder() {

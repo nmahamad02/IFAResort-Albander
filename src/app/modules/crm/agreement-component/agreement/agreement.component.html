@@ -6,11 +6,13 @@
             </div>
             <div class="col-10">
                 <div class="row">
-                    <div class="col">
+                    <!--
+<div class="col">
                         <button class="btn btn-block" (click)="viewHelp()" title="View Help" style="float:right">
                           <mat-icon>help_outline</mat-icon>
                         </button>
                     </div>
+                    -->
                     <div class="col">
                         <button class="btn-primary btn btn-block" (click)="newForm()" title="New Agreement">
                             <mat-icon>add</mat-icon>
@@ -142,27 +144,29 @@
                             <table class="table table-borderless table-hover table-responsive-xxl" formArrayName="srvItemArr">
                                 <thead>
                                     <tr class="table-reflow" style="background-color: rgb(2, 46, 82); color: white;">
-                                        <th style="width: 5%;">Code</th>
+                                        <!-- <th style="width: 5%;">Code</th> -->
                                         <!-- <th style="width: 7.5%;">Description </th> -->
-                                        <th style="width: 5%;">Member</th>
-                                        <th style="width: 18%;">Member Name</th>
-                                        <th style="width: 12%;">From</th>
-                                        <th style="width: 12%;">To</th>                                                                                                     
+                                        <th style="width: 10%;">Code</th>
+                                        <th style="width: 20%;">Name</th>
+                                        <th style="width: 10%;">From</th>
+                                        <th style="width: 10%;">To</th>                                                                                                     
                                         <th style="width: 10%;">Value</th>
-                                        <th style="width: 6%;">Disc %</th>
-                                        <th style="width: 8%;">Discount</th>
+                                        <th style="width: 10%;">Disc %</th>
+                                        <th style="width: 10%;">Discount</th>
                                         <!--<th style="width: 5%;">Gross</th> -->
-                                        <th style="width: 6%;">VAT %</th>
-                                        <th style="width: 8%;">VAT</th>
+                                        <!-- <th style="width: 10%;">VAT %</th> -->
+                                        <th style="width: 10%;">VAT</th>
                                         <th style="width: 10%;">Gross</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody (keydown.alt.n)="addServiceItem()">
                                     <tr #rptItem *ngFor="let rp of srvItem?.controls; let i = index;" [formGroupName]="i" (keydown.alt.x)="deleteServiceItem(i)">
-                                        <td>
+                                        <!--
+                                            <td>
                                             <input #itemCode class="form-control form-control-sm" type="text" formControlName="srvCode" (keydown.f2)="lookUpReference(i)" (change)="getRefData(itemCode.value,i)">
                                         </td>
+                                    -->
                                         <!--
                                         <td>
                                             <textarea  class="form-control form-control-sm"  formControlName="srvDesc" >
@@ -196,15 +200,16 @@
                                             <input #disc class="form-control form-control-sm" type="text" formControlName="srvDisc" (change)="getdiscount(disc.value,i)">
                                         </td>
                                         <td>
-                                            <input class="form-control form-control-sm" type="text" formControlName="srvDiscount">
+                                            <input class="form-control form-control-sm" type="text" formControlName="srvDiscount" (valueChange)="gettaxValue($event,i)">
                                         </td>
-                                        <td>
+                                        <!--
+                                            <td>
                                             <mat-select formControlName="srvVatCat" (valueChange)="gettaxValue($event,i)" required>
                                                 <mat-option *ngFor="let tax of taxArr" [value]="tax.TAX_1_PERC">
                                                     {{ tax.TAX_CATEGORY_NAME }}
                                                 </mat-option>
                                             </mat-select>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <input #pcode class="form-control form-control-sm" type="text" formControlName="srvVat">
                                         </td>
@@ -225,27 +230,29 @@
             <hr>
             <div class="col-12">
                 <div class="row">
-                    <div class="col-8"></div>
-                    <div class="col-4">
+                    <div class="col-6"></div>
+                    <div class="col-6">
                         <div class="row">
                             <div class="col-6">
-                                <h4 style="color: darkblue;">Total:</h4>
-                                <h4 style="color: darkblue;">Discount:</h4>
-                                <h4 style="color: darkblue;">VAT:</h4>
+                                <h5 style="color: darkblue;">Total:</h5>
+                                <h5 style="color: darkblue;">Discount:</h5>
+                                <h5 style="color: darkblue;">VAT:</h5>
                                 <hr>
-                                <h3 style="color: darkblue;">Grand Total:</h3>
+                                <h4 style="color: darkblue;">Grand Total:</h4>
                             </div>                                    
                             <div class="col-6" style="float: right;">
-                                <h4 style="color: darkblue;">BHD {{ mAgrTotal | number : '1.3' }}</h4>
-                                <h4 style="color: darkblue;">BHD {{ mAgrDisc | number : '1.3'}}</h4>
-                                <h4 style="color: darkblue;">BHD {{ mAgrVAT | number : '1.3'}}</h4>
+                                <h5 style="color: darkblue;">BHD {{ mAgrTotal | number : '1.3' }}</h5>
+                                <h5 style="color: darkblue;">BHD {{ mAgrDisc | number : '1.3'}}</h5>
+                                <h5 style="color: darkblue;">BHD {{ mAgrVAT | number : '1.3'}}</h5>
                                 <hr>
-                                <h3 style="color: darkblue;">BHD {{ mAgrGTotal | number : '1.3'}}</h3>
+                                <h4 style="color: darkblue;">BHD {{ mAgrGTotal | number : '1.3'}}</h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <hr>
+            <br>
         </form>
 
         <div class="col-12">

@@ -6,11 +6,12 @@
             </div>
             <div class="col-9">
                 <div class="row">
-                    <div class="col">
+                    <!--
+                        <div class="col">
                         <button mat-raised-button (click)="viewHelp()" title="View Help" style="float:right">
                           <mat-icon>help_outline</mat-icon>
                         </button>
-                    </div>
+                    </div> -->
                     <div class="col"> <!-- [routerLinkActive]="['active']" [routerLink]="['/crm/invoicereport']" (click)="setReportData(invReportApiUrl, invReportName)" -->
                         <button class="btn-secondary btn btn-block" (click)="SavePDF()" title="Print invoice">  
                             <mat-icon>print</mat-icon>
@@ -168,22 +169,22 @@
             <hr>
             <div class="col-12">
                 <div class="row">
-                    <div class="col-8"></div>
-                    <div class="col-4">
+                    <div class="col-6"></div>
+                    <div class="col-6">
                         <div class="row">
                             <div class="col-6">
-                                <h4 style="color: darkblue;">Total:</h4>
-                                <h4 style="color: darkblue;">Discount:</h4>
-                                <h4 style="color: darkblue;">VAT:</h4>
+                                <h5 style="color: darkblue;">Total:</h5>
+                                <h5 style="color: darkblue;">Discount:</h5>
+                                <h5 style="color: darkblue;">VAT:</h5>
                                 <hr>
-                                <h3 style="color: darkblue;">Grand Total:</h3>
+                                <h4 style="color: darkblue;">Grand Total:</h4>
                             </div>                                    
                             <div class="col-6" style="float: right;">
-                                <h4 style="color: darkblue;">BHD {{ mInvTotal | number : '1.3' }}</h4>
-                                <h4 style="color: darkblue;">BHD {{ mInvDisc | number : '1.3'}}</h4>
-                                <h4 style="color: darkblue;">BHD {{ mInvVAT | number : '1.3'}}</h4>
+                                <h5 style="color: darkblue;">BHD {{ mInvTotal | number : '1.3' }}</h5>
+                                <h5 style="color: darkblue;">BHD {{ mInvDisc | number : '1.3'}}</h5>
+                                <h5 style="color: darkblue;">BHD {{ mInvVAT | number : '1.3'}}</h5>
                                 <hr>
-                                <h3 style="color: darkblue;">BHD {{ mInvGTotal | number : '1.3'}}</h3>
+                                <h4 style="color: darkblue;">BHD {{ mInvGTotal | number : '1.3'}}</h4>
                             </div>
                         </div>
                     </div>

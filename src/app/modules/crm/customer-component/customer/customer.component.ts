@@ -137,7 +137,6 @@ export class CustomerComponent implements OnInit {
 
   submitForm(){
     const data = this.custForm.value
-
     this.financeservice.getCustomerBypcode(data.pcode).subscribe((res: any) => {
       this.financeservice.updateOPbalDeatils(data.cname,data.cAccountCategory,data.cStatus,data.cType,data.cCR,data.cTaxNo,data.pcode)
       this.snackbar.open(data.pcode + " Updated Successfully", "close", {
