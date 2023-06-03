@@ -55,7 +55,7 @@
                                     <div class="col-4">
                                         <mat-form-field class="full-width">
                                             <mat-label i18n="@@CMMContactsNameFormControl">Voucher Number</mat-label>
-                                            <input matInput #rvcNo formControlName="rvcNo" (keydown.f2)="lookUpReceipt(rvcNo.value)" (keydown.enter)="searchReceipt(rvcNo.value)">
+                                            <input matInput #rvcNo formControlName="rvcNo" title="Press fn + F2 to open Receipt search" (keydown.f2)="lookUpReceipt(rvcNo.value)" (keydown.enter)="searchReceipt(rvcNo.value)">
                                         </mat-form-field>
                                     </div>
                                     <div class="col-4">
@@ -68,7 +68,7 @@
                                     <div class="col-4">
                                         <mat-form-field class="full-width"> 
                                             <mat-label i18n="@@CMMContactsMobileFormControl">Customer Code</mat-label>
-                                            <input type="text" formControlName="rvcPcode" matInput #pcode (keydown.f2)="lookUpPcode(pcode.value)">
+                                            <input type="text" formControlName="rvcPcode" matInput #pcode title="Press fn + F2 to open Customer search" (keydown.f2)="lookUpPcode(pcode.value)">
                                             <mat-error i18n="@@CMMContactsMobileFormControlError">Customer code <strong>required</strong></mat-error>
                                         </mat-form-field>   
                                     </div>
@@ -231,13 +231,7 @@
                         <th mat-header-cell 
                         *matHeaderCellDef> Contact ID </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.party_id }} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="name">
-                        <th mat-header-cell 
-                        *matHeaderCellDef> Contact Name </th>
-                        <td mat-cell 
-                        *matCellDef="let party"> {{ party.name }} </td>
+                        *matCellDef="let party"> {{ party.PCODE }} </td>
                     </ng-container>
                     <ng-container matColumnDef="add1">
                         <th mat-header-cell 

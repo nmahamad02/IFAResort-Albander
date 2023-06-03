@@ -158,7 +158,7 @@ export class FinanceService {
 
   getServiceDetails(serviceid:string) {
     return this.http.get(this.url + '/coa/getServicesDetails/'+ serviceid)
-  }
+  }  
 
   getDocForArg(year: string) {
     return this.http.get(this.url + '/coa/getDocForArg/' + year)
@@ -182,6 +182,37 @@ export class FinanceService {
 
   searchServicesDetails(serviceid:string) {
     return this.http.get(this.url + '/coa/searchServicesDetails/'+ serviceid)
+  }
+
+  deleteService(serviceid:string) {
+    return this.http.get(this.url + '/coa/deleteService/'+ serviceid)
+  }
+
+  postService(serviceid: string, servicename: string, actualprice: string, createdate: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    const newService = {
+      serviceid: serviceid,
+      servicecode: 'F',
+      servicetype: 'A',
+      servicename: servicename,
+      servicedesc: servicename,
+      actualprice: actualprice,
+      discount: actualprice,
+      memberfee: actualprice,
+      createdate: createdate,
+      updateddate: createdate,
+      servicecategory: '0', 
+      ttaxcategoryrnno: '0',
+      servicegroup: 'MISC',
+      receipt: '0',
+      orderno: '0',
+      isboat: 0
+    }
+
+    this.http.post(this.url + '/coa/postService', JSON.stringify(newService), { headers: headers }).subscribe((res: any) => {
+      console.log(res);
+    })
   }
 
  getAllService() {
@@ -525,6 +556,8 @@ export class FinanceService {
 
     this.http.post(this.url + '/coa/postOPBAL', JSON.stringify(newTran), { headers: headers }).subscribe((res: any) => {
       console.log(res);
+      console.log("customer inserted")
+
     })
   }
 
@@ -543,10 +576,10 @@ export class FinanceService {
 
     this.http.post(this.url + '/coa/updateOPBAL', JSON.stringify(newTran), { headers: headers }).subscribe((res: any) => {
       console.log(res);
+      console.log("customer updated")
     })
   }
-
-
+  
   posttax(compcode: string,taxid: string,taxcategorycd: string, taxcategoryname: string, desc: string, taxgroup: string,tax1prec: string, taxglac: string,sequance: string, active: string, createuser: string, creatdt: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 

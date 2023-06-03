@@ -31,6 +31,8 @@ import { MembersComponent } from './member-component/members/members.component';
 import { ReceiptsListComponent } from './receipt-component/receipts-list/receipts-list.component';
 import { ReceiptsAllocationComponent } from './receipt-component/receipts-allocation/receipts-allocation.component';
 import { ReceiptsComponent } from './receipt-component/receipts/receipts.component';
+import { ServiceListComponent } from './service-component/service-list/service-list.component';
+import { ServiceComponent } from './service-component/service/service.component';
 
 export const crmRoutes = [
   {
@@ -85,6 +87,14 @@ export const crmRoutes = [
     path: 'receipt/details/:id/allocation',
     component: ReceiptsAllocationComponent
   },
+  {
+    path: 'services',
+    component: ServiceListComponent
+  },
+  {
+    path: 'services/details/:id',
+    component: ServiceComponent
+  },
 ];
 
 @NgModule({
@@ -101,7 +111,7 @@ export const crmRoutes = [
     MembersComponent, 
     ReceiptsListComponent, 
     ReceiptsAllocationComponent, 
-    ReceiptsComponent
+    ReceiptsComponent, ServiceListComponent, ServiceComponent
   ],
   imports: [
     CommonModule,

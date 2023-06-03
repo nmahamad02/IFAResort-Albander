@@ -1,0 +1,112 @@
+<div class="container-fluid">
+    <div class="col-12">
+        <div class="row"> 
+            <div class="col-2">
+                <mat-card-title>Services</mat-card-title>  
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        <button class="btn-primary btn btn-block" (click)="newForm()" title="New Service">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-success btn btn-block" (click)="onFormSubmit()" title="Submit Service">
+                            <mat-icon>note_add</mat-icon>  
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-info btn text-white btn-block" title="Cancel this Service" (click)="deleteService()">
+                            <mat-icon>delete</mat-icon> 
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-danger btn btn-block" (click)="refreshForm()" title="Refresh this form">
+                            <mat-icon>cancel</mat-icon> 
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-warning btn text-white  btn-block" [routerLink]="['/crm/services']" title="Return to Service List">
+                            <mat-icon>arrow_back</mat-icon> 
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br> 
+        <form [formGroup]="serviceForm" class="form-container">
+            <div class="col-12"> 
+                <div class="form-row">
+                    <div class="col-4">
+                        <mat-form-field class="full-width">
+                            <mat-label i18n="@@CMMContactsNameFormControl">Service Number</mat-label>
+                            <input matInput #srvNo formControlName="srvNo" title="Press fn + F2 to open Service search" (keydown.f2)="lookupService(srvNo.value)" (keydown.enter)="getService(srvNo.value)" >
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field class="full-width">
+                            <mat-label i18n="@@CMMContactsNameFormControl">Service Name</mat-label>
+                            <input matInput formControlName="srvName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field class="full-width"> 
+                            <mat-label i18n="@@CMMContactsMobileFormControl">Price (BHD)</mat-label>
+                            <input type="text" formControlName="price" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-12">
+        <ng-template #srvLookupDialog 
+        style="width: 60%;">
+            <h3 matDialogTitle>
+                <b>Look up Services: {{ srvArr.length }}</b>
+            </h3>
+            <hr>
+            <div mat-dialog-content>
+                <table mat-table 
+                [dataSource]="srvDataSource" 
+                class="mat-elevation-z8" 
+                style="width: 65vw; height: 50vh;">
+                    <ng-container matColumnDef="ServiceID">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Service Number </th>
+                        <td mat-cell 
+                        *matCellDef="let srv"> {{ srv.ServiceID }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="servicedesc">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Name </th>
+                        <td mat-cell 
+                        *matCellDef="let srv"> {{ srv.ServiceName }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="memberprice">
+                        <th mat-header-cell 
+                        *matHeaderCellDef> Service Number </th>
+                        <td mat-cell 
+                        *matCellDef="let srv"> {{ srv.MemberPrice }} </td>
+                    </ng-container>
+                    <tr mat-header-row 
+                    *matHeaderRowDef="srvDisplayedColumns"></tr>
+                    <tr mat-row 
+                    *matRowDef="let row; columns: srvDisplayedColumns;  let i= index"
+                    [ngClass]="{'highlight': selectedRowIndex == i}"
+                    (click)="highlight(i)"
+                    tabindex="999"
+                    (keydown.arrowdown)="arrowDownEvent(selectedRowIndex)"
+                    (keydown.arrowup)="arrowUpEvent(selectedRowIndex)" 
+                    (keydown.enter)="onViewCellClicked(srvArr[selectedRowIndex])" ></tr>
+                </table>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button 
+                matDialogClose="close">Close</button>
+            </mat-dialog-actions>
+        </ng-template>
+    </div>
+</div>

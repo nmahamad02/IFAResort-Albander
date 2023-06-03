@@ -359,30 +359,30 @@ export class InvoiceComponent implements OnInit {
     var doc = new jsPDF("portrait", "px", "a4");
     var img = new Image()
     img.src = 'assets/Pics/download.png';
+    doc.line(20, 100, 425, 100); 
     doc.setFontSize(13)
     doc.setFont('Times New Roman','bold');
-    doc.text('MEMBERSHIP ADVICE',300, 90);
+    doc.text('MEMBERSHIP ADVICE',300, 115);
     doc.setFont(undefined,'normal');
-    doc.text('Invoice  :',300, 100);
-    doc.text(this.mInvNo,375, 100);
-    doc.text('Date     :',300, 110);
-    doc.text(this.mInvDate,375, 110);
-    doc.text('Agreement:',300, 120);
-    doc.text(this.mAgrNo,375, 120);
+    doc.text('Invoice  :',300, 125);
+    doc.text(this.mInvNo,375, 125);
+    doc.text('Date     :',300, 135);
+    doc.text(this.mInvDate,375, 135);
+    doc.text('Agreement:',300, 145);
+    doc.text(this.mAgrNo,375, 145);
     //doc.addImage(img, 'png', 15, 15, 60, 60);
-    doc.line(20, 75, 425, 75); 
     doc.setDrawColor(0);
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(20, 85, 150, 55, 5, 5, 'FD');
+    doc.roundedRect(20, 110, 150, 55, 5, 5, 'FD');
     //doc.roundedRect(150, 90, 150, 70, 5, 5, 'FD');
     doc.setFontSize(11);
-    doc.text('To,',30, 95);
-    doc.text(this.mPartyName,30, 105);
-    doc.text(this.mPartyAdd1,30, 115);
-    doc.text(this.mPartyAdd2,30, 125);
-    doc.text(this.mPartyPhone,30, 135);
+    doc.text('To,',30, 120);
+    doc.text(this.mPartyName,30, 130);
+    doc.text(this.mPartyAdd1,30, 140);
+    doc.text(this.mPartyAdd2,30, 150);
+    doc.text(this.mPartyPhone,30, 160);
     const intro = `Dear ${this.mPartyName},\nWe would like to take this opportunity to thank you as one of the loyal members of Albander Hotel & Resort, and look \nforward to the same in the future. As your membership is due for renewal, please find below payment details payable \nfor the forthcoming and we would appreciate if you could kindly settle it at the earliest.`;
-    doc.text(intro,20, 155);
+    doc.text(intro,20, 180);
     var detArr= [];
     for(let i=0; i<this.agrDetArr.length; i++) {
       var tempArr = [];
@@ -396,7 +396,7 @@ export class InvoiceComponent implements OnInit {
       detArr.push(tempArr);
     }
     autoTable(doc, {
-      startY: 190,                    
+      startY: 225,                    
       theme: 'grid',
       headStyles: {
         fillColor: [32,42,68]
@@ -406,25 +406,25 @@ export class InvoiceComponent implements OnInit {
      // bodyStyles: {lineColor: [0, 0, 0]}
     });
     doc.setDrawColor(0, 0, 0);
-    doc.line(20, 320, 425, 320); 
-    doc.text('Discount    (BHD):',250, 330);
-    doc.text(String(formatNumber(this.mInvDisc, this.locale,'1.3-3')), 375, 330);
-    doc.text('Sub Total   (BHD):',250, 340);
+    doc.line(20, 350, 425, 350); 
+    doc.text('Discount    (BHD):',250, 360);
+    doc.text(String(formatNumber(this.mInvDisc, this.locale,'1.3-3')), 375, 360);
+    doc.text('Sub Total   (BHD):',250, 370);
     var mInvSubTot = this.mInvTotal - this.mInvDisc;
-    doc.text(String(formatNumber(mInvSubTot, this.locale,'1.3-3')), 375, 340);
-    doc.text('VAT Amount  (BHD):',250, 350);
-    doc.text(String(formatNumber(this.mInvVAT, this.locale,'1.3-3')), 375, 350);
+    doc.text(String(formatNumber(mInvSubTot, this.locale,'1.3-3')), 375, 370);
+    doc.text('VAT Amount  (BHD):',250, 380);
+    doc.text(String(formatNumber(this.mInvVAT, this.locale,'1.3-3')), 375, 380);
     doc.setFont(undefined,'bold');
-    doc.line(250, 355, 425, 355); 
-    doc.text('Grand Total (BHD):',250, 365);
-    doc.text(String(formatNumber(this.mInvGTotal, this.locale,'1.3-3')), 375, 365);
-    doc.line(250, 370, 425, 370); 
+    doc.line(250, 385, 425, 385); 
+    doc.text('Grand Total (BHD):',250, 395);
+    doc.text(String(formatNumber(this.mInvGTotal, this.locale,'1.3-3')), 375, 395);
+    doc.line(250, 400, 425, 400); 
     doc.setFont(undefined,'normal');
-    doc.text("At the same time we would like to also reiterate the following:\n1. Members who wish to renew their membership are required to pay the above mentioned amount within seven days\n   after the expiry date of their membership. Failing to do so will result in cancellation of their membership. \n   In the event of late renewal,  re-joining fees will be applicable.\n2. In the event payment is made through bank transfer, the applicable bank charges will be borne by the Member.\n3. Should the Member wish to make any changes in the membership status or cancel their parking, kindly notify\n   the Membership Office prior to the expiration of the membership.\n4. Membership Promotions, if any, are subject to the respective terms & Conditions as published.",20, 380);
+    doc.text("At the same time we would like to also reiterate the following:\n1. Members who wish to renew their membership are required to pay the above mentioned amount within seven days\n   after the expiry date of their membership. Failing to do so will result in cancellation of their membership. \n   In the event of late renewal,  re-joining fees will be applicable.\n2. In the event payment is made through bank transfer, the applicable bank charges will be borne by the Member.\n3. Should the Member wish to make any changes in the membership status or cancel their parking, kindly notify\n   the Membership Office prior to the expiration of the membership.\n4. Membership Promotions, if any, are subject to the respective terms & Conditions as published.",20, 415);
     const outtro = `Dear ${this.mPartyName}, \nWe hope you are satisfied by the services extended at the Resort. If you have any suggestions or require any assistance, \nplease feel free to contact the undersigned or the Membership office between 9AM-1PM & 2PM-5PM throughout the week.`;
-    doc.text(outtro,20, 460);
-    doc.text("Thanking you once again, and assuring of our best services all the times.",20, 500);
-    doc.text("Yours Sincerely,\n\n\n\nAHMED MOKHTAR\nGENERAL MANAGER",20, 515);
+    doc.text(outtro,20, 495);
+    doc.text("Thanking you once again, and assuring of our best services all the times.",20, 535);
+    doc.text("Yours Sincerely,\n\n\n\nAHMED MOKHTAR\nGENERAL MANAGER",20, 550);
     doc.output('datauri');
     doc.save(this.mInvNo + '.pdf');  
     var string = doc.output('datauri');

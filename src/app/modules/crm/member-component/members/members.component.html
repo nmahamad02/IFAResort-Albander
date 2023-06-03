@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="col-12">
         <div class="row">
             <div class="col-4">
@@ -44,6 +44,20 @@
             <div class="row">
                 <div class="col-10">
                     <div class="row">
+                        <div class="col-2">
+                            <mat-form-field class="full-width"> 
+                                <mat-label i18n="@@CMMContactsMobileFormControl"> 
+                                    Member Reference Number 
+                                </mat-label>
+                                <input #memRefNbr type="text" formControlName="memberRefNo" matInput required 
+                                (keydown.f2)="lookUpMembers(memRefNbr.value,'R')" title="Press fn + F2 to open Member search"
+                                (keydown.enter)="getMemberData(memRefNbr.value,'R')">
+                                <mat-error i18n="@@CMMContactsMobileFormControlError">
+                                    Member reference number is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <!--
                         <div class="col-3">
                             <mat-form-field class="full-width"> 
                                 <mat-label i18n="@@CMMContactsMobileFormControl"> 
@@ -54,19 +68,6 @@
                                 (keydown.enter)="getMemberData(memCode.value,'I')">
                                 <mat-error i18n="@@CMMContactsMobileFormControlError">
                                     Member code is <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-3">
-                            <mat-form-field class="full-width"> 
-                                <mat-label i18n="@@CMMContactsMobileFormControl"> 
-                                    Member Reference Number 
-                                </mat-label>
-                                <input #memRefNbr type="text" formControlName="memberRefNo" matInput required 
-                                (keydown.f2)="lookUpMembers(memRefNbr.value,'R')"
-                                (keydown.enter)="getMemberData(memRefNbr.value,'R')">
-                                <mat-error i18n="@@CMMContactsMobileFormControlError">
-                                    Member reference number is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
                         </div>
@@ -91,8 +92,7 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
-                    </div>
-                    <div class="row">
+                        -->
                         <div class="col-2">
                             <mat-form-field class="full-width">
                                 <mat-label i18n="@@CMMContactsNameFormControl">
@@ -109,24 +109,24 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="col">
+                        <div class="col-4">
                             <mat-form-field class="full-width">
                                 <mat-label i18n="@@CMMContactsNameFormControl">
                                     First Name
                                 </mat-label>
-                                <input #fName type="text" formControlName="firstname" matInput required 
-                                (keydown.f2)="lookUpMembers(fName.value,'N')">
+                                <input #fName type="text" formControlName="firstname" matInput required title="Press fn + F2 to open Member search"
+                                (keydown.f2)="lookUpMembers(fName.value,'N')"> 
                                 <mat-error i18n="@@CMMContactsNameFormControlError">
                                     First Name is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="col">
+                        <div class="col-4">
                             <mat-form-field class="full-width"> 
                                 <mat-label i18n="@@CMMContactsMobileFormControl">
                                     Sur Name
                                 </mat-label>
-                                <input #sName type="text" formControlName="surname" matInput required
+                                <input #sName type="text" formControlName="surname" matInput required title="Press fn + F2 to open Member search"
                                 (keydown.f2)="lookUpMembers(sName.value,'N')">
                                 <mat-error i18n="@@CMMContactsMobileFormControlError">
                                     Sur Name is <strong>required</strong>
@@ -203,7 +203,7 @@
                                 <mat-label i18n="@@CMMContactsMobileFormControl">
                                     CPR Number
                                 </mat-label>
-                                <input #cprNbr type="text" formControlName="cprNbr" matInput required 
+                                <input #cprNbr type="text" formControlName="cprNbr" matInput required title="Press fn + F2 to open Member search"
                                 (keydown.f2)="lookUpMembers(cprNbr.value,'C')"
                                 (keydown.enter)="getMemberData(cprNbr.value,'C')">
                                 <mat-error i18n="@@CMMContactsMobileFormControlError">
@@ -310,7 +310,6 @@
                     </div>
                 </div>
             </div>
-            <hr>
             <div class="col-12" style="height: 50vh; overflow-y: auto;">
                 <div *ngIf="openCorporateMembers">
                     <table class="table table-borderless table-hover table-responsive-xxl" 
@@ -318,12 +317,9 @@
                         <thead>
                             <tr class="table-reflow" style="background-color: rgb(2, 46, 82); color: white;">
                                 <th style="width: 7.5%;">
-                                    Member No
-                                </th>
-                                <th style="width: 7.5%;">
                                     Reference No
                                 </th>
-                                <th style="width: 5%;">
+                                <th style="width: 10%;">
                                     Title
                                 </th>
                                 <th style="width: 12.5%;">
@@ -332,22 +328,22 @@
                                 <th style="width: 12.5%;">
                                     Surname
                                 </th>
-                                <th style="width: 10%;">
+                                <th style="width: 12.5%;">
                                     CPR Number
                                 </th>
-                                <th style="width: 5%;">
+                                <th style="width: 10%;">
                                     Type
                                 </th>
-                                <th style="width: 20%;">
+                                <th style="width: 12.5%;">
                                     Date of Birth
                                 </th>
-                                <th style="width: 10%;">
+                                <th style="width: 7.5%;">
                                     Telephone
                                 </th>
-                                <th style="width: 10%;">
+                                <th style="width: 7.5%;">
                                     Email
                                 </th>
-                                <th style="width: 10%;">
+                                <th style="width: 7.5%;">
                                     Position
                                 </th>
                                 <th> </th>
@@ -356,9 +352,6 @@
                         <tbody (keydown.alt.n)="addDependentMember('C')">
                             <tr #depMem *ngFor="let dM of corporateMembers.controls; let i = index;" 
                             [formGroupName]="i" (keydown.alt.x)="deleteDependentMember('C',i)">
-                                <td>
-                                    <input class="form-control form-control-sm" type="text" formControlName="dMemberNo">
-                                </td>
                                 <td>
                                     <input class="form-control form-control-sm" type="text" formControlName="dMemberRefNo">
                                 </td>
@@ -415,24 +408,22 @@
                     <table class="table table-borderless table-hover table-responsive-xxl" formArrayName="familyMembers">
                         <thead>
                             <tr class="table-reflow" style="background-color: rgb(2, 46, 82); color: white;">
-                                <th style="width: 10%;">
-                                    Member No
-                                </th>
-                                <th style="width: 10%;">
+                                <th style="width: 12.5%;">
                                     Reference No
                                 </th>
-                                <th style="width: 5%;"> 
+                                <th style="width: 10%;"> 
                                     Title
                                 </th>
-                                <th style="width: 15%;">
+                                <th style="width: 17.5%;">
                                     Firstname
                                 </th>
-                                <th style="width: 15%;">
+                                <th style="width: 17.5%;">
                                     Surname
                                 </th>
+                                <th style="width: 17.5%;">
+                                    CPR Number
+                                </th>
                                 <th style="width: 15%;">
-                                    CPR Number</th>
-                                <th style="width: 20%;">
                                     Date of Birth
                                 </th>
                                 <th style="width: 10%;">
@@ -444,9 +435,6 @@
                         <tbody (keydown.alt.n)="addDependentMember('F')">
                             <tr #depMem *ngFor="let dM of familyMembers.controls; let i = index;" [formGroupName]="i" 
                             (keydown.alt.x)="deleteDependentMember('F',i)">
-                                <td>
-                                    <input class="form-control form-control-sm" type="text" formControlName="dMemberNo">
-                                </td>
                                 <td>
                                     <input class="form-control form-control-sm" type="text" formControlName="dMemberRefNo">
                                 </td>
@@ -502,12 +490,6 @@
                 [dataSource]="membDataSource" 
                 class="mat-elevation-z8" 
                 style="width: 65vw; height: 50vh;">
-                    <ng-container matColumnDef="memberNo">
-                        <th mat-header-cell 
-                        *matHeaderCellDef> Member Nbr </th>
-                        <td mat-cell 
-                        *matCellDef="let memb"> {{ memb.MemberNo }} </td>
-                    </ng-container>
                     <ng-container matColumnDef="memberRefNo">
                         <th mat-header-cell 
                         *matHeaderCellDef> Reference Nbr </th>
@@ -548,7 +530,7 @@
                     (keydown.arrowdown)="arrowDownEvent('membs',selectedRowIndex)"
                     (keydown.arrowup)="arrowUpEvent('membs',selectedRowIndex)" 
                     (keydown.f4)="lookUpBoat(membArr[selectedRowIndex])"
-                    (keydown.enter)="selectMemb(membArr[selectedRowIndex])" ></tr>
+                    (keydown.enter)="onViewCellClicked(membArr[selectedRowIndex])" ></tr>
                 </table>
             </div>
             <mat-dialog-actions align="end">

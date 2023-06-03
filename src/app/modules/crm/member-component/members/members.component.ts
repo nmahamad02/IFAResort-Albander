@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrmService } from 'src/app/services/crm/crm.service';
+import { FinanceService } from 'src/app/services/finance/finance.service';
 import { LookupService } from 'src/app/services/lookup/lookup.service';
 import { UploadService } from 'src/app/services/upload/upload.service';
 
@@ -42,13 +43,13 @@ export class MembersComponent implements OnInit {
 
   selectedRowIndex: any = 0;
 
-  membDisplayedColumns: string[] = ['memberNo', 'memberRefNo', 'title', 'firstname', 'surname', 'cprno'];
+  membDisplayedColumns: string[] = ['memberRefNo', 'title', 'firstname', 'surname', 'cprno'];
   membDataSource = new MatTableDataSource(this.membArr);
 
   accDisplayedColumns: string[] = ['accode', 'accname'];
   accDataSource = new MatTableDataSource(this.accArr);
 
-  constructor(private crmservice: CrmService, private router: Router, private lookupservice: LookupService, private route: ActivatedRoute,private dialog: MatDialog, private uploadService: UploadService,public snackBar: MatSnackBar) { 
+  constructor(private crmservice: CrmService, private router: Router, private lookupservice: LookupService, private route: ActivatedRoute,private dialog: MatDialog, private uploadService: UploadService,public snackBar: MatSnackBar, private financeservice: FinanceService) { 
     this.memberForm = new FormGroup({ 
       memberNo: new FormControl('', [Validators.required]),
       memberRefNo: new FormControl('', [Validators.required]),
@@ -311,7 +312,7 @@ export class MembersComponent implements OnInit {
     if(value === 'new') {
       this.newForm();
     } else {
-      this.crmservice.getMembers(value).subscribe((res: any) => {
+      this.crmservice.getMemberFromREF(value).subscribe((res: any) => {
         const data = res.recordset[0];
         this.onViewCellClicked(data);
       }, (err: any) => {
@@ -781,10 +782,15 @@ export class MembersComponent implements OnInit {
 
   submitForm() {
     const data = this.memberForm.value;
+    console.log(this.mNewMembNbr)
     console.log(data);
     if (this.mode === 'I') {
-      this.crmservice.postNewMember(data.memberNo, data.memberRefNo,data.title, data.firstname, data.surname, data.memberType, this.formatDate(data.birthdate), data.marital, data.add1, data.add2, data.add3, data.nation, data.telOff, data.telRes, data.faxNbr, data.employer, data.position, 'Y', data.relation, data.image, data.primaryMember, data.email, this.mCurDate, data.insuranceNbr, data.cprNbr, data.billingCode).subscribe((res: any) => {
+      this.crmservice.postNewMember(data.memberNo, data.memberRefNo,data.title, data.firstname, data.surname, data.memberType, this.formatDate(data.birthdate), data.marital, data.add1, data.add2, data.add3, data.nation, data.telOff, data.telRes, data.faxNbr, data.employer, data.position, 'Y', data.relation, data.image, data.primaryMember, data.email, this.mCurDate, data.insuranceNbr, data.cprNbr, data.memberNo).subscribe((res: any) => {
         console.log(res);
+        console.log("PRIMARY Member Created")
+        var contactPerson = data.firstname + " " + data.surname
+        this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
+        this.financeservice.postOpbalDetails(data.memberRefNo,contactPerson," "," ",data.cprNbr,data.memberNo, "Active",String(this.mCYear))
         this.crmservice.getMemberFromCPR(data.cprNbr).subscribe((res: any) => {
           const pM = res.recordset[0].MemberNo;
           this.uploadImage();
@@ -808,13 +814,13 @@ export class MembersComponent implements OnInit {
             }
           }
           if (data.memberType === 'S'){
-            this.snackBar.open(pM + " successfully inserted", "close", {
+            this.snackBar.open(data.memberRefNo + " successfully inserted", "close", {
               duration: 10000,
               verticalPosition: 'top',
               panelClass: ['sbBg']
             });
           } else {
-            this.snackBar.open(pM + " and it's dependents successfully inserted", "close", {
+            this.snackBar.open(data.memberRefNo + " and it's dependents successfully inserted", "close", {
               duration: 10000,
               verticalPosition: 'top',
               panelClass: ['sbBg']
@@ -833,6 +839,19 @@ export class MembersComponent implements OnInit {
     } else {
       this.crmservice.updateMember(data.memberRefNo,data.memberNo, data.title, data.firstname, data.surname, data.memberType, this.formatDate(data.birthdate), data.marital, data.add1, data.add2, data.add3, data.nation, data.telOff, data.telRes, data.faxNbr, data.employer, data.position, 'Y', data.relation, data.image, data.primaryMember, data.email, this.mCurDate, data.insuranceNbr, data.cprNbr, data.billingCode).subscribe((res: any) => {
         console.log(res);
+        console.log("Primary Member updated")
+        var contactPerson = data.firstname + " " + data.surname
+        this.crmservice.getPartyDetails(data.memberRefNo).subscribe((res: any) => {
+          console.log(res)
+          this.crmservice.deleteParty(data.memberRefNo).subscribe((res: any) =>{
+             console.log(res);
+             this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
+             console.log("Party updated")
+          },(err: any) => {
+            console.log(err)
+          });
+        })
+        this.financeservice.updateOPbalDeatils(contactPerson," ","Active"," ",data.cprNbr," ",data.memberRefNo)
         this.uploadImage();
         this.crmservice.deleteDepMembers(data.memberNo).subscribe((resp: any) => {
           console.log(resp);
@@ -861,7 +880,7 @@ export class MembersComponent implements OnInit {
         console.log(errrr);
       })
       
-      this.snackBar.open(data.memberNo + " successfully Updated", "close", {
+      this.snackBar.open(data.memberRefNo + " successfully Updated", "close", {
         duration: 10000,
         verticalPosition: 'top',
         panelClass: ['sbBg']

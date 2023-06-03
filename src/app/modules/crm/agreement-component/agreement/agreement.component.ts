@@ -75,13 +75,13 @@ export class AgreementComponent implements OnInit {
   @ViewChild('RefLookupDialog', { static: false }) RefLookupDialog!: TemplateRef<any>;
   @ViewChild('HelpDialog', { static: false }) HelpDialog!: TemplateRef<any>;
 
-  partyDisplayedColumns: string[] = [ 'pcode', 'cust_name', 'party_id', 'name', 'add1', 'add2', 'add3', 'phone1', 'mobile', 'email_id'];
+  partyDisplayedColumns: string[] = [ 'pcode', 'name', 'add1', 'add2', 'add3', 'phone1', 'mobile', 'email_id'];
   partyDataSource = new MatTableDataSource(this.partyArr);
 
   SalesOrderDisplayedColumns: string[] = ['sono', 'pcode', 'custname','total'];
   SalesOrderDataSource = new MatTableDataSource(this.SOArr);
 
-  membDisplayedColumns: string[] = ['memberNo', 'memberRefNo', 'title', 'firstname', 'surname', 'cprno'];
+  membDisplayedColumns: string[] = ['memberRefNo', 'title', 'firstname', 'surname', 'cprno'];
   membDataSource = new MatTableDataSource(this.membArr);
 
   serviceDisplayedColumns: string[] = ['ServiceID', 'servicedesc', 'actualprice', 'memberprice'];
@@ -303,7 +303,7 @@ export class AgreementComponent implements OnInit {
     console.log(value)
     this.memberIndex = index;
     let dialogRef = this.dialog.open(this.membLookupDialog);
-      this.crmservice.searchMembers(value).subscribe((res: any) => {
+      this.crmservice.searchMemberFromREF(value).subscribe((res: any) => {
         this.membArr = res.recordset;
         this.membDataSource = new MatTableDataSource(this.membArr);
       }, (err: any) => {
@@ -405,7 +405,7 @@ export class AgreementComponent implements OnInit {
     console.log(memberno);
     this.crmservice.getMembers(memberno).subscribe((res: any) => {
       const rowData: any = {
-        srvMember: res.recordset[0].MemberNo,
+        srvMember: res.recordset[0].REFMEMBNO,
         srvMemberName: res.recordset[0].NAME
       }
       this.srvItem.at(index).patchValue(rowData);
@@ -440,7 +440,7 @@ export class AgreementComponent implements OnInit {
     console.log(obj);
     this.getRefData(obj.PCODE, this.refIndex);
     const rowData: any = {
-      srvMember: obj.MemberNo,
+      srvMember: obj.REFMEMBNO,
       srvMemberName: obj.NAME
     }
     this.srvItem.at(this.memberIndex).patchValue(rowData);
@@ -456,8 +456,9 @@ export class AgreementComponent implements OnInit {
   }
   
   selectParty(obj: any){
+    console.log(obj)
     this.salesOrderForm.patchValue({
-      party: obj.name,
+      party: obj.party_id,
       customerCode: obj.pcode,
       name: obj.cust_name,
       add1: obj.add1,
@@ -648,7 +649,7 @@ export class AgreementComponent implements OnInit {
   onFormSubmit(){
     const agrData = this.salesOrderForm.value;
     this.financeService.checkAgreement(agrData.voucherNo).subscribe((res: any) => {
-      this.financeService.updateAgreementMaster(agrData.quotationNo, agrData.voucherDate, agrData.customerCode, agrData.customerCode, agrData.name, agrData.add1, agrData.phoneNo, agrData.telephone, agrData.subject, this.mCurDate, 'DBA', agrData.voucherNo).subscribe((resp: any) => {
+      this.financeService.updateAgreementMaster(agrData.quotationNo, agrData.voucherDate, agrData.party, agrData.customerCode, agrData.name, agrData.add1, agrData.phoneNo, agrData.telephone, agrData.subject, this.mCurDate, 'DBA', agrData.voucherNo).subscribe((resp: any) => {
         this.financeService.deleteAgreementDetails(agrData.voucherNo).subscribe((response: any) => {
           for(let i=0; i<agrData.srvItemArr.length; i++) {
             this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,this.formatDate(agrData.srvItemArr[i].srvFrom),this.formatDate(agrData.srvItemArr[i].srvTo),agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((respo: any) => {
@@ -658,7 +659,7 @@ export class AgreementComponent implements OnInit {
         })
       })
     }, (err: any) => {
-      this.financeService.postAgreementMaster('01',agrData.voucherNo,this.mCurDate,agrData.soNbr,agrData.quotationNo,agrData.customerCode,agrData.customerCode,agrData.name,String(this.mAgrTotal),String(this.mAgrDisc),String(this.mAgrGTotal),String(this.mAgrVAT),agrData.add1,agrData.phoneNo,agrData.telephone,agrData.subject,this.mCurDate,'DBA').subscribe((resp: any) => {
+      this.financeService.postAgreementMaster('01',agrData.voucherNo,this.mCurDate,agrData.soNbr,agrData.quotationNo,agrData.party,agrData.customerCode,agrData.name,String(this.mAgrTotal),String(this.mAgrDisc),String(this.mAgrGTotal),String(this.mAgrVAT),agrData.add1,agrData.phoneNo,agrData.telephone,agrData.subject,this.mCurDate,'DBA').subscribe((resp: any) => {
         for(let i=0; i<agrData.srvItemArr.length; i++) {
           this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,this.formatDate(agrData.srvItemArr[i].srvFrom),this.formatDate(agrData.srvItemArr[i].srvTo),agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((response: any) => {
           });

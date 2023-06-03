@@ -35,7 +35,7 @@ export class ReceiptsComponent implements OnInit {
 
   selectedRowIndex: any = 0;
 
-  partyDisplayedColumns: string[] = [ 'cust_name', 'party_id', 'name', 'add1', 'add2', 'add3', 'phone1', 'mobile', 'email_id'];
+  partyDisplayedColumns: string[] = [ 'cust_name', 'party_id', 'add1', 'add2', 'add3', 'phone1', 'mobile', 'email_id'];
   partyDataSource = new MatTableDataSource(this.partyArr);
 
   receiptDisplayedColumns: string[] = [ 'custcode', 'custname', 'recno', 'recdt', 'recdesc', 'amount', 'recamount', 'recbal'];
@@ -226,30 +226,30 @@ export class ReceiptsComponent implements OnInit {
     img.src = 'assets/Pics/download.png';
     doc.setFontSize(13)
     doc.setFont('Times New Roman','bold');
-    doc.text('RECEIPT VOUCHER',300, 90);
+    doc.text('RECEIPT VOUCHER',300, 115);
     doc.setFont(undefined,'normal');
-    doc.text('Receipt       :',300, 100);
-    doc.text(this.mRvcNo,375, 100);
-    doc.text('Date          :',300, 110);
-    doc.text(data.rvcDate,375, 110);
-    doc.text('Received (BHD):',300, 120);
-    doc.text(String(formatNumber(data.rvcAmount, this.locale,'1.3-3')),375, 120);
+    doc.text('Receipt       :',300, 125);
+    doc.text(this.mRvcNo,375, 125);
+    doc.text('Date          :',300, 135);
+    doc.text(data.rvcDate,375, 135);
+    doc.text('Received (BHD):',300, 145);
+    doc.text(String(formatNumber(data.rvcAmount, this.locale,'1.3-3')),375, 145);
     //doc.addImage(img, 'png', 15, 15, 60, 60);
-    doc.line(20, 75, 425, 75); 
+    doc.line(20, 100, 425, 100); 
     doc.setDrawColor(0);
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(20, 85, 150, 55, 5, 5, 'FD');
+    doc.roundedRect(20, 110, 150, 55, 5, 5, 'FD');
     //doc.roundedRect(150, 90, 150, 70, 5, 5, 'FD');
     doc.setFontSize(11);
-    doc.text('To,',30, 95);
-    doc.text(this.mPartyName,30, 105);
-    doc.text(this.mPartyAdd1,30, 115);
-    doc.text(this.mPartyAdd2,30, 125);
-    doc.text(this.mPartyPhone,30, 135);
-    doc.text(`Received with thanks towards ${data.rvcRemarks}`,20, 155);
+    doc.text('To,',30, 120);
+    doc.text(this.mPartyName,30, 130);
+    doc.text(this.mPartyAdd1,30, 140);
+    doc.text(this.mPartyAdd2,30, 150);
+    doc.text(this.mPartyPhone,30, 160);
+    doc.text(`Received with thanks towards ${data.rvcRemarks}`,20, 175);
     this.outputWords = converter.toWords(data.rvcAmount);
     doc.setFont(undefined,'bold');
-    doc.text(`BHD ${this.outputWords} only`,20, 165);
+    doc.text(`BHD ${this.outputWords} only`,20, 185);
     doc.setFont(undefined,'normal');
     var detArr= [];
     for(let i=0; i<this.parAlcInvArr.length; i++) {
@@ -263,7 +263,7 @@ export class ReceiptsComponent implements OnInit {
       detArr.push(tempArr);
     }
     autoTable(doc, {
-      startY: 175,                    
+      startY: 200,                    
       theme: 'grid',
       headStyles: {
         fillColor: [32,42,68]
@@ -273,16 +273,16 @@ export class ReceiptsComponent implements OnInit {
      // bodyStyles: {lineColor: [0, 0, 0]}
     });
     doc.setDrawColor(0, 0, 0);
-    doc.line(20, 300, 425, 300); 
+    doc.line(20, 325, 425, 325); 
     const outtro = `Dear ${this.mPartyName}, \nWe hope you are satisfied by the services extended at the Resort. If you have any suggestions or require any assistance, \nplease feel free to contact the undersigned or the Membership office between 9AM-1PM & 2PM-5PM throughout the week.`;
-    doc.text(outtro,20, 325);
-    doc.text("Thanking you once again, and assuring of our best services all the times.",20, 365);
+    doc.text(outtro,20, 340);
+    doc.text("Thanking you once again, and assuring of our best services all the times.",20, 390);
     //doc.text(`Received by ${data.rvcPaymentType}`,20, 410);
     doc.setFont(undefined,'bold');
-    doc.text(`AlBander Resort`,20, 425);
-    doc.line(20, 435, 200, 435); 
+    doc.text(`Al Bander Resort`,20, 450);
+    doc.line(20, 460, 200, 460); 
     doc.setFont(undefined,'normal');
-    doc.text("This is a computer generated receipt, no signature is required",20, 450);
+    doc.text("This is a computer generated receipt, no signature is required",20, 470);
     doc.output('datauri');
     doc.save(this.mRvcNo + '.pdf');  
     var string = doc.output('datauri');

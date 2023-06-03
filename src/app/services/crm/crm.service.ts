@@ -304,8 +304,7 @@ export class CrmService {
       active: active,
       user: user,
       date: date,
-      expcode: expcode,
-      
+      expcode: expcode, 
     }
 
     return this.http.post(this.url + '/coa/UpdateExpenseMaster', JSON.stringify(newMember), { headers: headers })
@@ -450,6 +449,7 @@ export class CrmService {
     console.log(newTran)
     this.http.post(this.url + '/crm/postParty', JSON.stringify(newTran), { headers: headers }).subscribe((res: any) => {
       console.log(res);
+      console.log("Party Created")
     }) 
   }
 

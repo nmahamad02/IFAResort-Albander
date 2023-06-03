@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container-fluid">
     <div class="col-12">
-        <div class="row">
+        <div class="row"> 
             <div class="col-2">
                 <mat-card-title>Agreements</mat-card-title>  
             </div>
@@ -21,11 +21,6 @@
                     <div class="col">
                         <button class="btn-warning btn text-white btn-block" (click)="goToInvoice()" title="View Invoice">
                             <mat-icon>note_add</mat-icon> 
-                        </button>
-                    </div>
-                    <div class="col">
-                        <button class="btn-secondary btn btn-block" [routerLinkActive]="['active']" [routerLink]="['/crm/invoicereport']" (click)="setReportData(invReportApiUrl, invReportName)" title="Print this Agreement">  
-                            <mat-icon>print</mat-icon>
                         </button>
                     </div>
                     <div class="col">
@@ -61,13 +56,13 @@
             <div class="col-12"> 
                 <div class="form-row">
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-10">
                             <div class="row">
                                 <div class="col-4">
                                     <mat-form-field class="full-width">
                                         <mat-label i18n="@@CMMContactsNameFormControl">Agreement Number</mat-label>
                                         <input matInput 
-                                        #sono formControlName="voucherNo" 
+                                        #sono formControlName="voucherNo" title="Press fn + F2 to open Agreement search"
                                         (keydown.f2)="lookupSalesorder(sono.value)"
                                         (keydown.enter)="getSalesorder(sono.value)" >
                                     </mat-form-field>
@@ -75,7 +70,7 @@
                                 <div class="col-4">
                                     <mat-form-field class="full-width">
                                         <mat-label i18n="@@CMMContactsNameFormControl">Invoice Number</mat-label>
-                                        <input matInput formControlName="invNbr">
+                                        <input matInput formControlName="invNbr" readonly>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-4">
@@ -87,20 +82,15 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-6">
                                     <mat-form-field class="full-width"> 
-                                        <mat-label i18n="@@CMMContactsMobileFormControl">Quotation No</mat-label>
-                                        <input matInput type="text" formControlName="quotationNo" >
-                                        <mat-error i18n="@@CMMContactsMobileFormControlError">Quotation No <strong>required</strong></mat-error>
-                                    </mat-form-field> 
-                                </div>
-                                <div class="col-4">
-                                    <mat-form-field class="full-width">
-                                        <mat-label i18n="@@CMMContactsNameFormControl">Sales Order Number</mat-label>
-                                        <input matInput formControlName="soNbr">
+                                        <mat-label i18n="@@CMMContactsMobileFormControl">Contact Person</mat-label>
+                                        <input matInput type="text" #contactPerson formControlName="party" title="Press fn + F2 to open Contact search"
+                                        (keydown.f2)="lookUpParty(contactPerson.value)">
+                                        <mat-error i18n="@@CMMContactsMobileFormControlError">Contact Person <strong>required</strong></mat-error>
                                     </mat-form-field>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <mat-form-field class="full-width"> 
                                         <mat-label i18n="@@CMMContactsMobileFormControl">Customer Code</mat-label>
                                         <input type="text" formControlName="customerCode" matInput>
@@ -118,30 +108,16 @@
                                 </div> 
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="row">
-                                <div class="col-12">
-                                    <mat-form-field class="full-width"> 
-                                        <mat-label i18n="@@CMMContactsMobileFormControl">Contact Person</mat-label>
-                                        <input matInput type="text" #contactPerson formControlName="party" 
-                                        (keydown.f2)="lookUpParty(contactPerson.value)">
-                                        <mat-error i18n="@@CMMContactsMobileFormControlError">Contact Person <strong>required</strong></mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-12">
-                                    <p><strong>{{ mPartyName }}</strong> <br> {{ mPartyAdd1 }}, {{ mPartyAdd2 }}, {{ mPartyAdd3 }} <br> {{ mPartyPhone }} / {{ mPartyTelephone}} <br> {{ mPartyEmail }}</p>
-                                </div>
-                            </div>
+                        <div class="col-2">
+                            <p><strong>{{ mPartyName }}</strong> <br> {{ mPartyAdd1 }}, {{ mPartyAdd2 }}, {{ mPartyAdd3 }} <br> {{ mPartyPhone }} / {{ mPartyTelephone}} <br> {{ mPartyEmail }}</p>
                         </div>  
                     </div>
                 </div> 
-                <hr>
             </div>
             <div class="col-12">
-                <div class="col-12">
-                    <div class="form-row">
-                        <div class="col-12" style="height: 35vh; overflow-y: auto;" >
-                            <table class="table table-borderless table-hover table-responsive-xxl" formArrayName="srvItemArr">
+                <div class="form-row">
+                    <div class="col-12" style="height: 35vh; overflow-y: auto;" >
+                        <table class="table table-borderless table-hover table-responsive-xxl" formArrayName="srvItemArr">
                                 <thead>
                                     <tr class="table-reflow" style="background-color: rgb(2, 46, 82); color: white;">
                                         <!-- <th style="width: 5%;">Code</th> -->
@@ -174,7 +150,7 @@
                                         </td>
                                         -->              
                                         <td>
-                                            <input #membCode class="form-control form-control-sm" type="text" formControlName="srvMember" (keydown.f2)="lookUpMembers(membCode.value,i)" (change)="getMemberdata(membCode.value,i)">
+                                            <input #membCode class="form-control form-control-sm" type="text" formControlName="srvMember" title="Press fn + F2 to open Member search" (keydown.f2)="lookUpMembers(membCode.value,i)" (change)="getMemberdata(membCode.value,i)">
                                         </td>
                                         <td>
                                             <textarea  class="form-control form-control-sm" formControlName="srvMemberName">
@@ -194,7 +170,7 @@
                                             type="date" formControlName="srvTo"> -->
                                         </td>              
                                         <td>
-                                            <input class="form-control form-control-sm" type="text" formControlName="srvValue" (keydown.f2)="lookupAgreementAndMember(i)" (focus)="captureGridIndex(i)">
+                                            <input class="form-control form-control-sm" type="text" formControlName="srvValue" title="Press fn + F2 to open Services tab" (keydown.f2)="lookupAgreementAndMember(i)" (focus)="captureGridIndex(i)">
                                         </td>
                                         <td>
                                             <input #disc class="form-control form-control-sm" type="text" formControlName="srvDisc" (change)="getdiscount(disc.value,i)">
@@ -224,7 +200,6 @@
                             </table>
                             <button class="btn btn-success" type="button" (click)="addServiceItem()">&#43;</button>
                         </div>
-                     </div>  
                 </div>    
             </div>
             <hr>
@@ -272,18 +247,6 @@
                             *matHeaderCellDef> PCODE </th>
                             <td mat-cell 
                             *matCellDef="let party"> {{ party.pcode }} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="cust_name">
-                            <th mat-header-cell 
-                            *matHeaderCellDef> Customer Name </th>
-                            <td mat-cell 
-                            *matCellDef="let party"> {{ party.cust_name }} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="party_id">
-                            <th mat-header-cell 
-                            *matHeaderCellDef> Contact ID </th>
-                            <td mat-cell 
-                            *matCellDef="let party"> {{ party.party_id }} </td>
                         </ng-container>
                         <ng-container matColumnDef="name">
                             <th mat-header-cell 
@@ -431,7 +394,7 @@
                                         [formGroupName]="i" 
                                         (keydown.alt.x)="deleteAgreementItem(i)">
                                             <td>
-                                                <input #serviceno
+                                                <input #serviceno title="Press fn + F2 to open Service search"
                                                 class="form-control form-control-sm" 
                                                 type="text" 
                                                 formControlName="serviceNo" 
@@ -485,12 +448,6 @@
                         [dataSource]="membDataSource" 
                         class="mat-elevation-z8" 
                         style="width: 65vw; height: 50vh;">
-                            <ng-container matColumnDef="memberNo">
-                                <th mat-header-cell 
-                                *matHeaderCellDef> Member Nbr </th>
-                                <td mat-cell 
-                                *matCellDef="let memb"> {{ memb.MemberNo }} </td>
-                            </ng-container>
                             <ng-container matColumnDef="memberRefNo">
                                 <th mat-header-cell 
                                 *matHeaderCellDef> Reference Nbr </th>
