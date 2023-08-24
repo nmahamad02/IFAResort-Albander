@@ -1,19 +1,14 @@
 <div class="container-fluid">
     <div class="col-12">
         <div class="row"> 
-            <div class="col-6">                
+            <div class="col-7">                
                 <mat-card-title>Services</mat-card-title>  
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 <div class="row">
                     <div class="col">
                         <button class="btn-primary btn btn-block" (click)="newForm()" title="New Service">
                             <mat-icon>add</mat-icon>
-                        </button>
-                    </div>
-                    <div class="col">
-                        <button class="btn-info btn text-white btn-block" title="Cancel this Service" (click)="deleteService()">
-                            <mat-icon>delete</mat-icon> 
                         </button>
                     </div>
                     <div class="col">
@@ -22,8 +17,8 @@
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn-danger btn btn-block" (click)="refreshForm()" title="Refresh this form">
-                            <mat-icon>cancel</mat-icon> 
+                        <button class="btn-danger btn text-white btn-block" title="Delete this Service" (click)="deleteService()">
+                            <mat-icon>delete</mat-icon> 
                         </button>
                     </div>
                     <div class="col">

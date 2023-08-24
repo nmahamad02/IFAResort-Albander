@@ -244,6 +244,7 @@ export class AgreementComponent implements OnInit {
     this.sonumber = data.voucherNo
     this.crmservice.getagreementmaster(this.sonumber).subscribe((res: any) => {
       this.refreshForm();
+      this.financeService.setAgreementStatus('I',this.sonumber).subscribe((response: any) => {})
       const year = String(this.mCYear); 
       this.financeService.getDocForArg(year).subscribe((resp: any) => {
         const yearStr = String(resp.recordset[0].CYEAR).substring(2);

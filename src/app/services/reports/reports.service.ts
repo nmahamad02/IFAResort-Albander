@@ -37,4 +37,16 @@ export class ReportsService {
     return this.http.get(this.url + '/yearlyReceipts')
   }
 
+  getMonthlyExpiringAgreements(month: string) {
+    return this.http.get(this.url + '/monthlyExpiringAgreements/' + month)
+  }  
+  
+  getMonthlyInvoices(month: string) {
+    return this.http.get(this.url + '/monthlyInvoices/' + month)
+  }  
+  
+  getMonthlyReceipts(month: string) {
+    return this.http.get(this.url + '/monthlyReceipts/' + month)
+  }
+
 }

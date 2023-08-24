@@ -215,6 +215,26 @@ export class FinanceService {
     })
   }
 
+  updateserviceMaster(serviceid: string, servicename: string, actualprice: string, createdate: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    const newTran = {
+      serviceid: serviceid,
+      serivcename: servicename,
+      servicedesc: servicename,
+      actualprice: actualprice,
+      discountprice: actualprice,
+      memberprice: actualprice,
+      updatedate: createdate,
+      servicecategory: '0', 
+      taxcategory: '0',
+    }
+
+    this.http.post(this.url + '/coa/updateService', JSON.stringify(newTran), { headers: headers }).subscribe((res: any) => {
+      console.log(res);
+    })
+  }
+
  getAllService() {
     return this.http.get(this.url + '/coa/getAllService')
   }
@@ -353,6 +373,17 @@ export class FinanceService {
     }
 
     return this.http.post(this.url + '/coa/updateagreementmaster', JSON.stringify(newTran), { headers: headers })
+  }
+
+  setAgreementStatus(status: string,agrno: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    const newTran = {
+      status: status,
+      agrno : agrno
+    }
+
+    return this.http.post(this.url + '/coa/setAgreementStatus', JSON.stringify(newTran), { headers: headers })
   }
 
   setSalesOrder(agrno: string, sono:string) {

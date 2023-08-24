@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ChartConfiguration } from 'chart.js';
 import { ReportsService } from 'src/app/services/reports/reports.service';
 
@@ -8,27 +9,6 @@ import { ReportsService } from 'src/app/services/reports/reports.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  /*chartData = [
-    {
-      data: [330, 600, 260, 700],
-      label: 'Account A'
-    },
-    {
-      data: [120, 455, 100, 340],
-      label: 'Account B'
-    },
-    {
-      data: [45, 67, 800, 500],
-      label: 'Account C'
-    }
-  ];
-
-  chartLabels = [
-    'January',
-    'February',
-    'March',
-    'April'
-  ];*/
 
   agrChartData: any[] = [];
   memChartData: any[] = [];
@@ -47,7 +27,7 @@ export class DashboardComponent implements OnInit {
     responsive: true
   };
 
-  constructor(private reportsService: ReportsService) { }
+  constructor(private reportsService: ReportsService, private router: Router) { }
 
   ngOnInit() {
     this.getAgrData();
@@ -153,5 +133,10 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  public gotoReportDetails(url, id) {
+    var myurl = `${url}/${id}`;
+    this.router.navigateByUrl(myurl).then(e => {
+    });
+  }
 
 }

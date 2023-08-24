@@ -98,17 +98,13 @@ export class ServiceComponent implements OnInit {
       });
       this.refreshForm();
     } else {
-      this.financeService.deleteService(data.srvNo).subscribe((resp: any) => {
-        this.financeService.postService(data.srvNo, data.srvName, data.price, this.mCurDate)
-        this.snackBar.open(data.srvName + " successfully Updated", "close", {
-          duration: 10000,
-          verticalPosition: 'top',
-          panelClass: ['sbBg']
-        });
-        this.refreshForm();
-      }, (error: any) => {
-        console.log(error)
-      })
+      this.financeService.updateserviceMaster(data.srvNo, data.srvName, data.price, this.mCurDate)
+      this.snackBar.open(data.srvName + " successfully Updated", "close", {
+        duration: 10000,
+        verticalPosition: 'top',
+        panelClass: ['sbBg']
+      });
+      this.refreshForm();
     }
   }
 
@@ -154,5 +150,4 @@ export class ServiceComponent implements OnInit {
     }
     return [day, month, year].join('-');
   }
-
 }
