@@ -790,7 +790,7 @@ export class MembersComponent implements OnInit {
         console.log("PRIMARY Member Created")
         var contactPerson = data.firstname + " " + data.surname
         this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
-        this.financeservice.postOpbalDetails(data.memberRefNo,contactPerson," "," ",data.cprNbr,data.memberNo, "Active",String(this.mCYear))
+        this.financeservice.postOpbalDetails(data.memberRefNo,contactPerson," "," ",data.cprNbr,data.memberNo, "A",String(this.mCYear))
         this.crmservice.getMemberFromCPR(data.cprNbr).subscribe((res: any) => {
           const pM = res.recordset[0].MemberNo;
           this.uploadImage();
@@ -847,11 +847,15 @@ export class MembersComponent implements OnInit {
              console.log(res);
              this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
              console.log("Party updated")
+             this.financeservice.updateOPbalDeatils(contactPerson," ","A"," ",data.cprNbr," ",data.memberRefNo)
           },(err: any) => {
             console.log(err)
           });
+        }, (err: any) => {
+          this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
+          console.log("Party updated")
+          this.financeservice.updateOPbalDeatils(contactPerson," ","A"," ",data.cprNbr," ",data.memberRefNo)
         })
-        this.financeservice.updateOPbalDeatils(contactPerson," ","Active"," ",data.cprNbr," ",data.memberRefNo)
         this.uploadImage();
         this.crmservice.deleteDepMembers(data.memberNo).subscribe((resp: any) => {
           console.log(resp);

@@ -48,12 +48,22 @@
   
           <ng-container matColumnDef="AGR_DATE">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.AGR_DATE | date: 'dd-MM-yyyy'  }} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{ row.AGR_DATE | date: 'dd-MM-yyyy' }} </mat-cell>
+          </ng-container>
+          
+          <ng-container matColumnDef="EXPIRY_DATE">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Expiry Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.END_DATE | date: 'dd-MM-yyyy' }} </mat-cell>
           </ng-container>
   
           <ng-container matColumnDef="CUST_NAME">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Customer </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{ row.CUST_NAME }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="STATUS">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Active </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.IS_TERMINATED }} </mat-cell>
           </ng-container>
   
           <!-- Button Column -->

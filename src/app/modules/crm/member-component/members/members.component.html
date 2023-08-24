@@ -1,35 +1,28 @@
 <div class="container-fluid">
     <div class="col-12">
-        <div class="row">
-            <div class="col-4">
-                <mat-card-title i18n="@@CMMContactsTitle">
-                    Member Details
-                </mat-card-title> 
+        <div class="row"> 
+            <div class="col-6">                
+                <mat-card-title>Member Details</mat-card-title>  
             </div>
-            <div class="col-8">
+            <div class="col-6">
                 <div class="row">
                     <div class="col">
-                        <button class="btn-primary btn btn-block" (click)="newForm()" style="float: right;">
+                        <button class="btn-primary btn btn-block" (click)="newForm()" title="New Member">
                             <mat-icon>add</mat-icon>
                         </button> 
                     </div>
                     <div class="col">
-                        <button class="btn-success btn btn-block" (click)="submitForm()" style="float: right;">
+                        <button class="btn-success btn btn-block" (click)="submitForm()" title="Submit Member Details">
                             <mat-icon>note_add</mat-icon> 
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn-info btn btn-block" style="float: right;">
-                            <mat-icon>delete</mat-icon> 
-                        </button> 
-                    </div>
-                    <div class="col">
-                        <button class="btn-danger btn btn-block" (click)="refreshForm()" style="float: right;">
+                        <button class="btn-danger btn btn-block" (click)="refreshForm()" title="Refresh this form">
                             <mat-icon>cancel</mat-icon> 
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn-warning btn btn-block" [routerLink]="['/crm/members']" style="float: right;">
+                        <button class="btn-dark btn text-white btn-block" [routerLink]="['/crm/members']" title="Return to Member List">
                             <mat-icon>arrow_back</mat-icon>
                         </button>
                     </div>
@@ -37,7 +30,7 @@
             </div>
         </div>
     </div>
-    <br>
+    <hr> 
     <div class="col-12">
         <form class="form-container"
         [formGroup]="memberForm">

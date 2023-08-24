@@ -1,28 +1,23 @@
 .full-width {
-    width: 100%;
-    height: 40%;
-  }
-  
-  /* Structure */
-  table {
   width: 100%;
-  }
-  
-  .mat-form-field {
-  font-size: 14px;
-  width: 100%;
-  }
-  
-  
-  .highlight{
+  height: 40%;
+}
+
+mat-form-field {
+font-size: 13px;
+width: 100%;
+height: 75%;
+}
+
+.container-fluid {
+color: darkblue; 
+background:rgb(251, 252, 249);
+}
+
+.highlight{
   background: lightgray;
-  }
-  
-  tr:focus{
+}
+
+tr:focus{
   outline: none;
-  }
-  
-  .container {
-  color: darkblue; 
-  background:rgb(251, 252, 249);
-  }
+}

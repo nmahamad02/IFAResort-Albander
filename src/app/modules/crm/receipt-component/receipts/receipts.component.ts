@@ -204,19 +204,19 @@ export class ReceiptsComponent implements OnInit {
       this.mPartyTelephone = obj.MOBILE;
     } else if (condition === 'lut') {
       this.receiptForm.patchValue({
-        rvcPcode: obj.pcode,
+        rvcPcode: obj.PCODE,
       });
-      this.mPartyName = obj.cust_name;
-      this.mPartyId = obj.pcode;
-      this.mPartyAdd1 = obj.add1;
-      this.mPartyAdd2 = obj.add2;
-      this.mPartyAdd3 = obj.add3;
-      this.mPartyPhone = obj.phone1;
-      this.mPartyEmail = obj.email_id;
-      this.mPartyTelephone = obj.mobile;
+      this.mPartyName = obj.NAME;
+      this.mPartyId = obj.PCODE;
+      this.mPartyAdd1 = obj.ADD1;
+      this.mPartyAdd2 = obj.ADD2;
+      this.mPartyAdd3 = obj.ADD3;
+      this.mPartyPhone = obj.PHONE1;
+      this.mPartyEmail = obj.EMAIL_ID;
+      this.mPartyTelephone = obj.MOBILE;
     }
     let dialogRef = this.dialog.closeAll();
-    this.getInvoiceDetails(this.mPartyId);
+    this.getInvoiceDetails(obj.REFNO);
   }
 
   public savePDF(): void {  

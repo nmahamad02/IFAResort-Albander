@@ -56,6 +56,7 @@ export class AgreementComponent implements OnInit {
   mPartyEmail: string = "";
   mPartyTelephone: string = "";
   mAgrTotal = 0;
+  mAgrNetTotal = 0;
   mAgrVAT = 0;
   mAgrDisc = 0;
   mAgrGTotal = 0;
@@ -110,6 +111,10 @@ export class AgreementComponent implements OnInit {
       emailAddress: new FormControl('', [ Validators.required]),
       telephone: new FormControl('', [ Validators.required]),
       subject: new FormControl('', [ Validators.required]),
+      startdate: new FormControl('', [ Validators.required]),
+      enddate: new FormControl('', [ Validators.required]),
+      status: new FormControl('A', [ Validators.required]),
+      remarks: new FormControl('', [ Validators.required]),
       srvItemArr: new FormArray([])
     });
 
@@ -138,6 +143,7 @@ export class AgreementComponent implements OnInit {
     this.mAgrDisc = 0;
     this.mAgrGTotal = 0;
     this.mAgrTotal = 0;
+    this.mAgrNetTotal = 0;
     this.mAgrVAT = 0;
     this.salesOrderForm = new FormGroup({
       voucherNo: new FormControl('', [ Validators.required]),
@@ -155,6 +161,10 @@ export class AgreementComponent implements OnInit {
       emailAddress: new FormControl('', [ Validators.required]),
       telephone: new FormControl('', [ Validators.required]),
       subject: new FormControl('', [ Validators.required]),
+      startdate: new FormControl('', [ Validators.required]),
+      enddate: new FormControl('', [ Validators.required]),
+      status: new FormControl('A', [ Validators.required]),
+      remarks: new FormControl('', [ Validators.required]),
       srvItemArr: new FormArray([])
     });
     this.agreementForm = new FormGroup({
@@ -164,6 +174,7 @@ export class AgreementComponent implements OnInit {
 
   newForm() {
     this.mAgrTotal = 0;
+    this.mAgrNetTotal = 0;
     this.mAgrVAT = 0;
     this.mAgrDisc = 0;
     this.mAgrGTotal = 0;
@@ -188,6 +199,10 @@ export class AgreementComponent implements OnInit {
         emailAddress: new FormControl('', [ Validators.required]),
         telephone: new FormControl('', [ Validators.required]),
         subject: new FormControl('', [ Validators.required]),
+        startdate: new FormControl('', [ Validators.required]),
+        enddate: new FormControl('', [ Validators.required]),
+        status: new FormControl('A', [ Validators.required]),
+        remarks: new FormControl('', [ Validators.required]),
         srvItemArr: new FormArray([])
       });
 
@@ -196,9 +211,6 @@ export class AgreementComponent implements OnInit {
         srvDesc: new FormControl('Membership Charges', [ Validators.required]),
         srvMember: new FormControl('', [ Validators.required]),
         srvMemberName: new FormControl('', [ Validators.required]),
-        srvFrom: new FormControl(this.mCurDate, [ Validators.required]),
-        srvTo: new FormControl(this.mCurDate, [ Validators.required]),
-        //srvArgItemArr: new FormArray([]),
         srvValue: new FormControl('', [ Validators.required]),
         srvDisc: new FormControl('', [ Validators.required]),
         srvDiscount: new FormControl('', [ Validators.required]),
@@ -219,6 +231,79 @@ export class AgreementComponent implements OnInit {
         Price: new FormControl('', [ Validators.required]),
       });
       this.agrItem.push(agreementGrid);
+    })
+  }
+
+  renewAgreement() {
+    var data = this.salesOrderForm.value
+    this.mAgrTotal = 0;
+    this.mAgrNetTotal = 0;
+    this.mAgrVAT = 0;
+    this.mAgrDisc = 0;
+    this.mAgrGTotal = 0;
+    this.sonumber = data.voucherNo
+    this.crmservice.getagreementmaster(this.sonumber).subscribe((res: any) => {
+      this.refreshForm();
+      const year = String(this.mCYear); 
+      this.financeService.getDocForArg(year).subscribe((resp: any) => {
+        const yearStr = String(resp.recordset[0].CYEAR).substring(2);
+        this.docArgNo = resp.recordset[0].FIELD_VALUE_NM + 1;
+        this.docArg = 'AGR' + yearStr + '-' + this.docArgNo.toString();
+        this.salesOrderForm = new FormGroup({
+          voucherNo: new FormControl(this.docArg, [ Validators.required]),
+          soNbr: new FormControl(res.recordset[0].SONO, [ Validators.required]),
+          invNbr: new FormControl('', [ Validators.required]),
+          voucherDate: new FormControl(this.mCurDate, [ Validators.required]),
+          quotationNo: new FormControl(this.docArg, [ Validators.required]),
+          party: new FormControl(res.recordset[0].PARTY_ID, [ Validators.required]),
+          customerCode: new FormControl(res.recordset[0].PCODE, [ Validators.required]),
+          name: new FormControl(res.recordset[0].CUST_NAME, [ Validators.required]),
+          add1: new FormControl(res.recordset[0].CUST_ADD1, [ Validators.required]),
+          add2: new FormControl('', [ Validators.required]),
+          add3: new FormControl('', [ Validators.required]),
+          phoneNo: new FormControl(res.recordset[0].CUST_PHONE1, [ Validators.required]),
+          emailAddress: new FormControl(res.recordset[0].CUST_ADD2, [ Validators.required]),
+          telephone: new FormControl(res.recordset[0].CUST_ADD3, [ Validators.required]),
+          subject: new FormControl(res.recordset[0].SUBJECT, [ Validators.required]),
+          startdate: new FormControl('', [ Validators.required]),
+          enddate: new FormControl('', [ Validators.required]),
+          status: new FormControl(res.recordset[0].IS_TERMINATED, [ Validators.required]),
+          remarks: new FormControl(`Agreement carried forward from ${this.sonumber}`, [ Validators.required]),
+          srvItemArr: new FormArray([])
+        });
+        this.mPartyName = res.recordset[0].CUST_NAME;
+        this.mPartyAdd1 = res.recordset[0].CUST_ADD1;
+        //this.mPartyAdd2 = obj.CUST_ADD2;
+        //this.mPartyAdd3 = obj.CUST_ADD3;
+        this.mPartyPhone = res.recordset[0].CUST_PHONE1;
+        this.mPartyEmail = res.recordset[0].CUST_ADD2;
+        this.mPartyTelephone = res.recordset[0].CUST_ADD3;
+
+        this.crmservice.getagreementDetails(this.sonumber).subscribe((res: any) => {
+          const itemArr = res.recordset;
+          for(let x=0; x<itemArr.length; x++) {
+            const salesorderGrid = new FormGroup({
+              srvCode: new FormControl(itemArr[x].ITCODE, [ Validators.required]),
+              srvDesc: new FormControl(itemArr[x].DESCRIPTION, [ Validators.required]),
+              srvMember: new FormControl(itemArr[x].MEMBERCODE, [ Validators.required]),
+              srvMemberName: new FormControl(itemArr[x].MEMBERNAME, [ Validators.required]),
+              srvValue: new FormControl('', [ Validators.required]),
+              srvDisc: new FormControl('', [ Validators.required]),
+              srvDiscount: new FormControl('', [ Validators.required]),
+              srvGross: new FormControl('', [ Validators.required]),
+              srvVatCat: new FormControl('', [ Validators.required]),
+              srvVat: new FormControl('', [ Validators.required]),
+              srvNetValue: new FormControl('', [ Validators.required]),
+            });
+            this.srvItem.push(salesorderGrid);
+            this.caliberateTotal();
+            this.crmservice.getAgreementBLA(this.sonumber,itemArr[x].MEMBERCODE).subscribe((resp: any) => {
+            })
+          }
+        }, (error: any) => {
+        })
+      })
+    }, (err: any) => {
     })
   }
 
@@ -359,7 +444,7 @@ export class AgreementComponent implements OnInit {
     const data = this.salesOrderForm.value
     this.discount = 0
     this.grossvalue = 0
-    this.discount = data.srvItemArr[index].srvValue*disc/100
+    this.discount = (data.srvItemArr[index].srvValue*disc)/100
     this.grossvalue = data.srvItemArr[index].srvValue - this.discount
     const rowData: any = {
       srvDiscount: this.discount,
@@ -413,9 +498,9 @@ export class AgreementComponent implements OnInit {
     })
   } 
 
-  gettaxValue(value: any,index:any){
+  gettaxValue(value: number,index:any){
     const data = this.salesOrderForm.value
-    const vat = (data.srvItemArr[index].srvGross * value )/100
+    var vat: number = (data.srvItemArr[index].srvGross * value )/100
     const netvalue = data.srvItemArr[index].srvGross + vat
     const rowData: any = {
       srvVat: vat,
@@ -457,26 +542,27 @@ export class AgreementComponent implements OnInit {
   
   selectParty(obj: any){
     console.log(obj)
+    var address = obj.ADD1 + ', ' +  obj.ADD2 + ', ' + obj.ADD3
     this.salesOrderForm.patchValue({
-      party: obj.party_id,
-      customerCode: obj.pcode,
-      name: obj.cust_name,
-      add1: obj.add1,
-      add2: obj.add2,
-      add3: obj.add3,
-      phoneNo: obj.phone1,
-      emailAddress: obj.email_id ,
-      telephone: obj.mobile,
+      party: obj.PARTY_ID,
+      customerCode: obj.REFNO,
+      name: obj.NAME,
+      add1: address,
+      add2: obj.ADD2,
+      add3: obj.ADD3, 
+      phoneNo: obj.PHONE1,
+      emailAddress: obj.EMAIL_ID,
+      telephone: obj.MOBILE,
     });
-    this.mPartyName = obj.cust_name;
-    this.mPartyAdd1 = obj.add1;
-    this.mPartyAdd2 = obj.add2;
-    this.mPartyAdd3 = obj.add3;
-    this.mPartyPhone = obj.phone1;
-    this.mPartyEmail = obj.email_id;
-    this.mPartyTelephone = obj.mobile;
+    this.mPartyName = obj.NAME;
+    this.mPartyAdd1 = address;
+    this.mPartyAdd2 = obj.ADD2;
+    this.mPartyAdd3 = obj.ADD3;
+    this.mPartyPhone = obj.PHONE1;
+    this.mPartyEmail = obj.EMAIL_ID;
+    this.mPartyTelephone = obj.MOBILE;
     let dialogRef = this.dialog.closeAll();
-    this.getCustomerMember(obj.pcode)
+    this.getCustomerMember(obj.PARTY_ID)
   }
 
   selectSalesOrder(obj: any) {
@@ -498,15 +584,19 @@ export class AgreementComponent implements OnInit {
       phoneNo: obj.CUST_PHONE1,
       emailAddress: obj.CUST_ADD2,
       telephone: obj.CUST_ADD3,
-      subject: obj.REMARKS,
+      subject: obj.SUBJECT,
+      startdate: obj.START_DATE,
+      enddate: obj.END_DATE,
+      status: obj.IS_TERMINATED,
+      remarks: obj.REMARKS,
     });
     this.mPartyName = obj.CUST_NAME;
     this.mPartyAdd1 = obj.CUST_ADD1;
-    this.mPartyAdd2 = obj.CUST_ADD2;
-    this.mPartyAdd3 = obj.CUST_ADD3;
+    //this.mPartyAdd2 = obj.CUST_ADD2;
+    //this.mPartyAdd3 = obj.CUST_ADD3;
     this.mPartyPhone = obj.CUST_PHONE1;
-    this.mPartyEmail = obj.CUST_PHONE1;
-    this.mPartyTelephone = obj.CUST_PHONE1;
+    this.mPartyEmail = obj.CUST_ADD2;
+    this.mPartyTelephone = obj.CUST_ADD3;
     this.crmservice.getagreementDetails(this.sonumber).subscribe((res: any) => {
       const itemArr = res.recordset;
       for(let x=0; x<itemArr.length; x++) {
@@ -515,14 +605,12 @@ export class AgreementComponent implements OnInit {
           srvDesc: new FormControl(itemArr[x].DESCRIPTION, [ Validators.required]),
           srvMember: new FormControl(itemArr[x].MEMBERCODE, [ Validators.required]),
           srvMemberName: new FormControl(itemArr[x].MEMBERNAME, [ Validators.required]),
-          srvFrom: new FormControl(itemArr[x].FROMDT, [ Validators.required]),
-          srvTo: new FormControl(itemArr[x].TODT, [ Validators.required]),
           srvValue: new FormControl(itemArr[x].VALUE1, [ Validators.required]),
           srvDisc: new FormControl(itemArr[x].DISPER, [ Validators.required]),
           srvDiscount: new FormControl(itemArr[x].DISAMT, [ Validators.required]),
           srvGross: new FormControl(itemArr[x].PRICE, [ Validators.required]),
           srvVatCat: new FormControl(itemArr[x].VATCATEORY, [ Validators.required]),
-          srvVat: new FormControl(itemArr[x].VAT, [ Validators.required]),
+          srvVat: new FormControl(Number(itemArr[x].VAT), [ Validators.required]),
           srvNetValue: new FormControl(itemArr[x].AMOUNT, [ Validators.required]),
         });
         this.srvItem.push(salesorderGrid);
@@ -572,12 +660,10 @@ export class AgreementComponent implements OnInit {
 
   addServiceItem() {
     const ServicGrid = new FormGroup({
-      srvCode: new FormControl('', [ Validators.required]),
-      srvDesc: new FormControl('', [ Validators.required]),
+      srvCode: new FormControl('99', [ Validators.required]),
+      srvDesc: new FormControl('MEMBERSHIP CHARGES', [ Validators.required]),
       srvMember: new FormControl('', [ Validators.required]),
       srvMemberName: new FormControl('', [ Validators.required]),
-      srvFrom: new FormControl('', [ Validators.required]),
-      srvTo: new FormControl('', [ Validators.required]),
       srvValue: new FormControl('', [ Validators.required]),
       srvDisc: new FormControl('', [ Validators.required]),
       srvDiscount: new FormControl('', [ Validators.required]),
@@ -648,20 +734,21 @@ export class AgreementComponent implements OnInit {
 
   onFormSubmit(){
     const agrData = this.salesOrderForm.value;
+    console.log(agrData)
     this.financeService.checkAgreement(agrData.voucherNo).subscribe((res: any) => {
-      this.financeService.updateAgreementMaster(agrData.quotationNo, agrData.voucherDate, agrData.party, agrData.customerCode, agrData.name, agrData.add1, agrData.phoneNo, agrData.telephone, agrData.subject, this.mCurDate, 'DBA', agrData.voucherNo).subscribe((resp: any) => {
+      this.financeService.updateAgreementMaster(agrData.quotationNo, agrData.voucherDate, agrData.party, agrData.customerCode, agrData.name, agrData.add1, agrData.emailAddress, agrData.telephone, agrData.phoneNo, agrData.subject, this.formatDate(agrData.startdate),this.formatDate(agrData.enddate), agrData.remarks, agrData.status, this.mCurDate, 'DBA', agrData.voucherNo).subscribe((resp: any) => {
         this.financeService.deleteAgreementDetails(agrData.voucherNo).subscribe((response: any) => {
           for(let i=0; i<agrData.srvItemArr.length; i++) {
-            this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,this.formatDate(agrData.srvItemArr[i].srvFrom),this.formatDate(agrData.srvItemArr[i].srvTo),agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((respo: any) => {
+            this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((respo: any) => {
             });
           }
         }, (error: any) => {
         })
       })
     }, (err: any) => {
-      this.financeService.postAgreementMaster('01',agrData.voucherNo,this.mCurDate,agrData.soNbr,agrData.quotationNo,agrData.party,agrData.customerCode,agrData.name,String(this.mAgrTotal),String(this.mAgrDisc),String(this.mAgrGTotal),String(this.mAgrVAT),agrData.add1,agrData.phoneNo,agrData.telephone,agrData.subject,this.mCurDate,'DBA').subscribe((resp: any) => {
+      this.financeService.postAgreementMaster('01',agrData.voucherNo,this.mCurDate,agrData.soNbr,agrData.quotationNo,agrData.party,agrData.customerCode,agrData.name,String(this.mAgrTotal),String(this.mAgrDisc),String(this.mAgrGTotal),String(this.mAgrVAT),agrData.add1,agrData.emailAddress,agrData.telephone,agrData.phoneNo,agrData.subject, this.formatDate(agrData.startdate),this.formatDate(agrData.enddate), agrData.remarks, agrData.status,this.mCurDate,'DBA').subscribe((resp: any) => {
         for(let i=0; i<agrData.srvItemArr.length; i++) {
-          this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,this.formatDate(agrData.srvItemArr[i].srvFrom),this.formatDate(agrData.srvItemArr[i].srvTo),agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((response: any) => {
+          this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((response: any) => {
           });
         }
       });
@@ -675,50 +762,14 @@ export class AgreementComponent implements OnInit {
     this.getSalesorder(agrData.voucherNo);
   }
 
-  /*convertToSalesOrder() {
-    const agrData = this.salesOrderForm.value;
-    this.financeService.getSalesOrderMaster(agrData.soNbr).subscribe((res: any) => {
-      this.financeService.updateSOMaster(agrData.voucherNo, agrData.voucherDate, agrData.soNbr, agrData.party, agrData.customerCode, agrData.name, String(this.mAgrTotal), String(this.mAgrDisc), String(this.mAgrGTotal), String(this.mAgrVAT), agrData.add1, agrData.add2, agrData.phoneNo, agrData.subject, this.mCurDate, 'DBA').subscribe((resp: any) => {
-        this.financeService.deleteSalesOrderDetails(agrData.soNbr).subscribe((response: any) => {
-          for(let i=0; i<agrData.srvItemArr.length; i++) {
-            this.financeService.postSalesOrderDetails(agrData.soNbr, agrData.srvItemArr[i].srvCode, agrData.srvItemArr[i].srvDesc, agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((respo: any) => {
-            });
-          }
-        }, (error: any) => {
-        })
-      })
-    }, (err: any) => {
-      const year = String(this.mCYear);
-      this.financeService.getDocForSO(year).subscribe((resp: any) => {
-        const yearStr = String(resp.recordset[0].CYEAR).substring(2);
-        this.docSONo = resp.recordset[0].FIELD_VALUE_NM + 1;
-        this.docSO = 'SO' + yearStr + '-' + this.docSONo.toString();
-        this.financeService.postSalesOrderMaster(agrData.voucherNo,this.mCurDate,this.docSO,agrData.party,agrData.customerCode,agrData.name,String(this.mAgrTotal),String(this.mAgrDisc),String(this.mAgrGTotal),String(this.mAgrVAT),agrData.add1,agrData.phoneNo,agrData.telephone,agrData.subject,this.mCurDate,'DBA').subscribe((resp: any) => {
-          for(let i=0; i<agrData.srvItemArr.length; i++) {
-            this.financeService.postSalesOrderDetails(this.docSO, agrData.srvItemArr[i].srvCode, agrData.srvItemArr[i].srvDesc, agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((response: any) => {
-            });
-          }
-        });
-        this.financeService.updatedocso(this.docSONo, String(this.mCYear)).subscribe((res: any) => {
-          this.financeService.setSalesOrder(agrData.voucherNo, this.docSO).subscribe((respos: any) => {
-            this.convertToInvoice();
-          })
-        }, (err: any) => {
-          console.log(err);
-        });
-      }, (error: any) => {
-        console.log(error);
-      })
-    });
-  }*/
-
   convertToInvoice() {
     const soData = this.salesOrderForm.value;
+    console.log(soData);
     const year = String(this.mCYear);
     this.financeService.getSales(soData.invNbr).subscribe((res: any) => {
-      this.financeService.updateSales(year,soData.invNbr,soData.voucherDate,soData.party,soData.customerCode, soData.name, String(this.mAgrGTotal), String(this.mAgrDisc), String(this.mAgrVAT), String(this.mAgrTotal), soData.voucherNo, soData.subject, soData.subject, 'DBA', this.mCurDate).subscribe((resp: any) => {
+      this.financeService.updateSales(year,soData.invNbr,soData.voucherDate,soData.party,soData.customerCode, soData.name, String(this.mAgrGTotal), String(this.mAgrDisc), String(this.mAgrVAT), String(this.mAgrTotal), soData.voucherNo, soData.subject, soData.remarks, 'DBA', this.mCurDate).subscribe((resp: any) => {
         console.log(resp);
-        this.financeService.updateOutstanding(year, soData.invNbr, soData.voucherDate, soData.customerCode, 'INV', 'null', soData.voucherDate, String(this.mAgrGTotal),'null', soData.subject, soData.subject,'null','null').subscribe((respo: any) => {
+        this.financeService.updateOutstanding(year, soData.invNbr, soData.voucherDate, soData.customerCode, 'INV', 'null', soData.voucherDate, String(this.mAgrGTotal),'null', soData.subject, soData.remarks,'null','null').subscribe((respo: any) => {
           console.log(respo)
         })
       })
@@ -727,8 +778,8 @@ export class AgreementComponent implements OnInit {
         const yearStr = String(resp.recordset[0].CYEAR).substring(2);
         this.docInvNo = resp.recordset[0].FIELD_VALUE_NM + 1;
         this.docInv = 'INV' + yearStr + '-' + this.docInvNo.toString();
-        this.financeService.postSales(year,this.docInv,this.mCurDate,soData.party,soData.customerCode, soData.name, String(this.mAgrGTotal), String(this.mAgrDisc), String(this.mAgrVAT), String(this.mAgrTotal), soData.voucherNo, soData.subject, soData.subject, 'DBA', this.mCurDate).subscribe((resp: any) => {
-          this.financeService.postOutstanding(year, this.docInv, this.mCurDate, soData.customerCode, 'INV','null', this.mCurDate, String(this.mAgrGTotal), 'null', soData.subject, soData.subject,'null','null').subscribe((respo: any) => {
+        this.financeService.postSales(year,this.docInv,this.mCurDate,soData.party,soData.customerCode, soData.name, String(this.mAgrGTotal), String(this.mAgrDisc), String(this.mAgrVAT), String(this.mAgrTotal), soData.voucherNo, soData.subject, soData.remarks, 'DBA', this.mCurDate).subscribe((resp: any) => {
+          this.financeService.postOutstanding(year, this.docInv, this.mCurDate, soData.customerCode, 'INV','null', this.mCurDate, String(this.mAgrGTotal), 'null', soData.subject, soData.remarks,'null','null').subscribe((respo: any) => {
             console.log(respo);
             this.refreshForm();
             this.financeService.updateDocForInv(this.docInvNo, String(this.mCYear)).subscribe((res: any) => {
@@ -748,11 +799,13 @@ export class AgreementComponent implements OnInit {
 
   caliberateTotal() {
     this.mAgrTotal = 0.0;
+    this.mAgrNetTotal = 0.0;
     this.mAgrDisc = 0.0;
     this.mAgrVAT = 0.0;
     this.mAgrGTotal = 0.0;
     for(let i=0; i<this.srvItem.length; i++) {
       this.mAgrTotal += this.srvItem.value[i].srvValue;
+      this.mAgrNetTotal += this.srvItem.value[i].srvGross;
       this.mAgrDisc += this.srvItem.value[i].srvDiscount;
       this.mAgrVAT += this.srvItem.value[i].srvVat ;
       this.mAgrGTotal += this.srvItem.value[i].srvNetValue;

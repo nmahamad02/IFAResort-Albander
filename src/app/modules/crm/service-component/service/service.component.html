@@ -1,19 +1,14 @@
 <div class="container-fluid">
     <div class="col-12">
         <div class="row"> 
-            <div class="col-2">
+            <div class="col-6">                
                 <mat-card-title>Services</mat-card-title>  
             </div>
-            <div class="col-10">
+            <div class="col-6">
                 <div class="row">
                     <div class="col">
                         <button class="btn-primary btn btn-block" (click)="newForm()" title="New Service">
                             <mat-icon>add</mat-icon>
-                        </button>
-                    </div>
-                    <div class="col">
-                        <button class="btn-success btn btn-block" (click)="onFormSubmit()" title="Submit Service">
-                            <mat-icon>note_add</mat-icon>  
                         </button>
                     </div>
                     <div class="col">
@@ -22,19 +17,24 @@
                         </button>
                     </div>
                     <div class="col">
+                        <button class="btn-success btn btn-block" (click)="onFormSubmit()" title="Submit Service">
+                            <mat-icon>note_add</mat-icon>  
+                        </button>
+                    </div>
+                    <div class="col">
                         <button class="btn-danger btn btn-block" (click)="refreshForm()" title="Refresh this form">
                             <mat-icon>cancel</mat-icon> 
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn-warning btn text-white  btn-block" [routerLink]="['/crm/services']" title="Return to Service List">
+                        <button class="btn-dark btn text-white  btn-block"  [routerLink]="['/crm/services']" title="Return to Service List">
                             <mat-icon>arrow_back</mat-icon> 
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <br> 
+        <hr> 
         <form [formGroup]="serviceForm" class="form-container">
             <div class="col-12"> 
                 <div class="form-row">

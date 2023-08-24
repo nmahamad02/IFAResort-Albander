@@ -45,6 +45,7 @@ export class InvoiceComponent implements OnInit {
   mAgrNo: string = "";
   mInvDate: string = "";
   mInvTotal = 0;
+  mInvNetTotal = 0;
   mInvVAT = 0;
   mInvDisc = 0;
   mInvGTotal = 0;
@@ -70,7 +71,7 @@ export class InvoiceComponent implements OnInit {
   InvoiceDisplayedColumns: string[] = ['invno', 'sono', 'date', 'custname','total'];
   InvoiceDataSource = new MatTableDataSource(this.invArr);
 
-  BlaDisplayedColumns: string[] = [ "desc", "name", "fromdate", "todate", "amount"];
+  BlaDisplayedColumns: string[] = [ "slno", "desc", "code", "name", "amount"];
   BlaListDataSource = new MatTableDataSource(this.agrDetArr);
 
   constructor(private crmservice: CrmService,private dialog: MatDialog,private financeService: FinanceService,private lookupservice:LookupService,private dataSharing: DataSharingService, private route: ActivatedRoute, private router: Router, private httpClient: HttpClient,@Inject(LOCALE_ID) public locale: string,) {
@@ -96,6 +97,7 @@ export class InvoiceComponent implements OnInit {
   refreshForm() {
     this.invArr = [];
     this.mInvTotal = 0;
+    this.mInvNetTotal = 0;
     this.mInvVAT = 0;
     this.mInvDisc = 0;
     this.mInvGTotal = 0;
@@ -157,12 +159,13 @@ export class InvoiceComponent implements OnInit {
       this.mInvDate = date;
       this.mAgrNo = res.recordset[0].AGR_NO;
       this.mPartyName = invoice.CUST_NAME;
-      this.mPartyId = res.recordset[0].PCODE;
+      this.mPartyId = res.recordset[0].PARTY_ID;
       this.mPartyPhone = res.recordset[0].CUST_PHONE1;
       this.mPartyAdd1 = res.recordset[0].CUST_ADD1;
       this.mPartyAdd2 = res.recordset[0].CUST_ADD2;
       this.mPartyAdd3 = res.recordset[0].CUST_ADD3;
       this.mInvTotal = invoice.AMOUNT;
+      this.mInvNetTotal = invoice.AMOUNT - invoice.DISCOUNT;
       this.mInvVAT = invoice.TAX_1_AMT;
       this.mInvDisc = invoice.DISCOUNT;
       this.mInvGTotal = invoice.GROSSAMOUNT;
@@ -386,10 +389,10 @@ export class InvoiceComponent implements OnInit {
     var detArr= [];
     for(let i=0; i<this.agrDetArr.length; i++) {
       var tempArr = [];
+      tempArr.push(i+1);
+      tempArr.push(this.agrDetArr[i].DESCRIPTION);
       tempArr.push(this.agrDetArr[i].MEMBERCODE);
       tempArr.push(this.agrDetArr[i].MEMBERNAME);
-      tempArr.push(this.agrDetArr[i].FROMDT);
-      tempArr.push(this.agrDetArr[i].TODT);
       tempArr.push(this.agrDetArr[i].blAListArr);
       tempArr.push(formatNumber(this.agrDetArr[i].VALUE1, this.locale,'1.3-3'));
       console.log(tempArr);
@@ -401,7 +404,7 @@ export class InvoiceComponent implements OnInit {
       headStyles: {
         fillColor: [32,42,68]
       },
-      head: [['S.No', 'Member', 'From', 'To', 'Services', 'Amount (BHD)']],
+      head: [['S.No', 'Description', 'Member Code', 'Name', 'Services', 'Amount (BHD)']],
       body: detArr,
      // bodyStyles: {lineColor: [0, 0, 0]}
     });

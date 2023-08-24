@@ -26,12 +26,20 @@ export class AgreementListComponent implements OnInit {
   @ViewChild('HelpDialog', { static: false }) HelpDialog!: TemplateRef<any>;
 
   constructor(private crmservices: CrmService, private router: Router, private financeService: FinanceService, private dialog: MatDialog) {
-    this.columns = ["AGR_NO", "SONO", "AGR_DATE", "CUST_NAME", "Actions"];
+    this.columns = ["AGR_NO", "CUST_NAME", "SONO", "AGR_DATE", "EXPIRY_DATE", "STATUS", "Actions"];
   }
 
   ngOnInit(): void {
     this.financeService.getAllAgreements().subscribe((res: any) => {
       this.agreementList = res.recordset;
+      for (let i = 0; i < this.agreementList.length; i++) {
+        if (this.agreementList[i].IS_TERMINATED === 'I') {
+          this.agreementList[i].IS_TERMINATED = 'Inactive';
+        }
+        else if (this.agreementList[i].IS_TERMINATED === 'A') {
+          this.agreementList[i].IS_TERMINATED = 'Active';
+        }
+      }
       this.agreementListDataSource = new MatTableDataSource(this.agreementList);
       this.agreementListDataSource.sort = this.sort;
       this.agreementListDataSource.paginator = this.paginator;

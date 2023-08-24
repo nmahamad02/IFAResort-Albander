@@ -1,24 +1,14 @@
 <div class="container">
     <div class="col-12">
-        <div class="row">
-            <div class="col-4">
+        <div class="row"> 
+            <div class="col-6">                
                 <mat-card-title>Receipts</mat-card-title>  
             </div>
-            <div class="col-8">
+            <div class="col-6">
                 <div class="row">
-                    <!--<div class="col">
-                        <button class="btn btn-block"  (click)="viewHelp()" title="View Help">
-                          <mat-icon>help_outline</mat-icon>
-                        </button>
-                    </div>-->
                     <div class="col">
                         <button class="btn-primary btn btn-block" (click)="newForm()" title="New Receipt">
                             <mat-icon>add</mat-icon>
-                        </button>
-                    </div>
-                    <div class="col"> <!-- [routerLinkActive]="['active']" [routerLink]="['/crm/invoicereport']" (click)="setReportData(invReportApiUrl, invReportName)" -->
-                        <button class="btn-secondary btn btn-block" (click)="savePDF()" title="Print receipt">  
-                            <mat-icon>print</mat-icon>
                         </button>
                     </div>
                     <div class="col">
@@ -27,24 +17,24 @@
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn-info text-white btn btn-block" title="Cancel this Receipt">
-                            <mat-icon>delete</mat-icon> 
-                        </button> 
+                        <button class="btn-info btn btn-block" (click)="savePDF()" title="Print receipt">  
+                            <mat-icon>print</mat-icon>  
+                        </button>
                     </div>
                     <div class="col">
-                        <button class="bg-danger text-white btn btn-block" (click)="refreshForm()" title="Refresh this form">
+                        <button class="btn-danger btn btn-block" (click)="refreshForm()" title="Refresh this form">
                             <mat-icon>cancel</mat-icon> 
                         </button>
-                    </div> 
+                    </div>
                     <div class="col">
-                        <button class="bg-warning text-white btn btn-block" [routerLink]="['/crm/receipts']" title="Return to Receipt List">
+                        <button class="btn-dark btn text-white  btn-block"  [routerLink]="['/crm/receipts']" title="Return to Receipt List">
                             <mat-icon>arrow_back</mat-icon> 
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
+        <hr> 
         <div class="row">
             <form [formGroup]="receiptForm" class="form-container">
                 <div class="col-12"> 
@@ -116,6 +106,20 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <mat-form-field class="full-width">
+                                            <mat-label i18n="@@CMMContactsNameFormControl">Narration</mat-label>
+                                            <input matInput formControlName="rvcRemarks">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field class="full-width">
+                                            <mat-label i18n="@@CMMContactsNameFormControl">Balance (BHD)</mat-label>
+                                            <input matInput formControlName="rvcBalance">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-3">
                                 <div class="row">
@@ -125,20 +129,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-9">
-                                <mat-form-field class="full-width">
-                                    <mat-label i18n="@@CMMContactsNameFormControl">Narration</mat-label>
-                                    <input matInput formControlName="rvcRemarks">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-3">
-                                <mat-form-field class="full-width">
-                                    <mat-label i18n="@@CMMContactsNameFormControl">Balance (BHD)</mat-label>
-                                    <input matInput formControlName="rvcBalance">
-                                </mat-form-field>
-                            </div>
-                        </div>
+
                     </div> 
                 </div>
             </form>
@@ -225,49 +216,49 @@
                         <th mat-header-cell 
                         *matHeaderCellDef> Customer Name </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.cust_name }} </td>
+                        *matCellDef="let party"> {{ party.NAME }} </td>
                     </ng-container>
                     <ng-container matColumnDef="party_id">
                         <th mat-header-cell 
                         *matHeaderCellDef> Contact ID </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.PCODE }} </td>
+                        *matCellDef="let party"> {{ party.PARTY_ID }} </td>
                     </ng-container>
                     <ng-container matColumnDef="add1">
                         <th mat-header-cell 
                         *matHeaderCellDef> Address 1 </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.add1 }} </td>
+                        *matCellDef="let party"> {{ party.ADD1 }} </td>
                     </ng-container>
                     <ng-container matColumnDef="add2">
                         <th mat-header-cell 
                         *matHeaderCellDef> Address 2 </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.add2 }} </td>
+                        *matCellDef="let party"> {{ party.ADD2 }} </td>
                     </ng-container>
                     <ng-container matColumnDef="add3">
                         <th mat-header-cell 
                         *matHeaderCellDef> Address 3 </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.add3 }} </td>
+                        *matCellDef="let party"> {{ party.ADD3 }} </td>
                     </ng-container>
                     <ng-container matColumnDef="phone1">
                         <th mat-header-cell 
                         *matHeaderCellDef> Phone number </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.phone1 }} </td>
+                        *matCellDef="let party"> {{ party.PHONE1 }} </td>
                     </ng-container>
                     <ng-container matColumnDef="mobile">
                         <th mat-header-cell 
                         *matHeaderCellDef> Telephone </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.mobile }} </td>
+                        *matCellDef="let party"> {{ party.MOBILE }} </td>
                     </ng-container>
                     <ng-container matColumnDef="email_id">
                         <th mat-header-cell 
                         *matHeaderCellDef> Email </th>
                         <td mat-cell 
-                        *matCellDef="let party"> {{ party.email_id }} </td>
+                        *matCellDef="let party"> {{ party.EMAIL_ID }} </td>
                     </ng-container>
                     <tr mat-header-row 
                     *matHeaderRowDef="partyDisplayedColumns"></tr>

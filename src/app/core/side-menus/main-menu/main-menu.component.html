@@ -1,5 +1,11 @@
 
 <ul class="side-menu-navigation nav flex-column">
+  <a class="menu-link nav-link" [routerLinkActive]="['active']" [routerLink]="['/home/dashboard']">
+    <img src="../../../../assets/pics/download.png" style="height: 35%; width: 35%; float:right;">
+    <br>
+    <span class="menu-item-title" style="font-size: larger;">IFARESORT</span>
+  </a>
+  <br>
   <li class="menu-item expandable-item nav-item" [routerLinkActive]="['active']">
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header class="menu-link">

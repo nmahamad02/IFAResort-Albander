@@ -297,7 +297,7 @@ export class FinanceService {
     return this.http.post(this.url + '/coa/postAgreementBLA', JSON.stringify(newTran), { headers: headers })
   }
 
-  postAgreementMaster(compcode: string, agrno: string, agrdate: string, sono:string, quotno: string, partyid: string, pcode: string, custname: string, total: string, discount: string, gtotal: string, vatamt: string, custadd1: string, custadd2: string, custphone: string,remarks: string, createdate: string, createuser: string) {
+  postAgreementMaster(compcode: string, agrno: string, agrdate: string, sono:string, quotno: string, partyid: string, pcode: string, custname: string, total: string, discount: string, gtotal: string, vatamt: string, custadd1: string, custadd2: string, custadd3: string, custphone: string,subject: string, startdate: string, enddate: string, remarks: string, status: string, createdate: string, createuser: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     const newTran = {
@@ -315,8 +315,13 @@ export class FinanceService {
       vatamt : vatamt,
       custadd1 : custadd1,
       custadd2 : custadd2,
+      custadd3 : custadd3,
       custphone : custphone,
+      subject: subject,
+      startdate: startdate,
+      enddate: enddate,
       remarks : remarks,
+      status: status,
       createdate : createdate,
       createuser : createuser
     }
@@ -324,7 +329,7 @@ export class FinanceService {
     return this.http.post(this.url + '/coa/postagreementmaster', JSON.stringify(newTran), { headers: headers })
   }
 
-  updateAgreementMaster(quotno: string, argdate: string, partyid:string, pcode: string, custname: string, add1: string, add2: string, phone: string, remarks: string,editdt: string, edituser: string, agrno: string) {
+  updateAgreementMaster(quotno: string, argdate: string, partyid:string, pcode: string, custname: string, add1: string, add2: string,add3: string, phone: string, subject: string, startdate: string, enddate: string, remarks: string, status: string,editdt: string, edituser: string, agrno: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     const newTran = {
@@ -335,8 +340,13 @@ export class FinanceService {
       custname : custname,
       add1 : add1,
       add2 : add2,
+      add3 : add3,
       phone : phone,
+      subject: subject,
+      startdate: startdate,
+      enddate: enddate,
       remarks : remarks,
+      status: status,
       editdt : editdt,
       edituser : edituser,
       agrno : agrno
@@ -506,7 +516,7 @@ export class FinanceService {
     return this.http.post(this.url + '/coa/postSODetails', JSON.stringify(newTran), { headers: headers })
   }
 
-  postAgreementDetails(argno: string, compcode: string, itcode: string, desc: string, membercode: string, memmbername: string, fromdate: string, todate: string, value: string, price: string,disper: string, disamt: string, vatcategory: string,vat: string,amount: string, createdate: string, createuser: string) {
+  postAgreementDetails(argno: string, compcode: string, itcode: string, desc: string, membercode: string, memmbername: string, value: string, price: string,disper: string, disamt: string, vatcategory: string,vat: string,amount: string, createdate: string, createuser: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     const newTran = {
@@ -516,8 +526,6 @@ export class FinanceService {
       desc : desc,
       membercode : membercode,
       memmbername : memmbername,
-      fromdate : fromdate,
-      todate : todate,
       value : value,
       price : price,
       disper : disper,
@@ -817,7 +825,7 @@ export class FinanceService {
         refamount: refamount,
         subject: subject,
         remarks: remarks,
-        paymenttype:paymenttype,
+        paymenttype: paymenttype,
         bank: bank,
         amount: amount
       }
