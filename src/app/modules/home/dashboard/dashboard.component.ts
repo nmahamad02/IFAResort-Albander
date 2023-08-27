@@ -27,6 +27,15 @@ export class DashboardComponent implements OnInit {
     responsive: true
   };
 
+  introVidSrc = "https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/Introduction.mov"
+  authVidSrc = "https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/authentication.mov"
+  dashVidSrc = "https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/dashboard.mov"
+  membVidSrc = "https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/members.mov"
+  agrVidSrc = "https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/agreements.mov"
+  invVidSrc = "https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/invoices.mov"
+  rvcVidSrc = "https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/receipts.mov"
+  srvVidSrc = "https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/authentication.mov"
+
   constructor(private reportsService: ReportsService, private router: Router) { }
 
   ngOnInit() {

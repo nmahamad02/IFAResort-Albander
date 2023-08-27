@@ -98,8 +98,8 @@
                     <mat-table [dataSource]="BlaListDataSource" matTableExporter #exporter="matTableExporter" class="mat-table" matSort matSortDisableClear [multiTemplateDataRows]="true">
                     
                         <ng-container matColumnDef="slno">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Description </mat-header-cell>
-                            <mat-cell *matCellDef="let row; let i=index" (click)="onViewCellClicked(row)"> {{ i+1 }} </mat-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>S. No </mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = dataIndex" (click)="onViewCellClicked(row)"> {{ i+1 }} </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="desc">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Description </mat-header-cell>

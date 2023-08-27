@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AccountComponent } from './account/account.component';
 import { ChartsModule, ThemeService } from 'ng2-charts';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ReportsComponent } from './reports/reports.component';
 
 export const homeRoutes = [
@@ -28,6 +29,7 @@ export const homeRoutes = [
     CommonModule,
     ChartsModule,
     MatIconModule,
+    MatTabsModule,
     RouterModule.forChild(homeRoutes)
   ],
   providers: [
