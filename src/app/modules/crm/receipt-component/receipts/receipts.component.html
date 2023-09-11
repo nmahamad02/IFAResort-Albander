@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="col-12">
         <div class="row"> 
             <div class="col-6">                
@@ -17,7 +17,7 @@
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn-info btn btn-block" (click)="savePDF()" title="Print receipt">  
+                        <button class="btn-info btn btn-block" (click)="printReceipt()" title="Print receipt">  
                             <mat-icon>print</mat-icon>  
                         </button>
                     </div>
@@ -57,9 +57,9 @@
                                     </div>
                                     <div class="col-4">
                                         <mat-form-field class="full-width"> 
-                                            <mat-label i18n="@@CMMContactsMobileFormControl">Customer Code</mat-label>
-                                            <input type="text" formControlName="rvcPcode" matInput #pcode title="Press fn + F2 to open Customer search" (keydown.f2)="lookUpPcode(pcode.value)">
-                                            <mat-error i18n="@@CMMContactsMobileFormControlError">Customer code <strong>required</strong></mat-error>
+                                            <mat-label i18n="@@CMMContactsMobileFormControl">Primary Member</mat-label>
+                                            <input type="text" formControlName="rvcPcode" matInput #pcode title="Press fn + F2 to open Primary Member search" (keydown.f2)="lookUpPcode(pcode.value)">
+                                            <mat-error i18n="@@CMMContactsMobileFormControlError">Primary Member is <strong>required</strong></mat-error>
                                         </mat-form-field>   
                                     </div>
                                 </div>
@@ -71,15 +71,20 @@
                                             </mat-label>
                                             <mat-select formControlName="rvcPaymentType" required>
                                                 <mat-option> ----- </mat-option>
-                                                <mat-option *ngFor="let payType of paymenttypeArr" [value]="payType.PMTNAME">
+                                                <mat-option value="CASH"> CASH </mat-option>
+                                                <mat-option value="VISA"> VISA </mat-option>
+                                                <mat-option value="MASTERCARD"> MASTERCARD </mat-option>
+                                                <mat-option value="JBC"> JBC </mat-option>
+                                                <!--<mat-option *ngFor="let payType of paymenttypeArr" [value]="payType.PMTNAME">
                                                     {{ payType.PMTNAME }}
-                                                </mat-option>
+                                                </mat-option>-->
                                             </mat-select>
                                             <mat-error i18n="@@CMMContactsNameFormControlError">
                                                 Payment Type is <strong>required</strong>
                                             </mat-error>
                                         </mat-form-field>
                                     </div> 
+                                    <!--
                                     <div class="col-3">
                                         <mat-form-field class="full-width">
                                             <mat-label i18n="@@CMMContactsNameFormControl">
@@ -93,13 +98,14 @@
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
+                                    -->
                                     <div class="col-3">
                                         <mat-form-field class="full-width">
                                             <mat-label i18n="@@CMMContactsNameFormControl">Amount (BHD)</mat-label>
                                             <input matInput formControlName="rvcAmount">
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         <mat-form-field class="full-width">
                                             <mat-label i18n="@@CMMContactsNameFormControl">Description</mat-label>
                                             <input matInput formControlName="rvcDesc">
@@ -129,16 +135,16 @@
                                 </div>
                             </div>
                         </div>
-
                     </div> 
                 </div>
             </form>
         </div>
+        <hr>
         <div class="row">
             <div class="col-6">
                 <p>Unallocated Invoices:</p>
                 <hr>
-                <div style="border:1px solid grey; border-radius: 20px;">
+                <div style="border:1px solid grey; border-radius: 15px; font-size: small;">
                     <table class="table table-striped table-hover table-condensed">
                         <thead>
                             <tr>
@@ -157,7 +163,7 @@
                                 <td>{{ row.AMOUNT | number : '1.3'}}</td>
                                 <td>{{ row.BALANCE | number : '1.3'}}</td>
                                 <td>
-                                    <button class="bg-warning text-white btn btn-block" (click)="viewAllocation(row)" title="Allocate this invoice">
+                                    <button class="bg-warning text-white btn btn-block btn-sm" (click)="viewAllocation(row)" title="Allocate this invoice">
                                         <mat-icon>arrow_right_alt</mat-icon> 
                                     </button>
                                 </td>
@@ -170,7 +176,7 @@
             <div class="col-6">
                 <p>Allocated Invoices:</p>
                 <hr>                        
-                <div style="border:1px solid grey; border-radius: 20px;">
+                <div style="border:1px solid grey; border-radius: 15px; font-size: small;">
                     <table class="table table-striped table-hover table-condensed">
                         <thead>
                             <tr>
@@ -188,7 +194,7 @@
                                 <td>{{ row.AMOUNT | number : '1.3'}}</td>
                                 <td>{{ row.REFAMOUNT | number : '1.3'}}</td>
                                 <td>
-                                    <button class="bg-danger text-white btn btn-block" (click)="deallocate(row)" title="Deallocate this invoice">
+                                    <button class="bg-danger text-white btn btn-block btn-sm" (click)="deallocate(row)" title="Deallocate this invoice">
                                         <mat-icon>cancel</mat-icon> 
                                     </button>
                                 </td>
@@ -199,12 +205,13 @@
             </div>
         </div>
     </div>
+    <br>
 
     <div class="col-12">
         <ng-template #partyLookupDialog 
         style="width: 60%;">
             <h3 matDialogTitle>
-                <b>Look up contacts: {{ partyArr.length }}</b>
+                <b>Look up Primary Member: {{ partyArr.length }}</b>
             </h3>
             <hr>
             <div mat-dialog-content>
@@ -357,17 +364,32 @@
             </mat-dialog-actions>
         </ng-template>
     </div>
-
-    <div class="col-12">
-        <ng-template #HelpDialog style="width: 100%;">
-            <div mat-dialog-content>
-              <video width="100%">
-                <source src="https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/receipt.mp4" type="video/mp4">
-              </video>
-            </div>
-            <mat-dialog-actions align="end">
-                <button mat-button matDialogClose="close">Close</button>
-            </mat-dialog-actions>
-        </ng-template>
-    </div>
 </div>
+
+<table class="table table-hover table-responsive-xxl table-bordered" id="rvcTable" #rvcTable style="width: 100%;">
+    <thead>
+        <tr class="table-reflow">
+            <th>Invoice Number</th>
+            <th>Date</th>
+            <th>Invoice Amount (BHD)</th>
+            <th>Received Amount (BHD)</th>
+            <th>Balance (BHD)</th>      
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let inv of parAlcInvArr; let i = index">
+            <td>{{ inv.INV_NO }}</td>
+            <td>{{ formatDate(inv.INV_DATE) }}</td>
+            <td>{{ inv.AMOUNT | number: '1.3'}}</td>
+            <td>{{ inv.REFAMOUNT | number: '1.3'}}</td>
+            <td>{{ inv.AMOUNT-inv.REFAMOUNT | number: '1.3'}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="5">
+                BHD {{ outputWords.toUpperCase() }} ONLY
+            </th>
+        </tr>               
+    </tfoot>
+</table>

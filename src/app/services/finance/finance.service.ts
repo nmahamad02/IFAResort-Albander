@@ -579,11 +579,12 @@ export class FinanceService {
     return this.http.get(this.url + '/coa/deleteSalesOrderDetails/'+ sono)
   }
 
-  postOpbalDetails(pcode: string, custname: string, accountcategory: string, acounttype: string,cprno: string, tax1no: string,status: string,fyear: string) {
+  postOpbalDetails(pcode: string, title: string, custname: string, accountcategory: string, acounttype: string,cprno: string, tax1no: string,status: string,fyear: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     const newTran = {
       pcode : pcode,
+      title: title,
       custname : custname,
       accountcategory : accountcategory,
       acounttype : acounttype,
@@ -770,6 +771,10 @@ export class FinanceService {
 
   getReceipt(recno:string) {
     return this.http.get(this.url + '/coa/getReceipt/'+ recno)
+  }   
+  
+  getReceiptDetails(recno:string) {
+    return this.http.get(this.url + '/coa/getReceiptDetails/'+ recno)
   }  
   
   searchReceipts(recno:string) {

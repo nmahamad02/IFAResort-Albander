@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrmService } from 'src/app/services/crm/crm.service';
@@ -91,7 +92,7 @@ export class AgreementComponent implements OnInit {
   referenceDisplayedColumns: string[] = ['refid', 'name', 'desc', 'type'];
   referenceDataSouuce = new MatTableDataSource(this.refArr);
 
-  constructor(private crmservice: CrmService,private dialog: MatDialog,private financeService: FinanceService,private lookupservice:LookupService,private dataSharing: DataSharingService, private route: ActivatedRoute, private router: Router, private reportsService: ReportsService) {
+  constructor(private crmservice: CrmService,private dialog: MatDialog,private financeService: FinanceService,private lookupservice:LookupService,private dataSharing: DataSharingService, private route: ActivatedRoute, private router: Router, private reportsService: ReportsService, private snackBar: MatSnackBar) {
     this.salesOrderForm = new FormGroup({
       voucherNo: new FormControl('', [ Validators.required]),
       soNbr: new FormControl('', [ Validators.required]),
@@ -443,11 +444,13 @@ export class AgreementComponent implements OnInit {
 
   getdiscount(disc: any,index: any){
     const data = this.salesOrderForm.value
-    this.discount = 0
+    this.discount = disc
     this.grossvalue = 0
-    this.discount = (data.srvItemArr[index].srvValue*disc)/100
+    var discPer = (Number(disc*100)/Number(data.srvItemArr[index].srvValue))
+    console.log(discPer)
     this.grossvalue = data.srvItemArr[index].srvValue - this.discount
     const rowData: any = {
+      srvDisc: discPer,
       srvDiscount: this.discount,
       srvGross: this.grossvalue
     }
@@ -555,6 +558,11 @@ export class AgreementComponent implements OnInit {
       emailAddress: obj.EMAIL_ID,
       telephone: obj.MOBILE,
     });
+    const rowData: any = {
+      srvMember: obj.REFNO,
+      srvMemberName: obj.NAME
+    }
+    this.srvItem.at(0).patchValue(rowData);
     this.mPartyName = obj.NAME;
     this.mPartyAdd1 = address;
     this.mPartyAdd2 = obj.ADD2;
@@ -706,7 +714,7 @@ export class AgreementComponent implements OnInit {
       this.agrArr.splice(this.valueIndex,1,data);
     }
     for(let i=0; i<this.agrArr[this.valueIndex].serviceArr.length; i++) {
-      value = value + this.agrArr[this.valueIndex].serviceArr[i].Price;
+      value = value + Number(this.agrArr[this.valueIndex].serviceArr[i].Price);
       this.crmservice.getAgreementBLA(agrData.voucherNo,agrData.srvItemArr[this.valueIndex].srvMember).subscribe((res: any) => {
         this.crmservice.deleteAgreementBLA(agrData.voucherNo,agrData.srvItemArr[this.valueIndex].srvMember).subscribe((resp: any) => {
           this.financeService.postAggrementBLA(agrData.srvItemArr[this.valueIndex].srvMember,agrData.voucherNo,this.agrArr[this.valueIndex].serviceArr[i].serviceNo,this.agrArr[this.valueIndex].serviceArr[i].Price,'01').subscribe((res: any) => {
@@ -743,6 +751,8 @@ export class AgreementComponent implements OnInit {
             this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((respo: any) => {
             });
           }
+          this.snackBar.open(`Agreement ${agrData.voucherNo} successfully updated!`, "OK");
+          this.gotoAgreementDetails('/crm/agreements/details', agrData.voucherNo)
         }, (error: any) => {
         })
       })
@@ -755,12 +765,12 @@ export class AgreementComponent implements OnInit {
       });
       this.financeService.updatedocAgreement(this.docArgNo, String(this.mCYear)).subscribe((res: any) => {
         console.log(res);
-      
+        this.snackBar.open(`Agreement ${agrData.voucherNo} successfully inserted!`, "OK");
+        this.gotoAgreementDetails('/crm/agreements/details', agrData.voucherNo)
       }, (err: any) => {
         console.log(err);
       });
     });
-    this.getSalesorder(agrData.voucherNo);
   }
 
   convertToInvoice() {
@@ -772,6 +782,8 @@ export class AgreementComponent implements OnInit {
         console.log(resp);
         this.financeService.updateOutstanding(year, soData.invNbr, soData.voucherDate, soData.customerCode, 'INV', 'null', soData.voucherDate, String(this.mAgrGTotal),'null', soData.subject, soData.remarks,'null','null').subscribe((respo: any) => {
           console.log(respo)
+          this.snackBar.open(`Invoice ${soData.invNbr} successfully updated!`, "OK");
+          this.getAgreementDetails(soData.voucherNo);
         })
       })
     }, (err: any) => { 
@@ -785,7 +797,8 @@ export class AgreementComponent implements OnInit {
             this.refreshForm();
             this.financeService.updateDocForInv(this.docInvNo, String(this.mCYear)).subscribe((res: any) => {
               this.financeService.setInvoice(soData.voucherNo, soData.soNbr, this.docInv).subscribe((respos: any) => {
-                this.getSalesorder(soData.voucherNo);
+                this.snackBar.open(`Invoice ${soData.invNbr} successfully inserted!`, "OK");
+                this.getAgreementDetails(soData.voucherNo);            
               })
             }, (err: any) => {
               console.log(err);
@@ -841,7 +854,9 @@ export class AgreementComponent implements OnInit {
     });
   }
 
-  viewHelp() {
-    let dialogRef = this.dialog.open(this.HelpDialog);
+  public gotoAgreementDetails(url, id) {
+    var myurl = `${url}/${id}`;
+    this.router.navigateByUrl(myurl).then(e => {
+    });
   }
 }

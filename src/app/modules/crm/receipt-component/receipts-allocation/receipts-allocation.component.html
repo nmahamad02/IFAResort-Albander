@@ -65,30 +65,20 @@
                     </div>
                 </div>
             </form>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-8">
-                    <p style="color: darkblue;">Amount to be Allocated:</p>
-                    <p style="color: darkblue;">Allocated Amount:</p>
-                    <hr>
-                    <b style="color: darkblue;">Balance:</b>
-                </div>                                    
-                <div class="col-4" style="float: right;">
-                    <p style="color: darkblue;">BHD {{ mReceiptAmount | number : '1.3' }}</p>
-                    <p style="color: darkblue;">BHD {{ mAllocatedAmount | number : '1.3'}}</p>
-                    <hr>
-                    <b style="color: darkblue;">BHD {{ mBalanceAmount | number : '1.3'}}</b>
-                </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+            </div>
+            <div class="col-3">
+                <p style="color: darkblue;">Amount to be Allocated:</p>
+                <p style="color: darkblue;">Allocated Amount:</p>
+                <b style="color: darkblue;">Balance:</b>
+            </div>                                    
+            <div class="col-3" style="float: right;">
+                <p style="color: darkblue; float: right;">BHD {{ mReceiptAmount | number : '1.3' }}</p>
+                <p style="color: darkblue; float: right;">BHD {{ mAllocatedAmount | number : '1.3'}}</p>
+                <b style="color: darkblue; float: right;">BHD {{ mBalanceAmount | number : '1.3'}}</b>
             </div>
         </div>
     </div>

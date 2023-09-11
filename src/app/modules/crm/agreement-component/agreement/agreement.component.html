@@ -121,10 +121,10 @@
                     <div class="col-3">
                         <div class="col-12">
                             <mat-form-field class="full-width"> 
-                                <mat-label i18n="@@CMMContactsMobileFormControl">Customer</mat-label>
+                                <mat-label i18n="@@CMMContactsMobileFormControl">Primary Member</mat-label>
                                 <input matInput type="text" #contactPerson formControlName="customerCode" title="Press fn + F2 to open Contact search"
                                 (keydown.f2)="lookUpParty(contactPerson.value)">
-                                <mat-error i18n="@@CMMContactsMobileFormControlError">Contact Person <strong>required</strong></mat-error>
+                                <mat-error i18n="@@CMMContactsMobileFormControlError">Primary Member <strong>required</strong></mat-error>
                             </mat-form-field>
                         </div>
                         <p><strong>{{ mPartyName }}</strong> <br> {{ mPartyAdd1 }} <br> {{ mPartyPhone }} / {{ mPartyTelephone}} <br> {{ mPartyEmail }}</p>
@@ -133,14 +133,13 @@
             </div>
             <div class="col-12">
                 <div class="form-row">
-                    <div class="col-12" style="height: 35vh; overflow-y: auto;" >
+                    <div class="col-12" style="height: 50vh; overflow-y: auto;" >
                         <table class="table table-borderless table-hover table-responsive-xxl" formArrayName="srvItemArr">
                                 <thead>
                                     <tr class="table-reflow" style="background-color: rgb(2, 46, 82); color: white;">
                                         <th style="width: 15%;">Member No</th>
-                                        <th style="width: 20%;">Name</th>
+                                        <th style="width: 25%;">Name</th>
                                         <th style="width: 10%;">Service Value</th>
-                                        <th style="width: 5%;">Disc %</th>
                                         <th style="width: 10%;">Discount</th>
                                         <th style="width: 10%;">Net Amount</th>
                                         <th style="width: 10%;">VAT</th>
@@ -151,42 +150,21 @@
                                 <tbody (keydown.alt.n)="addServiceItem()">
                                     <tr #rptItem *ngFor="let rp of srvItem?.controls; let i = index;" [formGroupName]="i" (keydown.alt.x)="deleteServiceItem(i)">           
                                         <td>
-                                            <input #membCode class="form-control form-control-sm" type="text" formControlName="srvMember" title="Press fn + F2 to open Member search" (keydown.f2)="lookUpMembers(membCode.value,i)" (change)="getMemberdata(membCode.value,i)">
+                                            <input #membCode class="form-control form-control-sm" type="text" formControlName="srvMember" title="Press fn + F2 to open Member search" (keydown.f2)="lookUpMembers(membCode.value,i)" (keydown.enter)="getMemberdata(membCode.value,i)">
                                         </td>
                                         <td>
                                             <textarea  class="form-control form-control-sm" formControlName="srvMemberName">
                                             </textarea>
-                                        </td>
-                                        <!--<td>
-                                            <input matInput [matDatepicker]="fromPicker" formControlName="srvFrom">
-                                            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
-                                            <mat-datepicker #fromPicker></mat-datepicker>
-                                        </td>
-                                        <td>
-                                            <input matInput [matDatepicker]="toPicker" formControlName="srvTo">
-                                            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
-                                            <mat-datepicker #toPicker></mat-datepicker>
-                                        </td>  -->            
+                                        </td>           
                                         <td>
                                             <input class="form-control form-control-sm" type="text" formControlName="srvValue" title="Press fn + F2 to open Services tab" (keydown.f2)="lookupAgreementAndMember(i)" (focus)="captureGridIndex(i)">
                                         </td>
                                         <td>
-                                            <input #disc class="form-control form-control-sm" type="text" formControlName="srvDisc" (change)="getdiscount(disc.value,i)">
-                                        </td>
-                                        <td>
-                                            <input class="form-control form-control-sm" type="text" formControlName="srvDiscount">
+                                            <input #disc class="form-control form-control-sm" type="text" (change)="getdiscount(disc.value,i)" formControlName="srvDiscount">
                                         </td>
                                         <td>
                                             <input class="form-control form-control-sm" type="text" formControlName="srvGross">
                                         </td>
-                                        <!--
-                                            <td>
-                                            <mat-select formControlName="srvVatCat" (valueChange)="gettaxValue($event,i)" required>
-                                                <mat-option *ngFor="let tax of taxArr" [value]="tax.TAX_1_PERC">
-                                                    {{ tax.TAX_CATEGORY_NAME }}
-                                                </mat-option>
-                                            </mat-select>
-                                        </td> -->
                                         <td>
                                             <input #pcode class="form-control form-control-sm" type="text" formControlName="srvVat">
                                         </td>
@@ -239,7 +217,7 @@
             <ng-template #partyLookupDialog 
             style="width: 60%;">
                 <h3 matDialogTitle>
-                    <b>Look up contacts: {{ partyArr.length }}</b>
+                    <b>Look up Primary Members: {{ partyArr.length }}</b>
                 </h3>
                 <hr>
                 <div mat-dialog-content>
@@ -310,61 +288,6 @@
                 <mat-dialog-actions align="end">
                     <button mat-button 
                     matDialogClose="close">Close</button>
-                </mat-dialog-actions>
-            </ng-template>
-        </div>
-
-        <div class="col-12">
-            <ng-template #SOLookUpDailouge style="width: 60%;">
-                <h3 matDialogTitle>
-                    <b>Look up for Sales Order: {{ SOArr.length }}</b>
-                </h3>
-                <hr>
-                <!-- <mat-form-field >
-                    <input matInput #input
-                    (keyup)="applyFilter($event)" >
-                </mat-form-field> --->
-                <div mat-dialog-content>
-                    <table mat-table 
-                    [dataSource]="SalesOrderDataSource" 
-                    class="mat-elevation-z8" 
-                    style="width: 65vw; height: 50vh;">
-                        <ng-container matColumnDef="sono">
-                            <th mat-header-cell 
-                            *matHeaderCellDef> Agreement Number </th>
-                            <td mat-cell 
-                            *matCellDef="let so"> {{ so.AGR_NO }} </td>
-                        </ng-container>
-                      
-                        <ng-container matColumnDef="pcode">
-                            <th mat-header-cell 
-                            *matHeaderCellDef> Pcode </th>
-                            <td mat-cell 
-                            *matCellDef="let so"> {{ so.PCODE }} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="custname">
-                            <th mat-header-cell 
-                            *matHeaderCellDef> Customer Name</th>
-                            <td mat-cell 
-                            *matCellDef="let so"> {{ so.CUST_NAME }} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="total">
-                            <th mat-header-cell 
-                            *matHeaderCellDef> Total Amount</th>
-                            <td mat-cell 
-                            *matCellDef="let so"> {{ so.GTOTAL }} </td>
-                        </ng-container>
-                        <tr mat-header-row 
-                        *matHeaderRowDef="SalesOrderDisplayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: SalesOrderDisplayedColumns;  let i= index" [ngClass]="{'highlight': selectedRowIndex == i}" (click)="highlight('salesorder',i)" tabindex="999" (keydown.arrowdown)="arrowDownEvent('salesorder',selectedRowIndex)"
-                        (keydown.arrowup)="arrowUpEvent('salesorder',selectedRowIndex)" 
-                        (keydown.enter)="selectSalesOrder(SOArr[selectedRowIndex])"></tr>
-                    </table>
-                </div>
-                <mat-dialog-actions align="end">
-                    <button mat-button matDialogClose="close">Close</button>
                 </mat-dialog-actions>
             </ng-template>
         </div>
@@ -639,19 +562,6 @@
                 <mat-dialog-actions align="end">
                     <button mat-button
                     matDialogClose="close">Close</button>
-                </mat-dialog-actions>
-            </ng-template>
-        </div>
-
-        <div class="col-12">
-            <ng-template #HelpDialog style="width: 100%;">
-                <div mat-dialog-content>
-                  <video width="100%">
-                    <source src="https://ifaresort-images.s3.me-south-1.amazonaws.com/videos/agreement.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <mat-dialog-actions align="end">
-                    <button mat-button matDialogClose="close">Close</button>
                 </mat-dialog-actions>
             </ng-template>
         </div>

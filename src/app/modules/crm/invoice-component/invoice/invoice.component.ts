@@ -11,10 +11,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import * as XLSX from "xlsx";
+import * as converter from 'number-to-words';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { HttpClient } from '@angular/common/http';
 import { formatCurrency, formatNumber } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-invoice',
@@ -44,11 +46,14 @@ export class InvoiceComponent implements OnInit {
   mInvNo: string = "";
   mAgrNo: string = "";
   mInvDate: string = "";
+  mAgrStartDate: string = "";
+  mAgrEndDate: string = "";
   mInvTotal = 0;
   mInvNetTotal = 0;
   mInvVAT = 0;
   mInvDisc = 0;
   mInvGTotal = 0;
+  mInvNumToWords = '';
 
   mExcelData: any;
 
@@ -74,7 +79,7 @@ export class InvoiceComponent implements OnInit {
   BlaDisplayedColumns: string[] = [ "slno", "desc", "code", "name", "amount"];
   BlaListDataSource = new MatTableDataSource(this.agrDetArr);
 
-  constructor(private crmservice: CrmService,private dialog: MatDialog,private financeService: FinanceService,private lookupservice:LookupService,private dataSharing: DataSharingService, private route: ActivatedRoute, private router: Router, private httpClient: HttpClient,@Inject(LOCALE_ID) public locale: string,) {
+  constructor(private crmservice: CrmService,private dialog: MatDialog,private financeService: FinanceService,private lookupservice:LookupService,private dataSharing: DataSharingService, private route: ActivatedRoute, private router: Router, private httpClient: HttpClient,@Inject(LOCALE_ID) public locale: string,private snackBar: MatSnackBar) {
     this.invoiceForm = new FormGroup({
       invNo: new FormControl('', [ Validators.required]),
       agrNo: new FormControl('', [ Validators.required]),
@@ -157,6 +162,8 @@ export class InvoiceComponent implements OnInit {
       console.log(res.recordset[0]);
       this.mInvNo = invoice.TRN_NO;
       this.mInvDate = date;
+      this.mAgrStartDate = this.formatDate(res.recordset[0].START_DATE);
+      this.mAgrEndDate =  this.formatDate(res.recordset[0].END_DATE);
       this.mAgrNo = res.recordset[0].AGR_NO;
       this.mPartyName = invoice.CUST_NAME;
       this.mPartyId = res.recordset[0].PARTY_ID;
@@ -169,6 +176,7 @@ export class InvoiceComponent implements OnInit {
       this.mInvVAT = invoice.TAX_1_AMT;
       this.mInvDisc = invoice.DISCOUNT;
       this.mInvGTotal = invoice.GROSSAMOUNT;
+      this.mInvNumToWords = converter.toWords(invoice.GROSSAMOUNT);
       this.invoiceForm.patchValue({
         invNo: invoice.TRN_NO,
         soNo: invoice.REF_NO,
@@ -232,6 +240,7 @@ export class InvoiceComponent implements OnInit {
         console.log(resp);
         this.financeService.updateOutstanding(year, invData.invNbr, invData.sodate, invData.pCode,'INV', 'null', invData.sodate, String(this.mInvGTotal), 'null', invData.subject, invData.remarks,'null','null').subscribe((respo: any) => {
           console.log(respo)
+          this.snackBar.open(`Invoice ${invData.invNbr} successfully updated!`, "OK");
         })
       })
     }, (err: any) => {
@@ -246,6 +255,7 @@ export class InvoiceComponent implements OnInit {
             this.financeService.updateDocForInv(this.docInvNo, String(this.mCYear)).subscribe((res: any) => {
               this.financeService.setInvoice(invData.agrNo, invData.soNo, this.docInv).subscribe((respos: any) => {
                 this.getInvoice(invData.docInv);
+                this.snackBar.open(`Invoice ${this.docInv} successfully inserted!`, "OK");
               })
             }, (err: any) => {
               console.log(err);
@@ -360,74 +370,108 @@ export class InvoiceComponent implements OnInit {
 
   public SavePDF(): void {  
     var doc = new jsPDF("portrait", "px", "a4");
-    var img = new Image()
-    img.src = 'assets/Pics/download.png';
-    doc.line(20, 100, 425, 100); 
     doc.setFontSize(13)
     doc.setFont('Times New Roman','bold');
-    doc.text('MEMBERSHIP ADVICE',300, 115);
+    doc.text('MEMBERSHIP ADVICE',300, 100);
     doc.setFont(undefined,'normal');
-    doc.text('Invoice  :',300, 125);
-    doc.text(this.mInvNo,375, 125);
-    doc.text('Date     :',300, 135);
-    doc.text(this.mInvDate,375, 135);
-    doc.text('Agreement:',300, 145);
-    doc.text(this.mAgrNo,375, 145);
-    //doc.addImage(img, 'png', 15, 15, 60, 60);
-    doc.setDrawColor(0);
-    doc.setFillColor(255, 255, 255);
-    doc.roundedRect(20, 110, 150, 55, 5, 5, 'FD');
-    //doc.roundedRect(150, 90, 150, 70, 5, 5, 'FD');
+    doc.text('Invoice',300, 110);
+    doc.text(`: ${this.mInvNo}`,360, 110);
+    doc.text('Date',300, 120);
+    doc.text(`: ${this.mInvDate}`,360, 120);
+    doc.text('Agreement',300, 130);
+    doc.text(`: ${this.mAgrNo}`,360, 130);
     doc.setFontSize(11);
-    doc.text('To,',30, 120);
-    doc.text(this.mPartyName,30, 130);
-    doc.text(this.mPartyAdd1,30, 140);
-    doc.text(this.mPartyAdd2,30, 150);
-    doc.text(this.mPartyPhone,30, 160);
-    const intro = `Dear ${this.mPartyName},\nWe would like to take this opportunity to thank you as one of the loyal members of Albander Hotel & Resort, and look \nforward to the same in the future. As your membership is due for renewal, please find below payment details payable \nfor the forthcoming and we would appreciate if you could kindly settle it at the earliest.`;
-    doc.text(intro,20, 180);
+    doc.text(this.mPartyName,20, 100);
+    doc.text(this.mPartyAdd1,20, 110);
+    doc.text(this.mPartyAdd2,20, 120);
+    doc.text(this.mPartyAdd3,20, 130);
+    doc.text(this.mPartyPhone,20, 140);
+    const intro = `Dear ${this.mPartyName},\n\nWe take this opportunity to thank you for being one of the loyal Members of Al Bander Hotel & Resort, and look forward \nto the same in the future. As your membership is due for renewal, please find below the payment details payable for the \nforthcoming year and would appreciate if you could kindly settle the same at the earliest.`;
+    doc.text(intro,20, 155);
     var detArr= [];
     for(let i=0; i<this.agrDetArr.length; i++) {
       var tempArr = [];
-      tempArr.push(i+1);
-      tempArr.push(this.agrDetArr[i].DESCRIPTION);
-      tempArr.push(this.agrDetArr[i].MEMBERCODE);
-      tempArr.push(this.agrDetArr[i].MEMBERNAME);
-      tempArr.push(this.agrDetArr[i].blAListArr);
-      tempArr.push(formatNumber(this.agrDetArr[i].VALUE1, this.locale,'1.3-3'));
-      console.log(tempArr);
+      tempArr.push(this.agrDetArr[i].blAArr);
       detArr.push(tempArr);
     }
     autoTable(doc, {
-      startY: 225,                    
-      theme: 'grid',
-      headStyles: {
-        fillColor: [32,42,68]
+      html: '#invTable',
+      startY: 200,    
+      theme: 'plain',
+      bodyStyles: {
+        minCellHeight: 50
       },
-      head: [['S.No', 'Description', 'Member Code', 'Name', 'Services', 'Amount (BHD)']],
-      body: detArr,
-     // bodyStyles: {lineColor: [0, 0, 0]}
+      tableLineColor: [105, 105, 105],
+      tableLineWidth: 0.15,
+      rowPageBreak: 'avoid',
+      showFoot: 'lastPage',
+      margin: {
+        left: 20,
+        right: 20,
+      },
+      willDrawCell: function(data) {
+        doc.setDrawColor(105, 105, 105); // set the border color
+        doc.setLineWidth(0.15); // set the border with
+        // draw bottom border
+        doc.line(data.cell.x,data.cell.y + data.cell.height,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
+        // draw top border
+        doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x,data.cell.y);
+        // draw left border
+        // doc.line(data.cell.x,data.cell.y + data.cell.height,data.cell.x,data.cell.y);
+        // draw right border
+        // doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
+      },
+      didDrawCell: function(data) {
+        if (data.column.index === 2 && data.cell.section === 'body') {
+          console.log(detArr)
+          var srvArr = detArr[data.row.index];
+          console.log(srvArr)
+
+          var newArr = []
+          for(let k=0; k<srvArr[0].length; k++) {
+            var tempArr = [];
+            tempArr.push(srvArr[0][k].ServiceName);
+            tempArr.push(srvArr[0][k].MEMBERPRICE);
+            console.log(tempArr);
+            newArr.push(tempArr);
+          }
+          console.log(newArr);
+          autoTable(doc, {
+            head: [["Name", "Price (BHD)"]],
+            body: newArr,
+            startY: data.cell.y + 2,
+            margin: {left: data.cell.x},
+            tableWidth: 'wrap',
+            theme: 'plain',
+            styles: {
+                fontSize: 8,
+                cellPadding: 1,
+            },
+            willDrawCell: function(data) {
+              doc.setDrawColor(105, 105, 105); // set the border color
+              doc.setLineWidth(0.15); // set the border with
+              // draw bottom border
+              doc.line(data.cell.x,data.cell.y + data.cell.height,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
+              // draw top border
+              doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x,data.cell.y);
+              // draw left border
+              doc.line(data.cell.x,data.cell.y + data.cell.height,data.cell.x,data.cell.y);
+              // draw right border
+              doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
+            },
+        });
+        }
+      },
+      columnStyles: {
+        2: {halign: 'right', cellWidth: 150,},
+      }
     });
-    doc.setDrawColor(0, 0, 0);
-    doc.line(20, 350, 425, 350); 
-    doc.text('Discount    (BHD):',250, 360);
-    doc.text(String(formatNumber(this.mInvDisc, this.locale,'1.3-3')), 375, 360);
-    doc.text('Sub Total   (BHD):',250, 370);
-    var mInvSubTot = this.mInvTotal - this.mInvDisc;
-    doc.text(String(formatNumber(mInvSubTot, this.locale,'1.3-3')), 375, 370);
-    doc.text('VAT Amount  (BHD):',250, 380);
-    doc.text(String(formatNumber(this.mInvVAT, this.locale,'1.3-3')), 375, 380);
-    doc.setFont(undefined,'bold');
-    doc.line(250, 385, 425, 385); 
-    doc.text('Grand Total (BHD):',250, 395);
-    doc.text(String(formatNumber(this.mInvGTotal, this.locale,'1.3-3')), 375, 395);
-    doc.line(250, 400, 425, 400); 
     doc.setFont(undefined,'normal');
-    doc.text("At the same time we would like to also reiterate the following:\n1. Members who wish to renew their membership are required to pay the above mentioned amount within seven days\n   after the expiry date of their membership. Failing to do so will result in cancellation of their membership. \n   In the event of late renewal,  re-joining fees will be applicable.\n2. In the event payment is made through bank transfer, the applicable bank charges will be borne by the Member.\n3. Should the Member wish to make any changes in the membership status or cancel their parking, kindly notify\n   the Membership Office prior to the expiration of the membership.\n4. Membership Promotions, if any, are subject to the respective terms & Conditions as published.",20, 415);
-    const outtro = `Dear ${this.mPartyName}, \nWe hope you are satisfied by the services extended at the Resort. If you have any suggestions or require any assistance, \nplease feel free to contact the undersigned or the Membership office between 9AM-1PM & 2PM-5PM throughout the week.`;
-    doc.text(outtro,20, 495);
+    doc.text("At the same time we would like to also reiterate the following:\n      • Members who wish to renew their membership are required to pay the above mentioned amount within seven days\n         after the expiry date of their membership. Failing to do so will result in cancellation of their membership. \n         In the event of late renewal, re-joining fees will be applicable.\n      • In the event payment is made through bank transfer, the applicable bank charges will be borne by the Member.\n      • Should the Member wish to make any changes in the membership status or cancel their parking, kindly notify\n         the Membership Office prior to the expiration of the membership.\n      • Membership Promotions, if any, are subject to the respective Terms & Conditions as published.",20, 415);
+    const outtro = `${this.mPartyName}, We hope you are satisfied by the services extended at the Resort. If you have any suggestions \nor require any assistance, please feel free to contact the undersigned or the Membership office between 9AM-5PM \nthroughout the week.`;
+    doc.text(outtro,20, 500);
     doc.text("Thanking you once again, and assuring of our best services all the times.",20, 535);
-    doc.text("Yours Sincerely,\n\n\n\nAHMED MOKHTAR\nGENERAL MANAGER",20, 550);
+    doc.text("Yours Sincerely,\n\n\n\nAHMED MOKHTAR\nGENERAL MANAGER",20, 555);
     doc.output('datauri');
     doc.save(this.mInvNo + '.pdf');  
     var string = doc.output('datauri');

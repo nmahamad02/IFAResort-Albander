@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgreementListComponent } from './agreement-component/agreement-list/agreement-list.component';
 import { AgreementComponent } from './agreement-component/agreement/agreement.component';
 import { SharedModule } from 'src/app/archive/shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { CustomerListComponent } from './customer-component/customer-list/customer-list.component';
-import { CustomerComponent } from './customer-component/customer/customer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -22,8 +20,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableExporterModule } from 'mat-table-exporter';
-import { ContactsListComponent } from './contact-component/contacts-list/contacts-list.component';
-import { ContactsComponent } from './contact-component/contacts/contacts.component';
 import { InvoiceListComponent } from './invoice-component/invoice-list/invoice-list.component';
 import { InvoiceComponent } from './invoice-component/invoice/invoice.component';
 import { MembersListComponent } from './member-component/members-list/members-list.component';
@@ -42,22 +38,6 @@ export const crmRoutes = [
   {
     path: 'agreements/details/:id',
     component: AgreementComponent
-  },
-  {
-    path: 'customers',
-    component: CustomerListComponent
-  },
-  {
-    path: 'customer/details/:id',
-    component: CustomerComponent
-  },  
-  {
-    path: 'contacts',
-    component: ContactsListComponent
-  },
-  {
-    path: 'contact/details/:id',
-    component: ContactsComponent
   },
   {
     path: 'invoices',
@@ -101,10 +81,6 @@ export const crmRoutes = [
   declarations: [
     AgreementListComponent, 
     AgreementComponent, 
-    CustomerListComponent, 
-    CustomerComponent, 
-    ContactsListComponent, 
-    ContactsComponent,
     InvoiceListComponent, 
     InvoiceComponent, 
     MembersListComponent, 
@@ -113,6 +89,7 @@ export const crmRoutes = [
     ReceiptsAllocationComponent, 
     ReceiptsComponent, ServiceListComponent, ServiceComponent
   ],
+  providers: [ { provide: LOCALE_ID, useValue: 'en-GB' } ],
   imports: [
     CommonModule,
     SharedModule,

@@ -788,9 +788,10 @@ export class MembersComponent implements OnInit {
       this.crmservice.postNewMember(data.memberNo, data.memberRefNo,data.title, data.firstname, data.surname, data.memberType, this.formatDate(data.birthdate), data.marital, data.add1, data.add2, data.add3, data.nation, data.telOff, data.telRes, data.faxNbr, data.employer, data.position, 'Y', data.relation, data.image, data.primaryMember, data.email, this.mCurDate, data.insuranceNbr, data.cprNbr, data.memberNo).subscribe((res: any) => {
         console.log(res);
         console.log("PRIMARY Member Created")
-        var contactPerson = data.firstname + " " + data.surname
+        var customer = data.firstname + " " + data.surname
+        var contactPerson = data.title + " " + data.firstname + " " + data.surname
         this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
-        this.financeservice.postOpbalDetails(data.memberRefNo,contactPerson," "," ",data.cprNbr,data.memberNo, "A",String(this.mCYear))
+        this.financeservice.postOpbalDetails(data.memberRefNo,data.title,customer," "," ",data.cprNbr,data.memberNo, "A",String(this.mCYear))
         this.crmservice.getMemberFromCPR(data.cprNbr).subscribe((res: any) => {
           const pM = res.recordset[0].MemberNo;
           this.uploadImage();

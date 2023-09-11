@@ -181,12 +181,7 @@
                                 <mat-label i18n="@@CMMContactsNameFormControl">
                                     Position
                                 </mat-label>
-                                <mat-select formControlName="position">
-                                    <mat-option> ----- </mat-option>
-                                    <mat-option *ngFor="let position of positionArr" [value]="position.POSITION_NAME">
-                                        {{ position.POSITION_NAME }}
-                                    </mat-option>
-                                </mat-select>
+                                <input formControlName="position" matInput>
                             </mat-form-field>
                         </div>
                     </div>
