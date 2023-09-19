@@ -17,6 +17,7 @@ import autoTable from 'jspdf-autotable';
 import { HttpClient } from '@angular/common/http';
 import { formatCurrency, formatNumber } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ComponentsModule } from 'src/app/archive/components/components.module';
 
 @Component({
   selector: 'app-invoice',
@@ -394,12 +395,13 @@ export class InvoiceComponent implements OnInit {
       tempArr.push(this.agrDetArr[i].blAArr);
       detArr.push(tempArr);
     }
+    var arr = detArr[0]
     autoTable(doc, {
       html: '#invTable',
       startY: 200,    
       theme: 'plain',
       bodyStyles: {
-        minCellHeight: 50
+        minCellHeight: 15 +(10*arr[0].length)
       },
       tableLineColor: [105, 105, 105],
       tableLineWidth: 0.15,
@@ -422,7 +424,7 @@ export class InvoiceComponent implements OnInit {
         // doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
       },
       didDrawCell: function(data) {
-        if (data.column.index === 2 && data.cell.section === 'body') {
+        if (data.column.index === 4 && data.cell.section === 'body') {
           console.log(detArr)
           var srvArr = detArr[data.row.index];
           console.log(srvArr)
@@ -463,12 +465,12 @@ export class InvoiceComponent implements OnInit {
         }
       },
       columnStyles: {
-        2: {halign: 'right', cellWidth: 150,},
+        4: {halign: 'right', cellWidth: 100},
       }
     });
     doc.setFont(undefined,'normal');
-    doc.text("At the same time we would like to also reiterate the following:\n      • Members who wish to renew their membership are required to pay the above mentioned amount within seven days\n         after the expiry date of their membership. Failing to do so will result in cancellation of their membership. \n         In the event of late renewal, re-joining fees will be applicable.\n      • In the event payment is made through bank transfer, the applicable bank charges will be borne by the Member.\n      • Should the Member wish to make any changes in the membership status or cancel their parking, kindly notify\n         the Membership Office prior to the expiration of the membership.\n      • Membership Promotions, if any, are subject to the respective Terms & Conditions as published.",20, 415);
-    const outtro = `${this.mPartyName}, We hope you are satisfied by the services extended at the Resort. If you have any suggestions \nor require any assistance, please feel free to contact the undersigned or the Membership office between 9AM-5PM \nthroughout the week.`;
+    doc.text("At the same time we would like to also reiterate the following:\n      • In adherence with Al Bander policy, our customers are reminded that it is mandatory to obtain a membership club \n         at their preferred membership category (Single or Family) so as to achieve boat parking/access.\n      • Members who wish to renew their membership are required to pay the above mentioned amount within seven days\n         after the expiry date of their membership. Failing to do so will result in cancellation of their membership. \n         In the event of late renewal, re-joining fees will be applicable.\n      • In the event payment is made through bank transfer, the applicable bank charges will be borne by the Member.\n      • Should the Member wish to make any changes in the membership status or cancel their parking, kindly notify\n         the Membership Office prior to the expiration of the membership.\n      • Membership Promotions, if any, are subject to the respective Terms & Conditions as published.",20, 400);
+    const outtro = `${this.mPartyName}, We hope you are satisfied by the services extended at the Resort. \nIf you have any suggestions or require any assistance, please feel free to contact the undersigned or the Membership office \nbetween 9AM-5PM throughout the week.`;
     doc.text(outtro,20, 500);
     doc.text("Thanking you once again, and assuring of our best services all the times.",20, 535);
     doc.text("Yours Sincerely,\n\n\n\nAHMED MOKHTAR\nGENERAL MANAGER",20, 555);

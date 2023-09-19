@@ -547,7 +547,7 @@ export class FinanceService {
     return this.http.post(this.url + '/coa/postSODetails', JSON.stringify(newTran), { headers: headers })
   }
 
-  postAgreementDetails(argno: string, compcode: string, itcode: string, desc: string, membercode: string, memmbername: string, value: string, price: string,disper: string, disamt: string, vatcategory: string,vat: string,amount: string, createdate: string, createuser: string) {
+  postAgreementDetails(argno: string, compcode: string, itcode: string, desc: string, membercode: string, memmbername: string,fromdate: string, todate: string,  value: string, price: string,disper: string, disamt: string, vatcategory: string,vat: string,amount: string, createdate: string, createuser: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     const newTran = {
@@ -557,6 +557,8 @@ export class FinanceService {
       desc : desc,
       membercode : membercode,
       memmbername : memmbername,
+      fromdate : fromdate,
+      todate : todate,
       value : value,
       price : price,
       disper : disper,
@@ -601,11 +603,12 @@ export class FinanceService {
     })
   }
 
-  updateOPbalDeatils(custname: string, accountcategory: string,status: string,accountype: string,cpr: string, tax1no: string,pcode: string) {
+  updateOPbalDeatils(title: string, custname: string, accountcategory: string,status: string,accountype: string,cpr: string, tax1no: string,pcode: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     const newTran = {
       pcode : pcode,
+      title: title,
       custname : custname,
       accountcategory : accountcategory,
       status : status,

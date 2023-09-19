@@ -37,6 +37,8 @@ export class AgreementComponent implements OnInit {
   memberIndex: number = 0;
   valueIndex: number = 0;
 
+  selectedServiceIndex: number = 0;
+
   docArgNo: any;
   docArg: any;
   docSONo: any;
@@ -122,13 +124,6 @@ export class AgreementComponent implements OnInit {
     this.agreementForm = new FormGroup({
       serviceArr: new FormArray([])
     });
-
-    this.reportsService.getMembersByType().subscribe((res: any) => {
-      console.log(res);
-      //this.message = "Welcome to IFAResort - Al Bander Resort Web Portal.";
-    }, (err: any) => {
-      console.log(err);
-    })
   } 
 
    refreshForm() {
@@ -212,6 +207,8 @@ export class AgreementComponent implements OnInit {
         srvDesc: new FormControl('Membership Charges', [ Validators.required]),
         srvMember: new FormControl('', [ Validators.required]),
         srvMemberName: new FormControl('', [ Validators.required]),
+        srvFrom: new FormControl(this.mCurDate, [ Validators.required]),
+        srvTo: new FormControl(this.mCurDate, [ Validators.required]),
         srvValue: new FormControl('', [ Validators.required]),
         srvDisc: new FormControl('', [ Validators.required]),
         srvDiscount: new FormControl('', [ Validators.required]),
@@ -219,6 +216,7 @@ export class AgreementComponent implements OnInit {
         srvVatCat: new FormControl('10%', [ Validators.required]),
         srvVat: new FormControl('', [ Validators.required]),
         srvNetValue: new FormControl('', [ Validators.required]),
+        services: new FormArray([])
       });
       this.srvItem.push(salesorderGrid);
   
@@ -231,7 +229,7 @@ export class AgreementComponent implements OnInit {
         serviceDesc: new FormControl('', [Validators.required]),
         Price: new FormControl('', [ Validators.required]),
       });
-      this.agrItem.push(agreementGrid);
+      this.services(0).push(agreementGrid);
     })
   }
 
@@ -289,6 +287,8 @@ export class AgreementComponent implements OnInit {
               srvDesc: new FormControl(itemArr[x].DESCRIPTION, [ Validators.required]),
               srvMember: new FormControl(itemArr[x].MEMBERCODE, [ Validators.required]),
               srvMemberName: new FormControl(itemArr[x].MEMBERNAME, [ Validators.required]),
+              srvFrom: new FormControl(this.mCurDate, [ Validators.required]),
+              srvTo: new FormControl(this.mCurDate, [ Validators.required]),
               srvValue: new FormControl('', [ Validators.required]),
               srvDisc: new FormControl('', [ Validators.required]),
               srvDiscount: new FormControl('', [ Validators.required]),
@@ -300,6 +300,7 @@ export class AgreementComponent implements OnInit {
             this.srvItem.push(salesorderGrid);
             this.caliberateTotal();
             this.crmservice.getAgreementBLA(this.sonumber,itemArr[x].MEMBERCODE).subscribe((resp: any) => {
+              
             })
           }
         }, (error: any) => {
@@ -328,15 +329,18 @@ export class AgreementComponent implements OnInit {
 
   lookupAgreementAndMember(index: any) {
     let dialogRef = this.dialog.open(this.agreementLookUpDialog);
+    this.selectedServiceIndex = index;
     this.agreementForm = new FormGroup({
       serviceArr: new FormArray([])
     });
-    if(this.agrArr[index]) {
-      for(let i=0;i<this.agrArr[index].serviceArr.length;i++) {
+    const dataf = this.salesOrderForm.value
+    console.log(dataf)
+    if(dataf.srvItemArr[index].services.length > 0) {
+      for(let i=0;i<dataf.srvItemArr[index].services.length;i++) {
         const agreementGrid = new FormGroup({
-          serviceNo: new FormControl(this.agrArr[index].serviceArr[i].serviceNo, [ Validators.required]),
-          serviceDesc: new FormControl(this.agrArr[index].serviceArr[i].serviceDesc, [Validators.required]),
-          Price: new FormControl(this.agrArr[index].serviceArr[i].Price, [ Validators.required]),
+          serviceNo: new FormControl(dataf.srvItemArr[index].services[i].serviceNo, [ Validators.required]),
+          serviceDesc: new FormControl(dataf.srvItemArr[index].services[i].serviceDesc, [Validators.required]),
+          Price: new FormControl(dataf.srvItemArr[index].services[i].Price, [ Validators.required]),
         });
         this.agrItem.push(agreementGrid);
       }
@@ -614,6 +618,8 @@ export class AgreementComponent implements OnInit {
           srvDesc: new FormControl(itemArr[x].DESCRIPTION, [ Validators.required]),
           srvMember: new FormControl(itemArr[x].MEMBERCODE, [ Validators.required]),
           srvMemberName: new FormControl(itemArr[x].MEMBERNAME, [ Validators.required]),
+          srvFrom: new FormControl(itemArr[x].FROMDT, [ Validators.required]),
+          srvTo: new FormControl(itemArr[x].TODT, [ Validators.required]),
           srvValue: new FormControl(itemArr[x].VALUE1, [ Validators.required]),
           srvDisc: new FormControl(itemArr[x].DISPER, [ Validators.required]),
           srvDiscount: new FormControl(itemArr[x].DISAMT, [ Validators.required]),
@@ -621,10 +627,20 @@ export class AgreementComponent implements OnInit {
           srvVatCat: new FormControl(itemArr[x].VATCATEORY, [ Validators.required]),
           srvVat: new FormControl(Number(itemArr[x].VAT), [ Validators.required]),
           srvNetValue: new FormControl(itemArr[x].AMOUNT, [ Validators.required]),
+          services: new FormArray([])
         });
         this.srvItem.push(salesorderGrid);
         this.caliberateTotal();
         this.crmservice.getAgreementBLA(this.sonumber,itemArr[x].MEMBERCODE).subscribe((resp: any) => {
+          console.log(resp)
+          for(let i=0; i<resp.recordset.length; i++) {
+            const rowData = new FormGroup({
+              serviceNo: new FormControl(resp.recordset[i].SERVICENO, [ Validators.required]),
+              serviceDesc: new FormControl(resp.recordset[i].ServiceName, [Validators.required]),
+              Price: new FormControl(resp.recordset[i].MEMBERPRICE, [ Validators.required]),
+            });
+            this.services(x).push(rowData);
+          }
         })
       }
     }, (error: any) => {
@@ -673,6 +689,8 @@ export class AgreementComponent implements OnInit {
       srvDesc: new FormControl('MEMBERSHIP CHARGES', [ Validators.required]),
       srvMember: new FormControl('', [ Validators.required]),
       srvMemberName: new FormControl('', [ Validators.required]),
+      srvFrom: new FormControl('', [ Validators.required]),
+      srvTo: new FormControl('', [ Validators.required]),
       srvValue: new FormControl('', [ Validators.required]),
       srvDisc: new FormControl('', [ Validators.required]),
       srvDiscount: new FormControl('', [ Validators.required]),
@@ -680,6 +698,7 @@ export class AgreementComponent implements OnInit {
       srvVatCat: new FormControl('', [ Validators.required]),
       srvVat: new FormControl('', [ Validators.required]),
       srvNetValue: new FormControl('', [ Validators.required]),
+      services: new FormArray([])
     });
     this.srvItem.push(ServicGrid);
   }
@@ -705,38 +724,28 @@ export class AgreementComponent implements OnInit {
   }
 
   submitAgreement() {
-    const agrData = this.salesOrderForm.value;
+   // const agrData = this.salesOrderForm.value;
     const data = this.agreementForm.value;
     var value = 0;
-    if(this.valueIndex===this.agrArr.length) {
-      this.agrArr.push(data);
-    } else {      
-      this.agrArr.splice(this.valueIndex,1,data);
-    }
-    for(let i=0; i<this.agrArr[this.valueIndex].serviceArr.length; i++) {
-      value = value + Number(this.agrArr[this.valueIndex].serviceArr[i].Price);
-      this.crmservice.getAgreementBLA(agrData.voucherNo,agrData.srvItemArr[this.valueIndex].srvMember).subscribe((res: any) => {
-        this.crmservice.deleteAgreementBLA(agrData.voucherNo,agrData.srvItemArr[this.valueIndex].srvMember).subscribe((resp: any) => {
-          this.financeService.postAggrementBLA(agrData.srvItemArr[this.valueIndex].srvMember,agrData.voucherNo,this.agrArr[this.valueIndex].serviceArr[i].serviceNo,this.agrArr[this.valueIndex].serviceArr[i].Price,'01').subscribe((res: any) => {
-          }, (err: any) => {
-          });
-        })
-      }, (err: any) => {
-        this.financeService.postAggrementBLA(agrData.srvItemArr[this.valueIndex].srvMember,agrData.voucherNo,this.agrArr[this.valueIndex].serviceArr[i].serviceNo,this.agrArr[this.valueIndex].serviceArr[i].Price,'01').subscribe((res: any) => {
-        }, (err: any) => {
-        });
+    console.log(data)
+    this.services(this.selectedServiceIndex).clear();
+    for(let i=0; i<data.serviceArr.length; i++) {
+      value = value + Number(data.serviceArr[i].Price);
+      const rowData = new FormGroup({
+        serviceNo: new FormControl(data.serviceArr[i].serviceNo, [ Validators.required]),
+        serviceDesc: new FormControl(data.serviceArr[i].serviceDesc, [Validators.required]),
+        Price: new FormControl(data.serviceArr[i].Price, [ Validators.required]),
       });
-      /* const val = {
-        Price: this.agrArr[this.valueIndex].serviceArr[i].Price,
-        serviceDesc: this.agrArr[this.valueIndex].serviceArr[i].serviceDesc,
-        serviceNo: this.agrArr[this.valueIndex].serviceArr[i].serviceNo
-      }
-      arrVal.push(val);*/
+      this.services(this.selectedServiceIndex).push(rowData);
     }
-    //this.agrArr.splice(this.valueIndex,1,arrVal);
     const rowData: any = {
-      srvValue: value
+      srvValue: value,
+      srvDiscount: '',
+      srvGross: '',
+      srvVat: '',
+      srvNetValue: '',
     }
+    //this.getdiscount(0,this.selectedServiceIndex)
     this.srvItem.at(this.valueIndex).patchValue(rowData);
     let dialogRef = this.dialog.closeAll();
   }
@@ -745,10 +754,17 @@ export class AgreementComponent implements OnInit {
     const agrData = this.salesOrderForm.value;
     console.log(agrData)
     this.financeService.checkAgreement(agrData.voucherNo).subscribe((res: any) => {
-      this.financeService.updateAgreementMaster(agrData.quotationNo, agrData.voucherDate, agrData.party, agrData.customerCode, agrData.name, agrData.add1, agrData.emailAddress, agrData.telephone, agrData.phoneNo, agrData.subject, this.formatDate(agrData.startdate),this.formatDate(agrData.enddate), agrData.remarks, agrData.status, this.mCurDate, 'DBA', agrData.voucherNo).subscribe((resp: any) => {
+      this.financeService.updateAgreementMaster(agrData.quotationNo, agrData.voucherDate, agrData.party, agrData.customerCode, agrData.name, agrData.add1, agrData.emailAddress, agrData.telephone, agrData.phoneNo, agrData.subject, this.formatDate(agrData.srvItemArr[0].srvFrom),this.formatDate(agrData.srvItemArr[0].srvTo), agrData.remarks, agrData.status, this.mCurDate, 'DBA', agrData.voucherNo).subscribe((resp: any) => {
         this.financeService.deleteAgreementDetails(agrData.voucherNo).subscribe((response: any) => {
           for(let i=0; i<agrData.srvItemArr.length; i++) {
-            this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((respo: any) => {
+            this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,this.formatDate(agrData.srvItemArr[i].srvFrom),this.formatDate(agrData.srvItemArr[i].srvTo),agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((respo: any) => {
+              this.crmservice.deleteAgreementBLA(agrData.voucherNo,agrData.srvItemArr[i].srvMember).subscribe((resp: any) => {
+                for(let j=0; j<agrData.srvItemArr[i].services.length; j++){
+                  this.financeService.postAggrementBLA(agrData.srvItemArr[i].srvMember,agrData.voucherNo,agrData.srvItemArr[i].services[j].serviceNo,agrData.srvItemArr[i].services[j].Price,'01').subscribe((res: any) => {
+                  }, (err: any) => {
+                  });
+                }
+              })
             });
           }
           this.snackBar.open(`Agreement ${agrData.voucherNo} successfully updated!`, "OK");
@@ -757,9 +773,14 @@ export class AgreementComponent implements OnInit {
         })
       })
     }, (err: any) => {
-      this.financeService.postAgreementMaster('01',agrData.voucherNo,this.mCurDate,agrData.soNbr,agrData.quotationNo,agrData.party,agrData.customerCode,agrData.name,String(this.mAgrTotal),String(this.mAgrDisc),String(this.mAgrGTotal),String(this.mAgrVAT),agrData.add1,agrData.emailAddress,agrData.telephone,agrData.phoneNo,agrData.subject, this.formatDate(agrData.startdate),this.formatDate(agrData.enddate), agrData.remarks, agrData.status,this.mCurDate,'DBA').subscribe((resp: any) => {
+      this.financeService.postAgreementMaster('01',agrData.voucherNo,this.mCurDate,agrData.soNbr,agrData.quotationNo,agrData.party,agrData.customerCode,agrData.name,String(this.mAgrTotal),String(this.mAgrDisc),String(this.mAgrGTotal),String(this.mAgrVAT),agrData.add1,agrData.emailAddress,agrData.telephone,agrData.phoneNo,agrData.subject, this.formatDate(agrData.srvItemArr[0].srvFrom),this.formatDate(agrData.srvItemArr[0].srvTo), agrData.remarks, agrData.status,this.mCurDate,'DBA').subscribe((resp: any) => {
         for(let i=0; i<agrData.srvItemArr.length; i++) {
-          this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((response: any) => {
+          this.financeService.postAgreementDetails(agrData.voucherNo,'01',agrData.srvItemArr[i].srvCode,agrData.srvItemArr[i].srvDesc,agrData.srvItemArr[i].srvMember,agrData.srvItemArr[i].srvMemberName,this.formatDate(agrData.srvItemArr[i].srvFrom),this.formatDate(agrData.srvItemArr[i].srvTo),agrData.srvItemArr[i].srvValue,agrData.srvItemArr[i].srvGross,agrData.srvItemArr[i].srvDisc,agrData.srvItemArr[i].srvDiscount,agrData.srvItemArr[i].srvVatCat,agrData.srvItemArr[i].srvVat,agrData.srvItemArr[i].srvNetValue,this.mCurDate,'DBA').subscribe((response: any) => {
+            for(let j=0; j<agrData.srvItemArr[i].services.length; j++){
+              this.financeService.postAggrementBLA(agrData.srvItemArr[i].srvMember,agrData.voucherNo,agrData.srvItemArr[i].services[j].serviceNo,agrData.srvItemArr[i].services[j].Price,'01').subscribe((res: any) => {
+              }, (err: any) => {
+              });
+            }
           });
         }
       });
@@ -840,6 +861,10 @@ export class AgreementComponent implements OnInit {
   
   get srvItem(): FormArray {
     return this.salesOrderForm.get('srvItemArr') as FormArray
+  }
+
+  services(membIndex: number): FormArray {
+    return this.srvItem.at(membIndex).get("services") as FormArray
   }
 
   get agrItem(): FormArray {

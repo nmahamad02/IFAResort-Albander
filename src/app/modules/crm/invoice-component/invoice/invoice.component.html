@@ -233,15 +233,17 @@
 
 <table class="table table-hover table-responsive-xxl table-bordered" id="invTable" #invTable style="width: 100%;">
     <thead>
-        <tr>
+        <!--<tr>
             <th>VALID FROM</th>
-            <th>{{ mAgrStartDate}}</th>
+            <th>{{ mAgrStartDate }}</th>
             <th>VALID UNTIL</th>
             <th>{{ mAgrEndDate}}</th>
-        </tr>
+        </tr>-->
         <tr class="table-reflow">
             <th>Member Code</th>
             <th>Name</th>
+            <th>Valid From</th>
+            <th>Valid To</th>
             <th>Services</th>
             <th>Amount (BHD)</th>      
         </tr>
@@ -250,13 +252,15 @@
         <tr *ngFor="let agr of agrDetArr; let i = index">
             <td>{{ agr.MEMBERCODE }}</td>
             <td>{{ agr.MEMBERNAME }}</td>
+            <td>{{ agr.FROMDT }}</td>
+            <td>{{ agr.TODT }}</td>
             <td></td>
             <td>{{ agr.VALUE1 | number: '2.3'}}</td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="3">
+            <th colspan="4">
                 TOTAL AMOUNT<br>
                 TOTAL DISCOUNT
             </th>
@@ -266,7 +270,7 @@
             </th>
         </tr>
         <tr>
-            <th colspan="3">
+            <th colspan="4">
                 AMOUNT EXCLUSIVE VAT<br>
                 TOTAL VAT (10%)
             </th>
@@ -276,7 +280,7 @@
             </th>
         </tr>
         <tr>
-            <th colspan="3">
+            <th colspan="4">
                 GRAND TOTAL: BHD {{ mInvNumToWords.toUpperCase() }} ONLY
             </th>
             <th>

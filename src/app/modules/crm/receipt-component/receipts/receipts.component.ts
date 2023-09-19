@@ -297,14 +297,14 @@ export class ReceiptsComponent implements OnInit {
       },
     });
     doc.setDrawColor(0, 0, 0);
-    const outtro = `${this.mPartyName}, We hope you are satisfied by the services extended at the Resort. If you have any suggestions \nor require any assistance, please feel free to contact the Membership office between 9AM-5PM throughout the week.`;
+    const outtro = `${this.mPartyName}, We hope you are satisfied by the services extended at the Resort. \nIf you have any suggestions or require any assistance, please feel free to contact the Membership office \nbetween 9AM-5PM throughout the week.`;
     doc.text(outtro,20, 340);
-    doc.text("Thanking you once again, and assuring of our best services all the times.",20, 370);
+    doc.text("Thanking you once again, and assuring of our best services all the times.",20, 375);
     doc.setFont(undefined,'bold');
-    doc.text(`Al Bander Resort`,20, 450);
-    doc.line(20, 460, 200, 460); 
+    doc.text(`Al Bander Resort`,20, 455);
+    doc.line(20, 465, 200, 465); 
     doc.setFont(undefined,'normal');
-    doc.text("This is a computer generated receipt, no signature is required",20, 470);
+    doc.text("This is a computer generated receipt, no signature is required",20, 475);
     doc.output('datauri');
     doc.save(this.mRvcNo + '.pdf');  
     var string = doc.output('datauri');

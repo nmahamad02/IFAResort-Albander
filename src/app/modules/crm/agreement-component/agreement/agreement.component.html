@@ -74,15 +74,24 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-8">
                                 <mat-form-field class="full-width"> 
                                     <mat-label i18n="@@CMMContactsMobileFormControl">Subject </mat-label>
                                     <input type="text" formControlName="subject" matInput>
                                     <mat-error i18n="@@CMMContactsMobileFormControlError">Subject <strong>required</strong></mat-error>
                                 </mat-form-field>
                             </div> 
+                            <div class="col-4">
+                                <mat-form-field class="full-width"> 
+                                    <mat-label i18n="@@CMMContactsMobileFormControl">Status</mat-label>
+                                    <mat-select formControlName="status" readonly>
+                                        <mat-option value="A"> Active </mat-option>
+                                        <mat-option value="I"> Inactive </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-4">
                                 <mat-form-field class="full-width">
                                     <mat-label i18n="@@CMMContactsNameFormControl">Start Date</mat-label>
@@ -108,7 +117,7 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-12">
                                 <mat-form-field class="full-width"> 
@@ -137,8 +146,10 @@
                         <table class="table table-borderless table-hover table-responsive-xxl" formArrayName="srvItemArr">
                                 <thead>
                                     <tr class="table-reflow" style="background-color: rgb(2, 46, 82); color: white;">
-                                        <th style="width: 15%;">Member No</th>
-                                        <th style="width: 25%;">Name</th>
+                                        <th style="width: 10%;">Member No</th>
+                                        <th style="width: 15%;">Name</th>
+                                        <th style="width: 10%;">From</th>
+                                        <th style="width: 10%;">To</th>           
                                         <th style="width: 10%;">Service Value</th>
                                         <th style="width: 10%;">Discount</th>
                                         <th style="width: 10%;">Net Amount</th>
@@ -155,12 +166,24 @@
                                         <td>
                                             <textarea  class="form-control form-control-sm" formControlName="srvMemberName">
                                             </textarea>
-                                        </td>           
+                                        </td>  
+                                        <td>
+                                            <input matInput [matDatepicker]="fromPicker" formControlName="srvFrom">
+                                            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #fromPicker></mat-datepicker>
+                                            <!-- <input class="form-control form-control-sm" type="date" formControlName="srvFrom"> -->
+                                        </td>
+                                        <td>
+                                            <input matInput [matDatepicker]="toPicker" formControlName="srvTo">
+                                            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #toPicker></mat-datepicker>
+                                            <!-- <input class="form-control form-control-sm" type="date" formControlName="srvTo"> -->
+                                        </td>                    
                                         <td>
                                             <input class="form-control form-control-sm" type="text" formControlName="srvValue" title="Press fn + F2 to open Services tab" (keydown.f2)="lookupAgreementAndMember(i)" (focus)="captureGridIndex(i)">
                                         </td>
                                         <td>
-                                            <input #disc class="form-control form-control-sm" type="text" (change)="getdiscount(disc.value,i)" formControlName="srvDiscount">
+                                            <input #disc class="form-control form-control-sm" type="text" (keydown.enter)="getdiscount(disc.value,i)" formControlName="srvDiscount">
                                         </td>
                                         <td>
                                             <input class="form-control form-control-sm" type="text" formControlName="srvGross">
