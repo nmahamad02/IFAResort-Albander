@@ -7,6 +7,9 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReportsComponent } from './reports/reports.component';
+import { MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatPaginatorModule, MatSelectModule, MatSnackBarModule, MatSortModule, MatTableModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 export const homeRoutes = [
   {
@@ -30,6 +33,20 @@ export const homeRoutes = [
     ChartsModule,
     MatIconModule,
     MatTabsModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MatInputModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableExporterModule,
     RouterModule.forChild(homeRoutes)
   ],
   providers: [

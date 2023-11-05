@@ -47,6 +47,14 @@ export class ReportsService {
   
   getMonthlyReceipts(month: string) {
     return this.http.get(this.url + '/monthlyReceipts/' + month)
+  }  
+  
+  getDailyInvoices(startDate: string, endDate: string) {
+    return this.http.get(this.url + '/dailyInvoices/' + startDate + '/' + endDate)
+  }  
+  
+  getDailyReceipts(startDate: string, endDate: string) {
+    return this.http.get(this.url + '/dailyReceipts/' + startDate + '/' + endDate)
   }
 
 }
