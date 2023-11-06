@@ -93,7 +93,7 @@ export class ReportsComponent implements OnInit {
         this.reportsService.getMonthlyInvoices(String(i+1)).subscribe((res: any) => {
           var totSum = 0
           for(let j=0; j<res.recordset.length; j++) {
-            totSum += res.recordset[j].AMOUNT
+            totSum += res.recordset[j].INV_AMOUNT
           }
           var newMonth = {
             INDEX: i+1,
@@ -117,7 +117,7 @@ export class ReportsComponent implements OnInit {
         this.reportsService.getMonthlyReceipts(String(i+1)).subscribe((res: any) => {
           var totSum = 0
           for(let j=0; j<res.recordset.length; j++) {
-            totSum += res.recordset[j].AMOUNT
+            totSum += res.recordset[j].REFAMOUNT
           }
           var newMonth = {
             INDEX: i+1,

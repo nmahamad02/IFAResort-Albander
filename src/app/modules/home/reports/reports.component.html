@@ -28,13 +28,23 @@
                 <table class="table table-bordered table-striped table-hover" *ngFor="let month of monthData">
                     <thead>
                         <tr>
-                            <th colspan="3">
+                            <th colspan="6">
                                 {{ month.INDEX }} | {{ month.MONTH }} {{ mCurYear }}
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="2">
+                            <th></th>
+                            <th>
                                 Invoice Number
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Code
+                            </th>
+                            <th>
+                                Name
                             </th>
                             <th>
                                 Amount (BHD)
@@ -47,12 +57,15 @@
                                 <button class="btn btn-light" type="button" (click)="gotoInvoiceDetails('/crm/invoice/details', arr.INV_NO)">&#9432;</button>
                             </td>
                             <td>{{ arr.INV_NO }}</td>
-                            <td>{{ arr.AMOUNT | number : '1.3'}}</td>
+                            <td>{{ arr.INV_DATE | date : 'mediumDate' }}</td>
+                            <td>{{ arr.CUST_CODE }}</td>
+                            <td>{{ arr.TITLE_CD }} {{ arr.CUST_NAME }}</td>
+                            <td>{{ arr.INV_AMOUNT | number : '1.3'}}</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="2">Total Billing in the month of {{ month.MONTH }} {{ mCurYear }}</th>
+                            <th colspan="5">Total Billing in the month of {{ month.MONTH }} {{ mCurYear }}</th>
                             <th>BHD {{ month.SUM | number : '1.3' }}</th>
                         </tr>
                     </tfoot>
@@ -105,7 +118,6 @@
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th>Amount</th>
-                                <th>Payment</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,7 +128,6 @@
                                 <td>{{ bll.CUST_CODE }}</td>
                                 <td>{{ bll.TITLE_CD }} {{ bll.CUST_NAME }}</td>
                                 <td>BHD {{ bll.INV_AMOUNT | number : '1.3'}}</td>
-                                <td>{{ bll.PAYMENTTYPE }}</td>
                             </tr>
                         </tbody>
                    </table>
@@ -126,7 +137,7 @@
     </div>
     <div class="col-12" *ngIf="showSales">
         <mat-tab-group>
-            <mat-tab label="Monthly Sales">
+            <mat-tab label="Monthly Collection">
                 <div class="visualization-chart" >
                     <canvas baseChart [chartType]="'line'" [legend]="true"[datasets]="rvcChartData" [labels]="yearChartLabels" [options]="chartOptions"></canvas>
                 </div>
@@ -134,13 +145,23 @@
                 <table class="table table-bordered table-striped table-hover" *ngFor="let month of monthData">
                     <thead>
                         <tr>
-                            <th colspan="3">
+                            <th colspan="6">
                                 {{ month.INDEX }} | {{ month.MONTH }} {{ mCurYear }}
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="2">
+                            <th></th>
+                            <th>
                                 Receipt Number
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Code
+                            </th>
+                            <th>
+                                Name
                             </th>
                             <th>
                                 Amount (BHD)
@@ -153,19 +174,22 @@
                                 <button class="btn btn-light" type="button" (click)="gotoReceiptDetails('/crm/receipt/details', arr.REFNO)">&#9432;</button>
                             </td>
                             <td>{{ arr.REFNO }}</td>
-                            <td>{{ arr.AMOUNT | number : '1.3'}}</td>
+                            <td>{{ arr.REFDT | date : 'mediumDate' }}</td>
+                            <td>{{ arr.CUST_CODE }}</td>
+                            <td>{{ arr.TITLE_CD }} {{ arr.CUST_NAME }}</td>
+                            <td>{{ arr.REFAMOUNT | number : '1.3'}}</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="2">Total Sales in the month of {{ month.MONTH }} {{ mCurYear }}</th>
+                            <th colspan="5">Total Collection in the month of {{ month.MONTH }} {{ mCurYear }}</th>
                             <th>BHD {{ month.SUM | number : '1.3' }}</th>
                         </tr>
                     </tfoot>
                </table>
                <br>
             </mat-tab>
-            <mat-tab label="Daywise Sales">
+            <mat-tab label="Daywise Collection">
                 <br>
                 <div class="row">
                     <div class="col-8">
