@@ -44,6 +44,7 @@ export class ReportsComponent implements OnInit {
   saleList: any[] = [];
   agreList: any[] = [];
   membList: any[] = [];
+  membBreakList: any[] = [];
 
   chartOptions = {
     responsive: true
@@ -89,57 +90,151 @@ export class ReportsComponent implements OnInit {
 
   getData() {
     if(this.mType === 'billing') {
-      for(let i=0; i<=this.mCMonth; i++){
-        this.reportsService.getMonthlyInvoices(String(i+1)).subscribe((res: any) => {
-          var totSum = 0
-          for(let j=0; j<res.recordset.length; j++) {
-            totSum += res.recordset[j].INV_AMOUNT
+      var monthName = new Array("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC");
+      var d = new Date();
+      d.setDate(1);
+      for (let i=0; i<=11; i++) {
+        console.log(monthName[d.getMonth()] + ' ' + d.getFullYear().toString().slice(2));
+        console.log(d.getMonth() + ' ' + d.getFullYear().toString());
+        var monthNbr = d.getMonth() + 1
+        console.log(monthNbr)
+        this.reportsService.getMonthlyInvoices(monthNbr.toString(),d.getFullYear().toString()).subscribe((res: any) => {
+          if (res.recordset.length === 0){
+            var newMonth = {
+              INDEX: i+1,
+              MONTH: monthName[d.getMonth()] + ' ' + d.getFullYear().toString(),
+              ARR: [],
+              SUM: 0
+            }
+            console.log(newMonth)
+            this.monthData.push(newMonth)
+            d.setMonth(d.getMonth() - 1);
+            console.log(d.getMonth() + ' ' + d.getFullYear().toString());
+          } else {
+            var totSum = 0
+            for(let j=0; j<res.recordset.length; j++) {
+              totSum += res.recordset[j].INV_AMOUNT
+            }
+            var newMonthD = {
+              INDEX: i+1,
+              MONTH: monthName[d.getMonth()] + ' ' + d.getFullYear().toString(),
+              ARR: res.recordset,
+              SUM: totSum
+            }
+            console.log(newMonthD)
+            this.monthData.push(newMonthD)
+            d.setMonth(d.getMonth() - 1);
+            console.log(d.getMonth() + ' ' + d.getFullYear().toString());
           }
-          var newMonth = {
-            INDEX: i+1,
-            MONTH: this.monthNames[i],
-            ARR: res.recordset,
-            SUM: totSum
-          }
-          this.monthData.push(newMonth)
         }, (err: any) => {
           var newMonth = {
             INDEX: i+1,
-            MONTH: this.monthNames[i],
+            MONTH: monthName[d.getMonth()] + ' ' + d.getFullYear().toString(),
             ARR: [],
             SUM: 0
           }
+          console.log(newMonth)
           this.monthData.push(newMonth)
+          d.setMonth(d.getMonth() - 1);
+          console.log(d.getMonth() + ' ' + d.getFullYear().toString());
         })
       }
     } else if (this.mType === 'sales') {
-      for(let i=0; i<=this.mCMonth; i++){
-        this.reportsService.getMonthlyReceipts(String(i+1)).subscribe((res: any) => {
-          var totSum = 0
-          for(let j=0; j<res.recordset.length; j++) {
-            totSum += res.recordset[j].REFAMOUNT
+      var monthName = new Array("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC");
+      var d = new Date();
+      d.setDate(1);
+      for (let i=0; i<=11; i++) {
+        console.log(monthName[d.getMonth()] + ' ' + d.getFullYear().toString().slice(2));
+        console.log(d.getMonth() + ' ' + d.getFullYear().toString());
+        var monthNbr = d.getMonth() + 1
+        console.log(monthNbr)
+        this.reportsService.getMonthlyReceipts(monthNbr.toString(),d.getFullYear().toString()).subscribe((res: any) => {
+          if (res.recordset.length === 0){
+            var newMonth = {
+              INDEX: i+1,
+              MONTH: monthName[d.getMonth()] + ' ' + d.getFullYear().toString(),
+              ARR: [],
+              SUM: 0
+            }
+            console.log(newMonth)
+            this.monthData.push(newMonth)
+            d.setMonth(d.getMonth() - 1);
+            console.log(d.getMonth() + ' ' + d.getFullYear().toString());
+          } else {
+            var totSum = 0
+            for(let j=0; j<res.recordset.length; j++) {
+              totSum += res.recordset[j].REFAMOUNT
+            }
+            var newMonthD = {
+              INDEX: i+1,
+              MONTH: monthName[d.getMonth()] + ' ' + d.getFullYear().toString(),
+              ARR: res.recordset,
+              SUM: totSum
+            }
+            console.log(newMonthD)
+            this.monthData.push(newMonthD)
+            d.setMonth(d.getMonth() - 1);
+            console.log(d.getMonth() + ' ' + d.getFullYear().toString());
           }
-          var newMonth = {
-            INDEX: i+1,
-            MONTH: this.monthNames[i],
-            ARR: res.recordset,
-            SUM: totSum
-          }
-          this.monthData.push(newMonth)
         }, (err: any) => {
           var newMonth = {
             INDEX: i+1,
-            MONTH: this.monthNames[i],
+            MONTH: monthName[d.getMonth()] + ' ' + d.getFullYear().toString(),
             ARR: [],
             SUM: 0
           }
+          console.log(newMonth)
           this.monthData.push(newMonth)
+          d.setMonth(d.getMonth() - 1);
+          console.log(d.getMonth() + ' ' + d.getFullYear().toString());
         })
-      }    
+      }   
     } else if (this.mType === 'agreements') {
       this.reportsService.getMonthlyExpiringAgreements(String(this.mCMonth + 1)).subscribe((res: any) => {
         console.log(res.recordset)
         this.agreList = res.recordset
+      })
+    } else if (this.mType === 'members') {
+      this.reportsService.getMembersBreakdown().subscribe((res: any) => {
+        console.log(res.recordset)
+        this.membList = res.recordset
+        for (let i = 0; i < this.membList.length; i++) {
+          if (this.membList[i].MEMBTYPE === 'F') {
+            this.membList[i].MEMBTYPE = 'Family';
+          }
+          else if (this.membList[i].MEMBTYPE === 'C') {
+            this.membList[i].MEMBTYPE = 'Corporate';
+          }
+          else if (this.membList[i].MEMBTYPE === 'S') {
+            this.membList[i].MEMBTYPE = 'Single';
+          }
+        }
+      })
+      this.reportsService.getMembersBreakdownList().subscribe((res: any) => {
+        console.log(res.recordset)
+        this.membBreakList = res.recordset
+        for (let i = 0; i < this.membBreakList.length; i++) {
+          if (this.membBreakList[i].MEMBTYPE === 'F') {
+            this.membBreakList[i].MEMBTYPE = 'Family';
+          }
+          else if (this.membBreakList[i].MEMBTYPE === 'C') {
+            this.membBreakList[i].MEMBTYPE = 'Corporate';
+          }
+          else if (this.membBreakList[i].MEMBTYPE === 'S') {
+            this.membBreakList[i].MEMBTYPE = 'Single';
+          }
+        }
+        for (let i = 0; i < this.membBreakList.length; i++) {
+          if (this.membBreakList[i].AGREEMENT_STATUS === 'RENEWEDAGREEMENT') {
+            this.membBreakList[i].AGREEMENT_STATUS = 'Renewed';
+          }
+          else if (this.membBreakList[i].AGREEMENT_STATUS === 'NEWAGREEMENT') {
+            this.membBreakList[i].AGREEMENT_STATUS = 'New';
+          }
+          else if (this.membBreakList[i].AGREEMENT_STATUS === 'NOT_RENEWED') {
+            this.membBreakList[i].AGREEMENT_STATUS = 'Not Renewed';
+          }
+        }
       })
     }
     console.log(this.monthData)
@@ -349,6 +444,72 @@ export class ReportsComponent implements OnInit {
     })
     doc = this.addWaterMark(doc);
     doc.save(`near-expiry-agreement-report-${this.mCMonth}-${this.mCurYear}.pdf`);  
+  }
+
+  printMembershipData() {
+    var doc = new jsPDF("portrait", "px", "a4");
+    doc.setFontSize(16)
+    doc.setFont('Helvetica','bold');
+    doc.text(`Memberhip Breakdown Report as of ${this.monthNames[this.mCMonth]}, ${this.mCurYear}`,10,80);
+    doc.setFontSize(12);
+    doc.line(5, 85, 440, 85); 
+    autoTable(doc, { 
+      html: '#membTable',
+      startY: 90,                    
+      theme: 'plain',
+      tableLineColor: [105, 105, 105],
+      tableLineWidth: 0.15,
+      rowPageBreak: 'avoid',
+      showFoot: 'lastPage',
+      margin: {
+        left: 5,
+        right: 7,
+        bottom: 26,
+        top: 80
+      },
+      willDrawCell: function(data) {
+        doc.setDrawColor(105, 105, 105); // set the border color
+        doc.setLineWidth(0.15); // set the border with
+        // draw bottom border
+        doc.line(data.cell.x,data.cell.y + data.cell.height,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
+        // draw top border
+        doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x,data.cell.y);
+        // draw left border
+        // doc.line(data.cell.x,data.cell.y + data.cell.height,data.cell.x,data.cell.y);
+        // draw right border
+        // doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
+      },
+    })
+    doc.text(`Member List`,10,185);
+    autoTable(doc, { 
+      html: '#membBreakTable',
+      startY: 195,                    
+      theme: 'plain',
+      tableLineColor: [105, 105, 105],
+      tableLineWidth: 0.15,
+      rowPageBreak: 'avoid',
+      showFoot: 'lastPage',
+      margin: {
+        left: 5,
+        right: 7,
+        bottom: 26,
+        top: 80
+      },
+      willDrawCell: function(data) {
+        doc.setDrawColor(105, 105, 105); // set the border color
+        doc.setLineWidth(0.15); // set the border with
+        // draw bottom border
+        doc.line(data.cell.x,data.cell.y + data.cell.height,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
+        // draw top border
+        doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x,data.cell.y);
+        // draw left border
+        // doc.line(data.cell.x,data.cell.y + data.cell.height,data.cell.x,data.cell.y);
+        // draw right border
+        // doc.line(data.cell.x + data.cell.width,data.cell.y,data.cell.x + data.cell.width,data.cell.y + data.cell.height);
+      },
+    })
+    doc = this.addWaterMark(doc);
+    doc.save(`membership-breakdown-report-${this.monthNames[this.mCMonth]}-${this.mCurYear}.pdf`); 
   }
 
   addWaterMark(doc) {

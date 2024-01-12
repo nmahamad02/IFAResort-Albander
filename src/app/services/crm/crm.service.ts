@@ -453,6 +453,46 @@ export class CrmService {
     }) 
   }
 
+  updateParty(compcode:string, partyid: number, name: string, add1: string, add2: string, add3: number, phone1: string, phone2: number, mobile: string,
+    email:string, fax1: string, fax2: string, refno: string, contact: string, flat: number, buildling: string, street: number, block: string,  city: string,
+    pobox:string,  country: string, pcode: string,creatuser: string, creatdt: string, edituser: string,editdt: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    const newTran = {
+      compcode: compcode,
+      partyid: partyid, 
+      name: name,
+      add1: add1,
+      add2: add2,
+      add3: add3,
+      phone1: phone1,
+      phone2: phone2,
+      mobile: mobile,
+      email: email,
+      fax1: fax1, 
+      fax2: fax2,
+      refno: refno,
+      contact: contact,
+      flat: flat,
+      buildling: buildling,
+      street: street,
+      block: block,
+      city: city,
+      pobox: pobox,
+      country: country, 
+      pcode: pcode,
+      creatuser: creatuser,
+      creatdt: creatdt,
+      edituser: edituser,
+      editdt: editdt,
+    }
+    console.log(newTran)
+    this.http.post(this.url + '/crm/updateParty', JSON.stringify(newTran), { headers: headers }).subscribe((res: any) => {
+      console.log(res);
+      console.log("Party Updated")
+    }) 
+  }
+
   deleteParty(partyid: any) {
     return this.http.get(this.url + '/coa/deleteParty/' + partyid)
   } 

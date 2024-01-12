@@ -19,6 +19,14 @@ export class ReportsService {
 
   getMembersByType() {
     return this.http.get(this.url + '/memberTypes')
+  }    
+  
+  getMembersBreakdown() {
+    return this.http.get(this.url + '/memberBreakdown')
+  }    
+  
+  getMembersBreakdownList() {
+    return this.http.get(this.url + '/memberBreakdownList')
   }  
   
   getmemberTypesChart() {
@@ -41,12 +49,12 @@ export class ReportsService {
     return this.http.get(this.url + '/monthlyExpiringAgreements/' + month)
   }  
   
-  getMonthlyInvoices(month: string) {
-    return this.http.get(this.url + '/monthlyInvoices/' + month)
+  getMonthlyInvoices(month: string, year: string) {
+    return this.http.get(this.url + '/monthlyInvoices/' + month + '/' + year)
   }  
   
-  getMonthlyReceipts(month: string) {
-    return this.http.get(this.url + '/monthlyReceipts/' + month)
+  getMonthlyReceipts(month: string, year: string) {
+    return this.http.get(this.url + '/monthlyReceipts/' + month + '/' + year)
   }  
   
   getDailyInvoices(startDate: string, endDate: string) {

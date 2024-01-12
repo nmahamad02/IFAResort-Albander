@@ -790,8 +790,6 @@ export class MembersComponent implements OnInit {
         console.log("PRIMARY Member Created")
         var customer = data.firstname + " " + data.surname
         var contactPerson = data.title + " " + data.firstname + " " + data.surname
-        this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
-       // this.financeservice.postOpbalDetails(data.memberRefNo,data.title,customer," "," ",data.cprNbr,data.memberNo, "A",String(this.mCYear))
         this.crmservice.getMemberFromCPR(data.cprNbr).subscribe((res: any) => {
           const pM = res.recordset[0].MemberNo;
           this.uploadImage();
@@ -841,6 +839,16 @@ export class MembersComponent implements OnInit {
         }, (err: any) => {
           this.financeservice.postOpbalDetails(data.memberRefNo,data.title,customer," "," ",data.cprNbr,data.memberNo, "A",String(this.mCYear))
         })
+
+        this.crmservice.getPartyDetails(data.memberNo).subscribe((res: any) => {
+          if(res.recordset[0].length === 0) {
+            this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
+          } else {
+            this.crmservice.updateParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
+          }
+        }, (err: any) => {
+          this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
+        })
       }, (err: any) => {
         console.log(err);
       })
@@ -861,18 +869,15 @@ export class MembersComponent implements OnInit {
         }, (err: any) => {
           this.financeservice.postOpbalDetails(data.memberRefNo,data.title,customer," "," ",data.cprNbr,data.memberNo, "A",String(this.mCYear))
         })
-        this.crmservice.getPartyDetails(data.memberRefNo).subscribe((res: any) => {
-          console.log(res)
-          this.crmservice.deleteParty(data.memberRefNo).subscribe((res: any) =>{
-             console.log(res);
-             this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
-             console.log("Party updated")
-          },(err: any) => {
-            console.log(err)
-          });
+
+        this.crmservice.getPartyDetails(data.memberNo).subscribe((res: any) => {
+          if(res.recordset[0].length === 0) {
+            this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
+          } else {
+            this.crmservice.updateParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
+          }
         }, (err: any) => {
           this.crmservice.postParty('01',data.memberNo,contactPerson,data.add1,data.add2,data.add3,data.telOff,data.telRes,data.telOff,data.email,data.faxNbr,data.faxNbr,data.memberRefNo,contactPerson,data.add1,data.add2,data.add2,data.add1,data.add2,data.add3,'', data.memberRefNo,'ADMIN',this.mCurDate,'',this.mCurDate);
-          console.log("Party updated")
         })
         this.uploadImage();
         this.crmservice.deleteDepMembers(data.memberNo).subscribe((resp: any) => {

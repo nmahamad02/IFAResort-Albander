@@ -14,6 +14,54 @@
                         <div class="visualization-heading col-12">
                             <div class="heading-info row">
                                 <div class="col-10">
+                                    <h4 class="heading-title">Agreements due for renewal</h4>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn-primary btn btn-block btn-sm" (click)="gotoReportDetails('/home/reports', 'agreements')" title="View Near Expiry Agreements Report"  style="float: right">&#9432;</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="visualization-chart" >
+                                <canvas baseChart [chartType]="'bar'" [legend]="true"[datasets]="agrChartData" [labels]="yearChartLabels" [options]="chartOptions"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="visualizations-section">
+                <div class="orders-visualization">
+                    <div class="row no-gutters">
+                        <div class="visualization-heading col-12">
+                            <div class="heading-info row">
+                                <div class="col-10">
+                                    <h4 class="heading-title">Member Breakdown</h4>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn-primary btn btn-block btn-sm" (click)="gotoReportDetails('/home/reports', 'members')" title="View Membership Breakdown Report"  style="float: right">&#9432;</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="visualization-chart" >
+                                <canvas baseChart [chartType]="'pie'" [legend]="true"[datasets]="memChartData" [labels]="membChartLabels" [options]="chartOptions"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="visualizations-section">
+                <div class="orders-visualization">
+                    <div class="row no-gutters">
+                        <div class="visualization-heading col-12">
+                            <div class="heading-info row">
+                                <div class="col-10">
                                     <h4 class="heading-title">Monthwise Billing</h4>
                                 </div>
                                 <div class="col-2">
@@ -51,54 +99,6 @@
                         <div class="col-12">
                             <div class="visualization-chart" >
                                 <canvas baseChart [chartType]="'line'" [legend]="true"[datasets]="rvcChartData" [labels]="yearChartLabels" [options]="chartOptions"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="visualizations-section">
-                <div class="orders-visualization">
-                    <div class="row no-gutters">
-                        <div class="visualization-heading col-12">
-                            <div class="heading-info row">
-                                <div class="col-10">
-                                    <h4 class="heading-title">Agreements due for renewal</h4>
-                                </div>
-                                <div class="col-2">
-                                    <button class="btn-primary btn btn-block btn-sm" (click)="gotoReportDetails('/home/reports', 'agreements')" title="View Near Expiry Agreements Report"  style="float: right">&#9432;</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="visualization-chart" >
-                                <canvas baseChart [chartType]="'bar'" [legend]="true"[datasets]="agrChartData" [labels]="yearChartLabels" [options]="chartOptions"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="visualizations-section">
-                <div class="orders-visualization">
-                    <div class="row no-gutters">
-                        <div class="visualization-heading col-12">
-                            <div class="heading-info row">
-                                <div class="col-10">
-                                    <h4 class="heading-title">Member Breakdown</h4>
-                                </div>
-                                <div class="col-2">
-                                    <!--<button class="btn-primary btn btn-block btn-sm" (click)="gotoReportDetails('/home/reports', 'members')" title="View Membership Breakdown Report"  style="float: right">&#9432;</button>-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="visualization-chart" >
-                                <canvas baseChart [chartType]="'pie'" [legend]="true"[datasets]="memChartData" [labels]="membChartLabels" [options]="chartOptions"></canvas>
                             </div>
                         </div>
                     </div>

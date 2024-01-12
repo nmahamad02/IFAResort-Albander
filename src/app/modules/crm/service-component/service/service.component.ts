@@ -64,12 +64,16 @@ export class ServiceComponent implements OnInit {
   }
 
   getDetails(value: any) {
-    this.financeService.getServiceDetails(value).subscribe((res: any) => {
-      const data = res.recordset[0];
-      this.onViewCellClicked(data);
-    }, (err: any) => {
-      console.log(err);
-    })
+    if(value === 'new') {
+      this.newForm();
+    } else {
+      this.financeService.getServiceDetails(value).subscribe((res: any) => {
+        const data = res.recordset[0];
+        this.onViewCellClicked(data);
+      }, (err: any) => {
+        console.log(err);
+      })
+    }
   }
   
   onViewCellClicked(event: any) {
